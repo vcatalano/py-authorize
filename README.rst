@@ -48,14 +48,6 @@ Please visit the `Read the Docs`_ page for full documentation.
 .. _Read the Docs: https://py-authorize.readthedocs.org/en/latest/index.html
 
 
-Installation
-------------
-
-Using `pip` command::
-
-    pip install py-authorize
-
-
 License
 -------
 
