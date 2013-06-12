@@ -31,6 +31,10 @@ Minimal Example
         }
     })
 
+    result.transaction_response.trans_id
+    # e.g. '2194343352'
+
+
 Py-Authorize fully supports all Authorize.net gateway parameters for 
 transactions.
 
@@ -115,6 +119,10 @@ Full Example
         'tax_exempt': False,
     })
 
+    result.transaction_response.trans_id
+    # e.g. '2194343353'
+
+
 Transactions with CIM Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -132,6 +140,10 @@ order.
         'payment_id': '17633614',
         'shipping_id': '14634122',
     })
+
+    result.transaction_response.trans_id
+    # e.g. '2194343354'
+
 
 Full Transactions Example with CIM Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,6 +200,9 @@ Full Transactions Example with CIM Data
         'tax_exempt': False,
     })
 
+    result.transaction_response.trans_id
+    # e.g. '2194343355'
+
 
 Auth
 ----
@@ -215,6 +230,9 @@ Example
         }
     })
 
+    result.transaction_response.trans_id
+    # e.g. '2194343356'
+
 The ``auth`` method takes the same values as as the ``sale`` method.
 
 Settling
@@ -230,11 +248,7 @@ Example
 
 .. code-block:: python
 
-    import authorize.Transaction
-
-    # Get transaction from previous authorization
-
-    authorize.Transaction.settle(transaction_id)
+    authorize.Transaction.settle('89798235')
 
 
 Refund

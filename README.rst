@@ -39,24 +39,26 @@ Here is a simple example of a basic credit card transaction.
     result.transaction_response.trans_id
     # e.g. '2194343352'
 
-Py-Authorize is released under the `MIT License`_.
 
-.. _MIT License: http://www.opensource.org/licenses/mit-license
+Installation
+------------
+
+Using `pip` command::
+
+    pip install py-authorize
 
 
-Contents:
+License
+-------
 
-.. toctree::
-    :maxdepth: 2
+Py-Authorize is distributed under the `MIT license
+<http://www.opensource.org/licenses/mit-license.php>`_.
 
-    install
-    getting_started
-    transaction
-    customer
-    credit_card
-    bank_account
-    address
-    recurring
-    batch
-    advanced
-    development
+
+Support
+-------
+
+All bug reports, new feature requests and pull requests are handled through 
+this project's `Github issues`_ page.
+
+.. _Github issues: https://github.com/vcatalano/py-authorize/issues
