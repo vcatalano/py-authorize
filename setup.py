@@ -1,0 +1,30 @@
+from setuptools import setup
+
+
+setup(
+    name='Py-Authorize',
+    version='1.0.0.0',
+    author='Vincent Catalano',
+    author_email='vincent@vincentcatlano.com',
+    url='',
+    download_url='',
+    description='A full-featured Python API for Authorize.net.',
+    long_description=__doc__,
+    license='MIT',
+    install_requires=[
+        'colander',
+    ],
+    packages=[
+        'authorize',
+        'authorize.apis',
+    ],
+    classifiers=[
+        'Environment :: Console',
+        'Environment :: Web Environment',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 2',
+        'License :: OSI Approved :: MIT License',
+        'Topic :: Office/Business :: Financial',
+        'Topic :: Internet :: WWW/HTTP',
+    ],
+)
