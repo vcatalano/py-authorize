@@ -6,7 +6,7 @@ setup(
     version='1.0.0.0',
     author='Vincent Catalano',
     author_email='vincent@vincentcatlano.com',
-    url='',
+    url='https://github.com/vcatalano/py-authorize',
     download_url='',
     description='A full-featured Python API for Authorize.net.',
     long_description=__doc__,

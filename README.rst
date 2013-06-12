@@ -40,6 +40,14 @@ Here is a simple example of a basic credit card transaction.
     # e.g. '2194343352'
 
 
+Documentation
+-------------
+
+Please visit the `Read the Docs`_ page for full documentation.
+
+.. _Read the Docs: https://py-authorize.readthedocs.org/en/latest/index.html
+
+
 Installation
 ------------
 
