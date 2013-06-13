@@ -360,7 +360,7 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.settle('89798235')
+    result = authorize.Transaction.settle('89798235')
 
 
 Refund
@@ -375,7 +375,7 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.refund('0123456789')
+    result = authorize.Transaction.refund('0123456789')
 
 
 Void
@@ -392,7 +392,7 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.refund('0123456789')
+    result = authorize.Transaction.refund('0123456789')
 
 
 Credit
@@ -417,7 +417,7 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.credit({
+    result = authorize.Transaction.credit({
         'amount': 120.00,
         'customer_id': '0987654321',
         'payment_id': '1348979152'
@@ -438,7 +438,7 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.details('0123456789')
+    result = authorize.Transaction.details('0123456789')
 
 
 List Transactions
@@ -451,7 +451,7 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.list('0123456789')
+    result = authorize.Transaction.list('0123456789')
 
 
 Additionally, omitting the batch ID will return data for all transactions 
@@ -462,5 +462,5 @@ Example
 
 .. code-block:: python
 
-    authorize.Transaction.list()
+    result = authorize.Transaction.list()
 

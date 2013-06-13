@@ -146,7 +146,7 @@ given customer.
 
 .. code-block:: python
 
-    authorize.BankAccount.delete('19086684', '17633319')
+    result = authorize.BankAccount.delete('19086684', '17633319')
 
 
 Transactions
