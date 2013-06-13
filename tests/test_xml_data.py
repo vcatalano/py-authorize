@@ -33,7 +33,7 @@ BANK_ACCOUNT = {
     'account_number': '00987467838473',
     'name_on_account': 'Rob Otron',
     'bank_name': 'Evil Bank Co.',
-    'echeck_type': 'CCD',
+    'echeck_type': 'WEB',
 }
 
 LINE_ITEM = {
@@ -120,7 +120,7 @@ CREATE_ACCOUNT_XML = u'''
   <routingNumber>322271627</routingNumber>
   <accountNumber>00987467838473</accountNumber>
   <nameOnAccount>Rob Otron</nameOnAccount>
-  <echeckType>CCD</echeckType>
+  <echeckType>WEB</echeckType>
   <bankName>Evil Bank Co.</bankName>
 </bankAccount>
 '''
