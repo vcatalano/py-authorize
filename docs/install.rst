@@ -22,7 +22,7 @@ If you are using virtualenv_ to manage your packages, you can install
 
 .. code-block:: text
 
-    easy_install pyramid
+    easy_install py-authorize
 
 .. _virtualenv: http://www.virtualenv.org/
 

@@ -206,7 +206,7 @@ method.
 
 .. code-block:: python
 
-    result = authorize.Recurring.delete('1725628')
+    authorize.Recurring.delete('1725628')
 
 
 

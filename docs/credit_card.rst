@@ -141,7 +141,7 @@ given customer.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.delete('19086684', '17633319')
+    authorize.CreditCard.delete('19086684', '17633319')
 
 
 Validate

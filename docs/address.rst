@@ -93,4 +93,4 @@ the customer.
 
 .. code-block:: python
 
-    result = authorize.Address.delete('19086684', '17769620')
+    authorize.Address.delete('19086684', '17769620')

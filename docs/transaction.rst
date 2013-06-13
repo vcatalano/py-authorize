@@ -39,7 +39,7 @@ Py-Authorize fully supports all Authorize.net gateway parameters for
 transactions.
 
 Full Example
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -59,8 +59,6 @@ Full Example
             'state': 'AZ',
             'zip': '85704',
             'country': 'US',
-            'phone_number': '520-123-4567',
-            'fax_number': '520-456-7890',
         },
         'billing': {
             'first_name': 'Rob',
@@ -121,6 +119,120 @@ Full Example
 
     result.transaction_response.trans_id
     # e.g. '2194343353'
+
+
+Minimal Bank Account Transaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Transactions can also be ran against bank accounts.
+
+.. warning::
+
+    Since bank account (eCheck.net) transactions are handled differently from 
+    credit card transactions, you should avoid using the `auth` method when 
+    dealing with bank accounts. Only use the `sale` method when processing 
+    payments.
+
+.. code-block:: python
+
+    result = authorize.Transaction.sale({
+        'amount': 40.00,
+        'bank_account': {
+            'routing_number': '322271627',
+            'account_number': '00987467838473',
+            'name_on_account': 'Rob Otron',
+        },
+    })
+
+    result.transaction_response.trans_id
+    # e.g. '2194343357'
+
+
+Full Transactions with Bank Accounts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    result = authorize.Transaction.sale({
+        'amount': 56.00,
+        'bank_account': {
+            'customer_type': 'individual',
+            'account_type': 'checking',
+            'routing_number': '322271627',
+            'account_number': '00987467838473',
+            'name_on_account': 'Rob Otron',
+            'bank_name': 'Evil Bank Co.',
+            'echeck_type': 'WEB',
+        },
+        'shipping': {
+            'first_name': 'Rob',
+            'last_name': 'Oteron',
+            'company': 'Robotron Studios',
+            'address': '101 Computer Street',
+            'city': 'Tucson',
+            'state': 'AZ',
+            'zip': '85704',
+            'country': 'US',
+        },
+        'billing': {
+            'first_name': 'Rob',
+            'last_name': 'Oteron',
+            'company': 'Robotron Studios',
+            'address': '101 Computer Street',
+            'city': 'Tucson',
+            'state': 'AZ',
+            'zip': '85704',
+            'country': 'US',
+            'phone_number': '520-123-4567',
+            'fax_number': '520-456-7890',
+        },
+        'tax': {
+            'amount': 4.00,
+            'name': 'Double Taxation Tax',
+            'description': 'Another tax for paying double tax',
+        },
+        'duty': {
+            'amount': 2.00,
+            'name': 'The amount for duty',
+            'description': 'I can''t believe you would pay for duty',
+        },
+        'line_items': [{
+                'item_id': 'CIR0001',
+                'name': 'Circuit Board',
+                'description': 'A brand new robot component',
+                'quantity': 5,
+                'unit_price': 4.00,
+                'taxable': 'true',
+            }, {
+                'item_id': 'CIR0002',
+                'name': 'Circuit Board 2.0',
+                'description': 'Another new robot component',
+                'quantity': 1,
+                'unit_price': 10.00,
+                'taxable': 'true',
+            }, {
+                'item_id': 'SCRDRVR',
+                'name': 'Screwdriver',
+                'description': 'A basic screwdriver',
+                'quantity': 1,
+                'unit_price': 10.00,
+                'taxable': 'true',
+            }],
+        'order': {
+            'invoice_number': 'INV0001',
+            'description': 'Just another invoice...',
+            'order_number': 'PONUM00001',
+        },
+        'shipping_and_handling': {
+            'amount': 10.00,
+            'name': 'UPS 2-Day Shipping',
+            'description': 'Handle with care',
+        },
+        'tax_exempt': False,
+    })
+
+    result.transaction_response.trans_id
+    # e.g. '2194343358'
 
 
 Transactions with CIM Data
@@ -261,9 +373,9 @@ is the Authorize.net equivalent of a Credit).
 Example
 ~~~~~~~
 
-    import authorize.Transaction
+.. code-block:: python
 
-    result = authorize.Transaction.refund('0123456789')
+    authorize.Transaction.refund('0123456789')
 
 
 Void
@@ -278,9 +390,9 @@ already settled, expired, or failed.
 Example
 ~~~~~~~
 
-    import authorize.Transaction
+.. code-block:: python
 
-    result = authorize.Transaction.refund('0123456789')
+    authorize.Transaction.refund('0123456789')
 
 
 Credit
@@ -305,7 +417,7 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.credit({
+    authorize.Transaction.credit({
         'amount': 120.00,
         'customer_id': '0987654321',
         'payment_id': '1348979152'
@@ -326,7 +438,7 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.details('0123456789')
+    authorize.Transaction.details('0123456789')
 
 
 List Transactions
@@ -339,7 +451,7 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.list('0123456789')
+    authorize.Transaction.list('0123456789')
 
 
 Additionally, omitting the batch ID will return data for all transactions 
@@ -350,5 +462,5 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.list()
+    authorize.Transaction.list()
 
