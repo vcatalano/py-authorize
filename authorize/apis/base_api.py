@@ -12,6 +12,6 @@ class BaseAPI(object):
     def _deserialize(self, schema, params={}):
         try:
             deserialized = schema.deserialize(params)
-        except colander.Invalid as e:
+        except colander.Invalid, e:
             raise AuthorizeInvalidError(e)
         return deserialized

@@ -152,7 +152,7 @@ against them.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.delete('19086684', '17633319', {
+    result = authorize.CreditCard.validate('19086684', '17633319', {
         'card_code': '123',
         'validationMode': 'liveMode'
     })

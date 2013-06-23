@@ -107,7 +107,7 @@ UPDATE_RECURRING = {
 }
 
 
-#@attr('live_tests')
+@attr('live_tests')
 class RecurringTests(TestCase):
 
     def test_live_recurring(self):

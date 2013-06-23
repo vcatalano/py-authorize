@@ -4,7 +4,6 @@
 docs/_build/
 build/
 dist/
-Authorize.egg-info/
 PyAuthorize.egg-info/
 
 

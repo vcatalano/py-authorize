@@ -1,6 +1,9 @@
+from colander import Invalid
+
+
 class AuthorizeError(Exception):
 
-    """Base class for all errors."""
+    """Base class for connection and response errors."""
 
 
 class AuthorizeConnectionError(AuthorizeError):
@@ -13,12 +16,10 @@ class AuthorizeResponseError(AuthorizeError):
     """Error response code returned from API."""
 
 
-class AuthorizeInvalidError(AuthorizeError):
+class AuthorizeInvalidError(AuthorizeError, Invalid):
 
-    """Invalid information provided."""
-
-    def __init__(self, msg, node=None):
-        if not node:
-            Exception.__init__(self, msg)
-        else:
-            Exception.__init__(self, msg, node)
+    def __init__(self, invalid):
+        self.node = invalid.node
+        self.msg = invalid.msg
+        self.value = invalid.value
+        self.children = invalid.children
