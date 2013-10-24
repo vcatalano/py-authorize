@@ -9,7 +9,7 @@ following commands:
 
 .. code-block:: text
 
-    pip install py-autorize
+    pip install py-authorize
 
 .. _pip: http://www.pip-installer.org/
 
