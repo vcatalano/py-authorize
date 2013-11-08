@@ -4,6 +4,7 @@ from authorize.apis.base_api import BaseAPI
 from authorize.schemas import AIMTransactionSchema
 from authorize.schemas import CIMTransactionSchema
 from authorize.schemas import CreditTransactionSchema
+from authorize.schemas import RefundTransactionSchema
 from authorize.xml_data import *
 
 
@@ -32,8 +33,9 @@ class TransactionAPI(BaseAPI):
         xact = self._deserialize(CreditTransactionSchema(), params)
         return self.api._make_call(self._cim_base_request('profileTransRefund', xact))
 
-    def refund(self, transaction_id):
-        return self.api._make_call(self._refund_request(transaction_id))
+    def refund(self, params={}):
+        xact = self._deserialize(RefundTransactionSchema(), params)
+        return self.api._make_call(self._refund_request(xact))
 
     def void(self, transaction_id):
         return self.api._make_call(self._void_request(transaction_id))
@@ -134,11 +136,17 @@ class TransactionAPI(BaseAPI):
         E.SubElement(xact_elem, 'refTransId').text = transaction_id
         return request
 
-    def _refund_request(self, transaction_id):
+    def _refund_request(self, xact):
         request = self.api._base_request('createTransactionRequest')
         xact_elem = E.SubElement(request, 'transactionRequest')
         E.SubElement(xact_elem, 'transactionType').text = 'refundTransaction'
-        E.SubElement(xact_elem, 'refTransId').text = transaction_id
+        E.SubElement(xact_elem, 'amount').text = quantize(xact['amount'])
+        payment = E.SubElement(xact_elem, 'payment')
+        credit_card = E.SubElement(payment, 'creditCard')
+        E.SubElement(credit_card, 'cardNumber').text = xact['last_four'][-4:]
+        # Authorize.net doesn't care about the actual date
+        E.SubElement(credit_card, 'expirationDate').text = 'XXXXXX'
+        E.SubElement(xact_elem, 'refTransId').text = xact['transaction_id']
         return request
 
     def _void_request(self, transaction_id):

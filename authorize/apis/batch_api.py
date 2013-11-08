@@ -25,7 +25,7 @@ class BatchAPI(BaseAPI):
         request = self.api._base_request('getSettledBatchListRequest')
         E.SubElement(request, 'includeStatistics').text = 'true'
         if 'start' in params:
-            E.SubElement(request, 'firstSettlementDate').text = params['start']
+            E.SubElement(request, 'firstSettlementDate').text = params['start'].strftime('%Y-%m-%dT%H:%M:%S')
         if 'end' in params:
-            E.SubElement(request, 'lastSettlementDate').text = params['end']
+            E.SubElement(request, 'lastSettlementDate').text = params['end'].strftime('%Y-%m-%dT%H:%M:%S')
         return request

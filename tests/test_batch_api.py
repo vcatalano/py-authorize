@@ -1,11 +1,13 @@
+import datetime
+
 from authorize import Configuration
 from authorize.xml_data import prettify
 
 from unittest2 import TestCase
 
 LIST_BATCH_DATES = {
-    'start': '2012-01-01T16:00:00Z',
-    'end': '2012-05-31T16:00:00Z',
+    'start': datetime.datetime(2012, 5, 1), #'2012-05-01T00:00:00'
+    'end': datetime.datetime(2012, 5, 31), #'2012-05-31T00:00:00'
 }
 
 BATCH_DETAILS_REQUEST = u'''
@@ -27,8 +29,8 @@ LIST_BATCH_REQUEST = u'''
     <transactionKey>5GK7mncw8mG2946z</transactionKey>
   </merchantAuthentication>
   <includeStatistics>true</includeStatistics>
-  <firstSettlementDate>2012-01-01T16:00:00Z</firstSettlementDate>
-  <lastSettlementDate>2012-05-31T16:00:00Z</lastSettlementDate>
+  <firstSettlementDate>2012-05-01T00:00:00</firstSettlementDate>
+  <lastSettlementDate>2012-05-31T00:00:00</lastSettlementDate>
 </getSettledBatchListRequest>
 '''
 

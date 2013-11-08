@@ -370,12 +370,21 @@ This transaction type is used to refund a customer for a transaction that was
 originally processed and successfully settled through the payment gateway (it
 is the Authorize.net equivalent of a Credit).
 
+When issuing a refund, Authorize.net requires the amount of the transaction,
+the last four digits of the credit card and the transaction ID. If you do not 
+have the amount or last four digits of the credit card readily available, 
+this information can be gotten using the ``details`` method.
+
 Example
 ~~~~~~~
 
 .. code-block:: python
 
-    result = authorize.Transaction.refund('0123456789')
+    result = authorize.Transaction.refund({
+        'amount': 40.00,
+        'last_four': '1111',
+        'transaction_id': '0123456789'
+    })
 
 
 Void

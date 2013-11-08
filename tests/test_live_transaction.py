@@ -183,6 +183,12 @@ CUSTOMER = {
     'credit_card': CREDIT_CARD
 }
 
+REFUND_TRANSACTION = {
+    'amount': 2222.00,
+    'transaction_id': '2197513033',
+    'last_four': '1111',
+}
+
 
 @attr('live_tests')
 class TransactionTests(TestCase):
@@ -230,7 +236,7 @@ class TransactionTests(TestCase):
         transaction = FULL_CARD_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
-        self.assertRaises(AuthorizeResponseError, Transaction.refund, result.transaction_response.trans_id)
+        self.assertRaises(AuthorizeResponseError, Transaction.refund, REFUND_TRANSACTION)
 
     def test_void_transaction(self):
         transaction = FULL_CARD_TRANSACTION.copy()

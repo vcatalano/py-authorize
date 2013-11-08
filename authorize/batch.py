@@ -9,4 +9,4 @@ class Batch(object):
 
     @staticmethod
     def list(params={}):
-        return Configuration.api.batch.list()
+        return Configuration.api.batch.list(params)

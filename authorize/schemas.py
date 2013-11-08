@@ -290,6 +290,18 @@ class CreditTransactionSchema(CIMBaseSchema):
                                  required=True)
 
 
+class RefundTransactionSchema(colander.MappingSchema):
+    amount = colander.SchemaNode(colander.Decimal('0.01'),
+                                 validator=colander.Range(0, 20000),
+                                 required=True)
+    transaction_id = colander.SchemaNode(colander.String(),
+                                         validator=colander.Length(max=60),
+                                         required=True)
+    last_four = colander.SchemaNode(colander.String(),
+                                    validator=colander.Length(max=16),
+                                    required=True)
+
+
 class ListBatchSchema(colander.MappingSchema):
     start = colander.SchemaNode(colander.Date(),
                                 missing=colander.drop)

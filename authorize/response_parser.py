@@ -63,7 +63,7 @@ def parse_direct_response(response):
 def parse_response(element):
     key = element.tag[41:]
 
-    if key.endswith('List') or key == 'ids':
+    if key.endswith('List') or key == 'ids' or key == 'transactions':
         list_items = []
         for child in element:
             list_items.append(parse_response(child))

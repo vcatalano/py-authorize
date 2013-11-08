@@ -6,7 +6,7 @@ from nose.plugins.attrib import attr
 from unittest2 import TestCase
 
 LIST_BATCH_DATES = {
-    'start': '2012-01-01',
+    'start': '2012-05-01',
     'end': '2012-05-31',
 }
 
@@ -25,4 +25,6 @@ class BatchTests(TestCase):
     def test_list_batch(self):
         Batch.list()
         Batch.list(LIST_BATCH_DATES)
-        Batch.list(LIST_BATCH_DATES_START_ONLY)
+        # Both start and end dates are required by the gateway when one is
+        # provided
+        self.assertRaises(AuthorizeResponseError, Batch.list, LIST_BATCH_DATES_START_ONLY)

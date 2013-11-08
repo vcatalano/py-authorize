@@ -139,6 +139,11 @@ FULL_AIM_TRANSACTION = {
     'recurring': True,
 }
 
+REFUND_TRANSACTION = {
+    'amount': 112.00,
+    'transaction_id': '87912412523',
+    'last_four': '1111',
+}
 
 CIM_SALE_REQUEST = u'''
 <?xml version="1.0" ?>
@@ -317,6 +322,13 @@ REFUND_REQUEST = u'''
   </merchantAuthentication>
   <transactionRequest>
     <transactionType>refundTransaction</transactionType>
+    <amount>112.00</amount>
+    <payment>
+      <creditCard>
+        <cardNumber>1111</cardNumber>
+        <expirationDate>XXXXXX</expirationDate>
+      </creditCard>
+    </payment>
     <refTransId>87912412523</refTransId>
   </transactionRequest>
 </createTransactionRequest>
@@ -389,7 +401,7 @@ class TransactionAPITests(TestCase):
         self.assertEqual(request_string, SETTLE_REQUEST.strip())
 
     def test_refund_request(self):
-        request_xml = Configuration.api.transaction._refund_request('87912412523')
+        request_xml = Configuration.api.transaction._refund_request(REFUND_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, REFUND_REQUEST.strip())
 
