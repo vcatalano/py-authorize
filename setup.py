@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='Py-Authorize',
-    version='1.0.2.3',
+    version='1.0.2.4',
     author='Vincent Catalano',
     author_email='vincent@vincentcatlano.com',
     url='https://github.com/vcatalano/py-authorize',
