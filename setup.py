@@ -8,7 +8,7 @@ setup(
     author_email='vincent@vincentcatlano.com',
     url='https://github.com/vcatalano/py-authorize',
     download_url='',
-    description='A full-featured Python API for Authorize.net.',
+    description='A full-featured Python API for Authorize.net''s AIM, CIM, ARB and Reporting APIs.',
     long_description=__doc__,
     license='MIT',
     install_requires=[
