@@ -19,7 +19,7 @@ documentation.
 Create
 ------
 
-To add a bank accout to an existing user, the minimal amount of information 
+To add a bank account to an existing user, the minimal amount of information 
 required is the routing number, account number, name on the account and the 
 customer profile ID. The customer profile ID is passed as the first argument 
 to the ``create`` method.
@@ -152,5 +152,5 @@ given customer.
 Transactions
 ------------
 
-For information on how to run transactions agains stored credit cards, 
+For information on how to run transactions against stored credit cards, 
 please refer to the :doc:`Transaction <transaction>` documentation.

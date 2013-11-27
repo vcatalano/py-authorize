@@ -401,7 +401,7 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.refund('0123456789')
+    result = authorize.Transaction.void('0123456789')
 
 
 Credit

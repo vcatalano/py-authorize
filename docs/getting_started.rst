@@ -20,7 +20,7 @@ Test Environment
     )
 
 In addition to the Authorize.net API login name and transaction key, the 
-``configure`` method also takes an ``Environent`` parameter. For developement
+``configure`` method also takes an ``Environment`` parameter. For development
 and testing configurations users should use the ``Environment.TEST'`` 
 variable. For production configurations, users should use the 
 ``Environment.PRODUCTION`` variable:
