@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: Py-Authorize
+Version: 1.0.2.4
+Summary: A full-featured Python API for Authorize.net's AIM, CIM, ARB and Reporting APIs.
+Home-page: https://github.com/vcatalano/py-authorize
+Author: Vincent Catalano
+Author-email: vincent@vincentcatlano.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 2
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Office/Business :: Financial
+Classifier: Topic :: Internet :: WWW/HTTP

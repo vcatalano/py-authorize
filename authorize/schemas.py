@@ -73,8 +73,9 @@ class CreditCardSchema(colander.MappingSchema):
                                           validator=colander.Regex(
                                           r'^\d{2}.?(?:\d{4}|\d{2})?$', 'The expiration date is invalid'),
                                           missing=None)
-    card_code = colander.SchemaNode(colander.Integer(),
-                                    validator=colander.Range(100, 9999),
+    card_code = colander.SchemaNode(colander.String(),
+                                    validator=colander.Regex(
+                                    r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
 
     @staticmethod
