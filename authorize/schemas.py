@@ -139,8 +139,9 @@ class ValidateCreditCardSchema(colander.MappingSchema):
     address_id = colander.SchemaNode(colander.String(),
                                      validator=colander.Length(max=60),
                                      missing=colander.drop)
-    card_code = colander.SchemaNode(colander.Integer(),
-                                    validator=colander.Range(100, 9999),
+    card_code = colander.SchemaNode(colander.String(),
+                                    validator=colander.Regex(
+                                    r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
     # A test mode is required for this transaction type. By default, we will
     # use 'testMode'
@@ -270,8 +271,9 @@ class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
                                                 missing=colander.drop)
     recurring = colander.SchemaNode(colander.Boolean(),
                                     missing=colander.drop)
-    card_code = colander.SchemaNode(colander.Integer(),
-                                    validator=colander.Range(100, 9999),
+    card_code = colander.SchemaNode(colander.String(),
+                                    validator=colander.Regex(
+                                    r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
 
 
