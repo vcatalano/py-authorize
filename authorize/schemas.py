@@ -5,16 +5,6 @@ from datetime import date
 from uuid import uuid4
 
 
-def validate_phone_number(node, value):
-    """ checks to make sure the number contains only digits, dashes,
-    parenthesis, underscores and Xs """
-    if len(value) > 25:
-        raise colander.Invalid(node, 'The phone number is too long')
-
-    if re.match(r'^[\d\s\.\-\_x\(\)]*$', value) is None:
-        raise colander.Invalid(node, 'The phone number is invalid')
-
-
 @colander.deferred
 def mechant_id(node, kw):
     return uuid4().hex[:20]
@@ -51,10 +41,10 @@ class AddressSchema(colander.MappingSchema):
                                   validator=colander.Length(max=60),
                                   missing=colander.drop)
     phone_number = colander.SchemaNode(colander.String(),
-                                       validator=validate_phone_number,
+                                       validator=colander.Length(max=25),
                                        missing=colander.drop)
     fax_number = colander.SchemaNode(colander.String(),
-                                     validator=validate_phone_number,
+                                     validator=colander.Length(max=25),
                                      missing=colander.drop)
 
 
