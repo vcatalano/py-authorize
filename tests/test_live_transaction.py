@@ -17,6 +17,7 @@ FULL_CARD_TRANSACTION = {
         'expiration_month': '04',
         'expiration_year': '2014',
     },
+    'email': 'rob@robotronstudios.com',
     'shipping': {
         'first_name': 'Rob',
         'last_name': 'Oteron',
@@ -101,6 +102,7 @@ FULL_ACCOUNT_TRANSACTION = {
         'bank_name': 'Evil Bank Co.',
         'echeck_type': 'CCD',
     },
+    'email': 'rob@robotronstudios.com',
     'shipping': {
         'first_name': 'Rob',
         'last_name': 'Oteron',

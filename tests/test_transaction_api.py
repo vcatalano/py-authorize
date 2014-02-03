@@ -63,6 +63,7 @@ FULL_CIM_TRANSACTION = {
 
 FULL_AIM_TRANSACTION = {
     'amount': 30.00,
+    'email': 'rob@robotronstudios.com',
     'credit_card': {
         'card_number': '4111111111111111',
         'card_code': '456',
@@ -271,6 +272,9 @@ AIM_SALE_REQUEST = u'''
       <description>Handle with care</description>
     </shipping>
     <taxExempt>false</taxExempt>
+    <customer>
+      <email>rob@robotronstudios.com</email>
+    </customer>
     <billTo>
       <firstName>Rob</firstName>
       <lastName>Oteron</lastName>
@@ -386,32 +390,38 @@ class TransactionAPITests(TestCase):
     maxDiff = None
 
     def test_cim_base_request(self):
-        request_xml = Configuration.api.transaction._cim_base_request('profileTransAuthCapture', FULL_CIM_TRANSACTION)
+        request_xml = Configuration.api.transaction._cim_base_request(
+            'profileTransAuthCapture', FULL_CIM_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, CIM_SALE_REQUEST.strip())
 
     def test_aim_base_request(self):
-        request_xml = Configuration.api.transaction._aim_base_request('authCaptureTransaction', FULL_AIM_TRANSACTION)
+        request_xml = Configuration.api.transaction._aim_base_request(
+            'authCaptureTransaction', FULL_AIM_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, AIM_SALE_REQUEST.strip())
 
     def test_settle_request(self):
-        request_xml = Configuration.api.transaction._settle_request('87912412523')
+        request_xml = Configuration.api.transaction._settle_request(
+            '87912412523')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, SETTLE_REQUEST.strip())
 
     def test_refund_request(self):
-        request_xml = Configuration.api.transaction._refund_request(REFUND_TRANSACTION)
+        request_xml = Configuration.api.transaction._refund_request(
+            REFUND_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, REFUND_REQUEST.strip())
 
     def test_void_request(self):
-        request_xml = Configuration.api.transaction._void_request('87912412523')
+        request_xml = Configuration.api.transaction._void_request(
+            '87912412523')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, VOID_REQUEST.strip())
 
     def test_details_request(self):
-        request_xml = Configuration.api.transaction._details_request('87912412523')
+        request_xml = Configuration.api.transaction._details_request(
+            '87912412523')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, DETAILS_REQUEST.strip())
 
@@ -421,6 +431,7 @@ class TransactionAPITests(TestCase):
         self.assertEqual(request_string, UNSETTLED_LIST_REQUEST.strip())
 
     def test_settled_list_request(self):
-        request_xml = Configuration.api.transaction._settled_list_request('89429992353')
+        request_xml = Configuration.api.transaction._settled_list_request(
+            '89429992353')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, SETTLED_LIST_REQUEST.strip())

@@ -268,6 +268,9 @@ class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
 
 
 class AIMTransactionSchema(TransactionBaseSchema):
+    email = colander.SchemaNode(colander.String(),
+                                validator=colander.Email(),
+                                missing=colander.drop)
     credit_card = CreditCardSchema(validator=CreditCardSchema.validator,
                                    missing=colander.drop)
     bank_account = BankAccountSchema(validator=BankAccountSchema.validator,

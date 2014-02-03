@@ -121,6 +121,10 @@ class TransactionAPI(BaseAPI):
         if 'tax_exempt' in xact:
             E.SubElement(xact_elem, 'taxExempt').text = str(xact['tax_exempt']).lower()
 
+        if 'email' in xact:
+            customer = E.SubElement(xact_elem, 'customer')
+            E.SubElement(customer, 'email').text = xact['email']
+
         if 'billing' in xact:
             xact_elem.append(create_address('billTo', xact['billing']))
 
