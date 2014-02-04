@@ -1,3 +1,3 @@
-colander>=0.9.0
+colander>=0.9.8
 unittest2==0.5.1
 sphinx==1.1.3
