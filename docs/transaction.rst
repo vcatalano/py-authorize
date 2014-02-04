@@ -45,7 +45,6 @@ Full Example
 
     result = authorize.Transaction.sale({
         'amount': 56.00,
-        'email': 'rob@robotronstudios.com',
         'credit_card': {
             'card_number': '4111111111111111',
             'card_code': '523',
