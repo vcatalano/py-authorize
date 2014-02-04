@@ -318,6 +318,12 @@ Full Transactions Example with CIM Data
     # e.g. '2194343355'
 
 
+.. note::
+
+    The `email` field cannot be used in combination with the `customer_id`
+    field. If the `customer_id` field is provided, the `email` field will
+    be ignored during the transaction processing.
+
 Auth
 ----
 
