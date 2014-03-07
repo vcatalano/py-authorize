@@ -139,7 +139,7 @@ The ``list`` method returns a list of all customer profile IDs.
 
 .. code-block:: python
 
-    result = authorize.Customer.delete('19086352')
+    result = authorize.Customer.list()
 
     result.profile_ids
     # e.g. ['16467005', '16467010', '16467092', '17556329']
