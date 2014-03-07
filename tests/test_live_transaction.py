@@ -92,6 +92,55 @@ CREDIT_CARD = {
     'card_code': '343',
 }
 
+FULL_CIM_TRANSACTION = {
+    'amount': 30.00,
+    'line_items': [{
+        'item_id': 'CIR0001',
+        'name': 'Circuit Board',
+        'description': 'A brand new robot component',
+        'quantity': 5,
+        'unit_price': 99.99,
+        'taxable': True,
+    }, {
+        'item_id': 'CIR0002',
+        'name': 'Circuit Board 2.0',
+        'description': 'Another new robot component',
+        'quantity': 1,
+        'unit_price': 86.99,
+        'taxable': True,
+    }, {
+        'item_id': 'SCRDRVR',
+        'name': 'Screwdriver',
+        'description': 'A basic screwdriver',
+        'quantity': 1,
+        'unit_price': 10.00,
+        'taxable': True,
+    }],
+    'order': {
+        'invoice_number': 'INV0001',
+        'description': 'Just another invoice...',
+        'order_number': 'PONUM00001',
+    },
+    'shipping_and_handling': {
+        'amount': 10.00,
+        'name': 'UPS 2-Day Shipping',
+        'description': 'Handle with care',
+    },
+    'tax': {
+        'amount': 45.00,
+        'name': 'Double Taxation Tax',
+        'description': 'Another tax for paying double tax',
+    },
+    'duty': {
+        'amount': 90.00,
+        'name': 'The amount for duty',
+        'description': 'I can''t believe you would pay for duty',
+    },
+    'tax_exempt': False,
+    'recurring': True,
+    'card_code': '443',
+}
+
 FULL_ACCOUNT_TRANSACTION = {
     'bank_account': {
         'customer_type': 'individual',
@@ -214,6 +263,16 @@ class TransactionTests(TestCase):
         transaction = FULL_CARD_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.sale(transaction)
+        # Read transaction details
+        Transaction.details(result.transaction_response.trans_id)
+
+    def test_live_cim_auth_transaction(self):
+        result = Customer.create(CUSTOMER)
+        transaction = FULL_CIM_TRANSACTION.copy()
+        transaction['customer_id'] = result.customer_id
+        transaction['payment_id'] = result.payment_ids[0]
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+        result = Transaction.auth(transaction)
         # Read transaction details
         Transaction.details(result.transaction_response.trans_id)
 

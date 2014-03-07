@@ -401,6 +401,13 @@ class TransactionAPITests(TestCase):
         request_string = prettify(request_xml)
         self.assertEqual(request_string, AIM_SALE_REQUEST.strip())
 
+    def test_cim_auth_request(self):
+        request_xml = Configuration.api.transaction._cim_base_request(
+            'profileTransAuthOnly', FULL_CIM_TRANSACTION)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, CIM_SALE_REQUEST.strip()
+            .replace('AuthCapture', 'AuthOnly'))
+
     def test_settle_request(self):
         request_xml = Configuration.api.transaction._settle_request(
             '87912412523')
