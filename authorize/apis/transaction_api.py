@@ -21,7 +21,7 @@ class TransactionAPI(BaseAPI):
     def auth(self, params={}):
         if 'customer_id' in params:
             xact = self._deserialize(CIMTransactionSchema(), params)
-            return self.api._make_call(self._cim_base_request('profileTransAuthOnlyType', xact))
+            return self.api._make_call(self._cim_base_request('profileTransAuthOnly', xact))
         else:
             xact = self._deserialize(AIMTransactionSchema(), params)
             return self.api._make_call(self._aim_base_request('authOnlyTransaction', xact))
