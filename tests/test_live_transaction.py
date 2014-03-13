@@ -75,7 +75,6 @@ FULL_CARD_TRANSACTION = {
     'order': {
         'invoice_number': 'INV0001',
         'description': 'Just another invoice...',
-        'order_number': 'PONUM00001',
     },
     'shipping_and_handling': {
         'amount': 10.00,
@@ -209,7 +208,6 @@ FULL_ACCOUNT_TRANSACTION = {
     'order': {
         'invoice_number': 'INV0001',
         'description': 'Just another invoice...',
-        'order_number': 'PONUM00001',
     },
     'shipping_and_handling': {
         'amount': 10.00,
@@ -274,7 +272,8 @@ class TransactionTests(TestCase):
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
         # Read transaction details
-        Transaction.details(result.transaction_response.trans_id)
+        result = Transaction.details(result.transaction_response.trans_id)
+        self.assertEqual(result.transaction.order.order_number, 'PONUM00001')
 
     def test_auth_and_settle_transaction(self):
         transaction = FULL_CARD_TRANSACTION.copy()

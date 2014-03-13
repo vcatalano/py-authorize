@@ -129,7 +129,6 @@ FULL_AIM_TRANSACTION = {
     'order': {
         'invoice_number': 'INV0001',
         'description': 'Just another invoice...',
-        'order_number': 'PONUM00001',
     },
     'shipping_and_handling': {
         'amount': 10.00,
@@ -201,6 +200,7 @@ CIM_SALE_REQUEST = u'''
       <order>
         <invoiceNumber>INV0001</invoiceNumber>
         <description>Just another invoice...</description>
+        <purchaseOrderNumber>PONUM00001</purchaseOrderNumber>
       </order>
       <taxExempt>false</taxExempt>
       <recurringBilling>true</recurringBilling>

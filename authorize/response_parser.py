@@ -13,6 +13,7 @@ RENAME_FIELDS = {
     'ids': 'profile_ids',
     'shipping': 'shipping_and_handling',
     'directResponse': 'transaction_response',
+    'purchaseOrderNumber': 'order_number',
 }
 
 DIRECT_RESPONSE_FIELDS = {

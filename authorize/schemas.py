@@ -256,9 +256,6 @@ class CIMBaseSchema(colander.MappingSchema):
 
 
 class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
-    purchase_order_number = colander.SchemaNode(colander.String(),
-                                                validator=colander.Length(max=25),
-                                                missing=colander.drop)
     recurring = colander.SchemaNode(colander.Boolean(),
                                     missing=colander.drop)
     card_code = colander.SchemaNode(colander.String(),

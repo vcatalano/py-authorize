@@ -108,7 +108,6 @@ Full Example
         'order': {
             'invoice_number': 'INV0001',
             'description': 'Just another invoice...',
-            'order_number': 'PONUM00001',
         },
         'shipping_and_handling': {
             'amount': 10.00,
@@ -223,7 +222,6 @@ Full Transactions with Bank Accounts
         'order': {
             'invoice_number': 'INV0001',
             'description': 'Just another invoice...',
-            'order_number': 'PONUM00001',
         },
         'shipping_and_handling': {
             'amount': 10.00,
