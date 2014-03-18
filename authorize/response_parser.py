@@ -9,12 +9,24 @@ RENAME_FIELDS = {
     'customerShippingAddressId': 'address_id',
     'customerPaymentProfileIdList': 'payment_ids',
     'customerShippingAddressIdList': 'address_ids',
+    'validationDirectResponseList': 'validation_responses',
+    'purchaseOrderNumber': 'order_number',
+    'paymentProfiles': 'payments',
     'shipToList': 'addresses',
     'ids': 'profile_ids',
     'shipping': 'shipping_and_handling',
     'directResponse': 'transaction_response',
-    'purchaseOrderNumber': 'order_number',
 }
+
+LIST_FIELDS = [
+    'ids',
+    'messages',
+    'transactions',
+    'shipToList',
+    'paymentProfiles',
+    'batchList',
+    'statistics',
+]
 
 DIRECT_RESPONSE_FIELDS = {
     0: 'response_code',
@@ -48,13 +60,17 @@ class AttrDict(dict):
         return json.dumps(self, indent=2)
 
 
-def underscore(name):
-    first_string = FIRST_CAP_RE.sub(r'\1_\2', name)
-    return ALL_CAP_RE.sub(r'\1_\2', first_string).lower()
+# Use lower_case_with_underscores to keep key names consistent
+def rename(name):
+    if name in RENAME_FIELDS:
+        name = RENAME_FIELDS[name]
+    name = FIRST_CAP_RE.sub(r'\1_\2', name)
+    name = ALL_CAP_RE.sub(r'\1_\2', name)
+    return name.lower()
 
 
-def parse_direct_response(response):
-    response = response.text.split(',')
+def parse_direct_response(response_text):
+    response = response_text.text.split(',')
     fields = AttrDict()
     for index, name in DIRECT_RESPONSE_FIELDS.items():
         fields[name] = response[index]
@@ -62,25 +78,36 @@ def parse_direct_response(response):
 
 
 def parse_response(element):
+
+    # Remove the namespace qualifier
     key = element.tag[41:]
 
-    if key.endswith('List') or key == 'ids' or key == 'transactions':
-        list_items = []
-        for child in element:
-            list_items.append(parse_response(child))
-        return list_items
-    elif key == 'directResponse':
+    if key == 'directResponse':
         return parse_direct_response(element)
-    elif len(element) > 0:
-        dict_items = AttrDict()
-        for child in element:
-            child_elem = parse_response(child)
-            key = child.tag[41:]
-            # Rename response fields
-            if key in RENAME_FIELDS:
-                key = RENAME_FIELDS[key]
-            key = underscore(key)
-            dict_items[key] = child_elem
-        return dict_items
-    else:
+
+    if len(element) == 0:
         return element.text
+
+    dict_items = AttrDict()
+
+    for child in element:
+        key = child.tag[41:]
+        new_item = parse_response(child)
+
+        if key == 'numericString':
+            # Ignore the 'numericString' key and treat as a list item
+            if isinstance(dict_items, list):
+                dict_items.append(new_item)
+            else:
+                dict_items = [new_item]
+        elif key in LIST_FIELDS:
+            key = rename(key)
+            if hasattr(dict_items, key):
+                dict_items[key].append(new_item)
+            else:
+                dict_items[key] = [new_item]
+        else:
+            key = rename(key)
+            dict_items[key] = new_item
+
+    return dict_items

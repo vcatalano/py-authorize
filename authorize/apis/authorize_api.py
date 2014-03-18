@@ -60,8 +60,8 @@ class AuthorizeAPI(object):
 
         # Throw an exception for invalid calls. This makes error handling
         # easier.
-        if result.messages.result_code != 'Ok':
-            error = result.messages.message
+        if result.messages[0].result_code != 'Ok':
+            error = result.messages[0].message
             e = AuthorizeResponseError('%s: %s' % (error.code, error.text))
             e.full_response = result
             raise e

@@ -94,7 +94,6 @@ UPDATE_RECURRING = {
     },
 }
 
-
 CREATE_RECURRING_REQUEST = u'''
 <?xml version="1.0" ?>
 <ARBCreateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
