@@ -102,9 +102,9 @@ def parse_response(element):
                 dict_items = [new_item]
         elif key in LIST_FIELDS:
             key = rename(key)
-            if hasattr(dict_items, key):
+            try:
                 dict_items[key].append(new_item)
-            else:
+            except:
                 dict_items[key] = [new_item]
         else:
             key = rename(key)

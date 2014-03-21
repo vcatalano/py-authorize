@@ -1,7 +1,9 @@
-import urllib2
 import xml.etree.cElementTree as E
 
-from urllib2 import HTTPError
+try:
+    import urllib.request as urllib2
+except:
+    import urllib2
 
 from authorize.apis.address_api import AddressAPI
 from authorize.apis.credit_card_api import CreditCardAPI
@@ -55,7 +57,7 @@ class AuthorizeAPI(object):
             response = urllib2.urlopen(request).read()
             response = E.fromstring(response)
             result = parse_response(response)
-        except HTTPError, e:
+        except urllib2.HTTPError:
             return AuthorizeConnectionError('Error processing XML request.')
 
         # Throw an exception for invalid calls. This makes error handling

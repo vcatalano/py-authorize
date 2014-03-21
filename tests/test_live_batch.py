@@ -3,7 +3,7 @@ from authorize import AuthorizeResponseError
 
 from nose.plugins.attrib import attr
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 LIST_BATCH_DATES = {
     'start': '2012-05-01',

@@ -3,14 +3,14 @@ import datetime
 from authorize import Configuration
 from authorize.xml_data import prettify
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 LIST_BATCH_DATES = {
     'start': datetime.datetime(2012, 5, 1), #'2012-05-01T00:00:00'
     'end': datetime.datetime(2012, 5, 31), #'2012-05-31T00:00:00'
 }
 
-BATCH_DETAILS_REQUEST = u'''
+BATCH_DETAILS_REQUEST = '''
 <?xml version="1.0" ?>
 <getBatchStatisticsRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -21,7 +21,7 @@ BATCH_DETAILS_REQUEST = u'''
 </getBatchStatisticsRequest>
 '''
 
-LIST_BATCH_REQUEST = u'''
+LIST_BATCH_REQUEST = '''
 <?xml version="1.0" ?>
 <getSettledBatchListRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>

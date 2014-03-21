@@ -15,12 +15,10 @@ Additionally, you will need to install the following dependencies for running
 test and compiling documentation.
 
 - nose_
-- unittest2_
 - sphinx_ (for documentation)
 
 .. _Github page: https://github.com/vcatalano/py-authorize
 .. _nose: https://nose.readthedocs.org/en/latest/
-.. _unittest2: https://pypi.python.org/pypi/unittest2
 .. _sphinx: http://sphinx-doc.org/
 
 

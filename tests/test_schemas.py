@@ -5,7 +5,7 @@ from authorize.schemas import CreateRecurringSchema
 
 from colander import Invalid
 from datetime import date
-from unittest2 import TestCase
+from unittest import TestCase
 
 ADDRESS = {
     'first_name': 'Rob',

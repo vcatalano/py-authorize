@@ -8,7 +8,7 @@ from datetime import date
 
 from nose.plugins.attrib import attr
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 FULL_CARD_TRANSACTION = {
     'credit_card': {

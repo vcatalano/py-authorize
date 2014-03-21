@@ -1,7 +1,7 @@
 from authorize.configuration import Configuration
 from authorize.xml_data import prettify
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 CREDIT_CARD = {
     'customer_type': 'individual',
@@ -29,7 +29,7 @@ VALIDATE_CREDIT_CARD = {
     'validation_mode': 'testMode',
 }
 
-CREATE_CREDIT_CARD_REQUEST = u'''
+CREATE_CREDIT_CARD_REQUEST = '''
 <?xml version="1.0" ?>
 <createCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -62,7 +62,7 @@ CREATE_CREDIT_CARD_REQUEST = u'''
 </createCustomerPaymentProfileRequest>
 '''
 
-DETAILS_CREDIT_CARD_REQUEST = u'''
+DETAILS_CREDIT_CARD_REQUEST = '''
 <?xml version="1.0" ?>
 <getCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -74,7 +74,7 @@ DETAILS_CREDIT_CARD_REQUEST = u'''
 </getCustomerPaymentProfileRequest>
 '''
 
-UPDATE_CREDIT_CARD_REQUEST = u'''
+UPDATE_CREDIT_CARD_REQUEST = '''
 <?xml version="1.0" ?>
 <updateCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -108,7 +108,7 @@ UPDATE_CREDIT_CARD_REQUEST = u'''
 </updateCustomerPaymentProfileRequest>
 '''
 
-DELETE_CREDIT_CARD_REQUEST = u'''
+DELETE_CREDIT_CARD_REQUEST = '''
 <?xml version="1.0" ?>
 <deleteCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -120,7 +120,7 @@ DELETE_CREDIT_CARD_REQUEST = u'''
 </deleteCustomerPaymentProfileRequest>
 '''
 
-VALIDATE_CREDIT_CARD_REQUEST = u'''
+VALIDATE_CREDIT_CARD_REQUEST = '''
 <?xml version="1.0" ?>
 <validateCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>

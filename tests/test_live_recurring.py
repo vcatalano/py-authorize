@@ -7,7 +7,7 @@ from datetime import date
 
 from nose.plugins.attrib import attr
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 BASIC_RECURRING = {
     'interval_length': 14,

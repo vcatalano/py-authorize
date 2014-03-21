@@ -1,5 +1,5 @@
 from authorize.xml_data import *
-from unittest2 import TestCase
+from unittest import TestCase
 
 PROFILE = {
     'merchant_id': '1234567890',
@@ -79,7 +79,7 @@ ORDER = {
     'description': 'Just another invoice...',
 }
 
-CREATE_PROFILE_XML = u'''
+CREATE_PROFILE_XML = '''
 <?xml version="1.0" ?>
 <profile>
   <merchantCustomerId>1234567890</merchantCustomerId>
@@ -88,7 +88,7 @@ CREATE_PROFILE_XML = u'''
 </profile>
 '''
 
-CREATE_ADDRESS_XML = u'''
+CREATE_ADDRESS_XML = '''
 <?xml version="1.0" ?>
 <billTo>
   <firstName>Rob</firstName>
@@ -104,7 +104,7 @@ CREATE_ADDRESS_XML = u'''
 </billTo>
 '''
 
-CREATE_CARD_XML = u'''
+CREATE_CARD_XML = '''
 <?xml version="1.0" ?>
 <creditCard>
   <cardNumber>4111111111111111</cardNumber>
@@ -113,7 +113,7 @@ CREATE_CARD_XML = u'''
 </creditCard>
 '''
 
-CREATE_ACCOUNT_XML = u'''
+CREATE_ACCOUNT_XML = '''
 <?xml version="1.0" ?>
 <bankAccount>
   <accountType>checking</accountType>
@@ -125,7 +125,7 @@ CREATE_ACCOUNT_XML = u'''
 </bankAccount>
 '''
 
-CREATE_LINE_ITEM_XML = u'''
+CREATE_LINE_ITEM_XML = '''
 <?xml version="1.0" ?>
 <lineItem>
   <itemId>CIR0001</itemId>
@@ -137,7 +137,7 @@ CREATE_LINE_ITEM_XML = u'''
 </lineItem>
 '''
 
-CREATE_LINE_ITEMS_XML = u'''
+CREATE_LINE_ITEMS_XML = '''
 <?xml version="1.0" ?>
 <lineItems>
   <lineItem>
@@ -167,7 +167,7 @@ CREATE_LINE_ITEMS_XML = u'''
 </lineItems>
 '''
 
-CREATE_AMOUNT_TYPE_XML = u'''
+CREATE_AMOUNT_TYPE_XML = '''
 <?xml version="1.0" ?>
 <tax>
   <amount>45.00</amount>
@@ -176,7 +176,7 @@ CREATE_AMOUNT_TYPE_XML = u'''
 </tax>
 '''
 
-CREATE_ORDER_XML = u'''
+CREATE_ORDER_XML = '''
 <?xml version="1.0" ?>
 <order>
   <invoiceNumber>INV0001</invoiceNumber>

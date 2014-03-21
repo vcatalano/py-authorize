@@ -6,7 +6,7 @@ from datetime import date
 
 from nose.plugins.attrib import attr
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 CREDIT_CARD = {
     'card_number': '4111111111111111',

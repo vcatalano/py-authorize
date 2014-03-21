@@ -1,11 +1,11 @@
 import xml.etree.cElementTree as E
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 from authorize.response_parser import parse_response
 
 
-SINGLE_LIST_ITEM_RESPONSE_XML = u'''
+SINGLE_LIST_ITEM_RESPONSE_XML = '''
 <?xml version="1.0" ?>
 <simpleResponse xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <messages>
@@ -18,7 +18,7 @@ SINGLE_LIST_ITEM_RESPONSE_XML = u'''
 </simpleResponse>
 '''
 
-MULTIPLE_LIST_ITEM_RESPONSE_XML = u'''
+MULTIPLE_LIST_ITEM_RESPONSE_XML = '''
 <?xml version="1.0" ?>
 <simpleResponse xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <messages>
@@ -38,7 +38,7 @@ MULTIPLE_LIST_ITEM_RESPONSE_XML = u'''
 </simpleResponse>
 '''
 
-NUMERIC_STRING_LIST_RESPONSE_XML = u'''
+NUMERIC_STRING_LIST_RESPONSE_XML = '''
 <?xml version="1.0" ?>
 <createCustomerProfileResponse xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <messages>
@@ -59,7 +59,7 @@ NUMERIC_STRING_LIST_RESPONSE_XML = u'''
 </createCustomerProfileResponse>
 '''
 
-DIRECT_RESPONSE_XML = u'''
+DIRECT_RESPONSE_XML = '''
 <?xml version="1.0" ?>
 <createCustomerProfileTransactionResponse xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <messages>

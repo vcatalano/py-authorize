@@ -1,7 +1,7 @@
 from authorize import Configuration
 from authorize.xml_data import prettify
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 CREATE_BANK_ACCOUNT = {
     'customer_type': 'individual',
@@ -47,7 +47,7 @@ UPDATE_BANK_ACCOUNT = {
     },
 }
 
-CREATE_BANK_ACCOUNT_REQUEST = u'''
+CREATE_BANK_ACCOUNT_REQUEST = '''
 <?xml version="1.0" ?>
 <createCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -82,7 +82,7 @@ CREATE_BANK_ACCOUNT_REQUEST = u'''
   </paymentProfile>
 </createCustomerPaymentProfileRequest>'''
 
-DETAILS_BANK_ACCOUNT_REQUEST = u'''
+DETAILS_BANK_ACCOUNT_REQUEST = '''
 <?xml version="1.0" ?>
 <getCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -93,7 +93,7 @@ DETAILS_BANK_ACCOUNT_REQUEST = u'''
   <customerPaymentProfileId>0987654321</customerPaymentProfileId>
 </getCustomerPaymentProfileRequest>'''
 
-UPDATE_BANK_ACCOUNT_REQUEST = u'''
+UPDATE_BANK_ACCOUNT_REQUEST = '''
 <?xml version="1.0" ?>
 <updateCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -129,7 +129,7 @@ UPDATE_BANK_ACCOUNT_REQUEST = u'''
   </paymentProfile>
 </updateCustomerPaymentProfileRequest>'''
 
-DELETE_BANK_ACCOUNT_REQUEST = u'''
+DELETE_BANK_ACCOUNT_REQUEST = '''
 <?xml version="1.0" ?>
 <deleteCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>

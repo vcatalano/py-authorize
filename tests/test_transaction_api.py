@@ -1,7 +1,7 @@
 from authorize import Configuration
 from authorize.xml_data import prettify
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 FULL_CIM_TRANSACTION = {
     'amount': 30.00,
@@ -145,7 +145,7 @@ REFUND_TRANSACTION = {
     'last_four': '1111',
 }
 
-CIM_SALE_REQUEST = u'''
+CIM_SALE_REQUEST = '''
 <?xml version="1.0" ?>
 <createCustomerProfileTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -209,7 +209,7 @@ CIM_SALE_REQUEST = u'''
 </createCustomerProfileTransactionRequest>
 '''
 
-AIM_SALE_REQUEST = u'''
+AIM_SALE_REQUEST = '''
 <?xml version="1.0" ?>
 <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -303,7 +303,7 @@ AIM_SALE_REQUEST = u'''
 </createTransactionRequest>
 '''
 
-SETTLE_REQUEST = u'''
+SETTLE_REQUEST = '''
 <?xml version="1.0" ?>
 <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -317,7 +317,7 @@ SETTLE_REQUEST = u'''
 </createTransactionRequest>
 '''
 
-REFUND_REQUEST = u'''
+REFUND_REQUEST = '''
 <?xml version="1.0" ?>
 <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -338,7 +338,7 @@ REFUND_REQUEST = u'''
 </createTransactionRequest>
 '''
 
-VOID_REQUEST = u'''
+VOID_REQUEST = '''
 <?xml version="1.0" ?>
 <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -352,7 +352,7 @@ VOID_REQUEST = u'''
 </createTransactionRequest>
 '''
 
-DETAILS_REQUEST = u'''
+DETAILS_REQUEST = '''
 <?xml version="1.0" ?>
 <getTransactionDetailsRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -363,7 +363,7 @@ DETAILS_REQUEST = u'''
 </getTransactionDetailsRequest>
 '''
 
-UNSETTLED_LIST_REQUEST = u'''
+UNSETTLED_LIST_REQUEST = '''
 <?xml version="1.0" ?>
 <getUnsettledTransactionListRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -373,7 +373,7 @@ UNSETTLED_LIST_REQUEST = u'''
 </getUnsettledTransactionListRequest>
 '''
 
-SETTLED_LIST_REQUEST = u'''
+SETTLED_LIST_REQUEST = '''
 <?xml version="1.0" ?>
 <getTransactionListRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>

@@ -93,8 +93,8 @@ class RecurringAPI(BaseAPI):
                 'last_name': '<empty>'
             }
         }
-
-        params = dict(arb_required_fields.items() + params.items())
+        arb_required_fields.update(params)
+        params = arb_required_fields
 
         if 'billing' in params:
             subscription.append(create_address('billTo', params['billing']))

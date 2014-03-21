@@ -4,7 +4,7 @@ from authorize import AuthorizeResponseError
 
 from nose.plugins.attrib import attr
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 BANK_ACCOUNT = {
     'routing_number': '322271627',

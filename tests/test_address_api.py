@@ -1,7 +1,7 @@
 from authorize import Configuration
 from authorize.xml_data import prettify
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 ADDRESS = {
     'first_name': 'Rob',
@@ -16,7 +16,7 @@ ADDRESS = {
     'fax_number': '520-456-7890',
 }
 
-CREATE_ADDRESS_REQUEST = u'''
+CREATE_ADDRESS_REQUEST = '''
 <?xml version="1.0" ?>
 <createCustomerShippingAddressRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -38,7 +38,7 @@ CREATE_ADDRESS_REQUEST = u'''
   </address>
 </createCustomerShippingAddressRequest>'''
 
-DETAILS_ADDRESS_REQUEST = u'''
+DETAILS_ADDRESS_REQUEST = '''
 <?xml version="1.0" ?>
 <getCustomerShippingAddressRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -49,7 +49,7 @@ DETAILS_ADDRESS_REQUEST = u'''
   <customerAddressId>0987654321</customerAddressId>
 </getCustomerShippingAddressRequest>'''
 
-UPDATE_ADDRESS_REQUEST = u'''
+UPDATE_ADDRESS_REQUEST = '''
 <?xml version="1.0" ?>
 <updateCustomerShippingAddressRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -72,7 +72,7 @@ UPDATE_ADDRESS_REQUEST = u'''
   </address>
 </updateCustomerShippingAddressRequest>'''
 
-DELETE_ADDRESS_REQUEST = u'''
+DELETE_ADDRESS_REQUEST = '''
 <?xml version="1.0" ?>
 <deleteCustomerShippingAddressRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>

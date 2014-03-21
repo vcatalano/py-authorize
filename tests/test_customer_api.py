@@ -1,7 +1,7 @@
 from authorize import Configuration
 from authorize.xml_data import prettify
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 CREATE_CUSTOMER = {
@@ -48,7 +48,7 @@ UPDATE_CUSTOMER = {
     'customer_type': 'individual',
 }
 
-CREATE_CUSTOMER_REQUEST = u'''
+CREATE_CUSTOMER_REQUEST = '''
 <?xml version="1.0" ?>
 <createCustomerProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -98,7 +98,7 @@ CREATE_CUSTOMER_REQUEST = u'''
 </createCustomerProfileRequest>
 '''
 
-CUSTOMER_DETAILS_REQUEST = u'''
+CUSTOMER_DETAILS_REQUEST = '''
 <?xml version="1.0" ?>
 <getCustomerProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -109,7 +109,7 @@ CUSTOMER_DETAILS_REQUEST = u'''
 </getCustomerProfileRequest>
 '''
 
-CUSTOMER_UPDATE_REQUEST = u'''
+CUSTOMER_UPDATE_REQUEST = '''
 <?xml version="1.0" ?>
 <updateCustomerProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -125,7 +125,7 @@ CUSTOMER_UPDATE_REQUEST = u'''
 </updateCustomerProfileRequest>
 '''
 
-CUSTOMER_DELETE_REQUEST = u'''
+CUSTOMER_DELETE_REQUEST = '''
 <?xml version="1.0" ?>
 <deleteCustomerProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>

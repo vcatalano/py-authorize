@@ -3,7 +3,7 @@ from authorize.xml_data import prettify
 
 from datetime import date
 
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 CREATE_RECURRING = {
@@ -94,7 +94,7 @@ UPDATE_RECURRING = {
     },
 }
 
-CREATE_RECURRING_REQUEST = u'''
+CREATE_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBCreateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -153,7 +153,7 @@ CREATE_RECURRING_REQUEST = u'''
 </ARBCreateSubscriptionRequest>
 '''.format(date.today().isoformat())
 
-DETAILS_RECURRING_REQUEST = u'''
+DETAILS_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBGetSubscriptionStatusRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -164,7 +164,7 @@ DETAILS_RECURRING_REQUEST = u'''
 </ARBGetSubscriptionStatusRequest>
 '''
 
-UPDATE_RECURRING_REQUEST = u'''
+UPDATE_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBUpdateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
@@ -220,7 +220,7 @@ UPDATE_RECURRING_REQUEST = u'''
 </ARBUpdateSubscriptionRequest>
 '''.format(date.today().isoformat())
 
-DELETE_RECURRING_REQUEST = u'''
+DELETE_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBCancelSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
