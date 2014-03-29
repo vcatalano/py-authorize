@@ -47,7 +47,7 @@ Py-Authorize is released under the `MIT License`_.
 Contents:
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     install
     getting_started

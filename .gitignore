@@ -3,6 +3,7 @@
 .DS_Store
 docs/_build/
 build/
+_build/
 dist/
 *.egg-info/
 
