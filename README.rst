@@ -43,9 +43,9 @@ Here is a simple example of a basic credit card transaction.
 Documentation
 -------------
 
-Please visit the `Read the Docs`_ page for full documentation.
+Please visit the `Github Page`_ page for full documentation.
 
-.. _Read the Docs: https://py-authorize.readthedocs.org/en/latest/index.html
+.. _Github Page: http://vcatalano.github.io/py-authorize/index.html
 
 
 License
