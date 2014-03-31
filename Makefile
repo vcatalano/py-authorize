@@ -57,12 +57,12 @@ html:
 
 gh-pages:
 	git checkout gh-pages
-	rm -rf $(GH_PAGES_SOURCE) _build _sources _static
+	rm -rf $(GH_PAGES_SOURCE) $(BUILDDIR) _sources _static
 	git checkout master $(GH_PAGES_SOURCE)
 	git reset HEAD
 	make html
 	mv -fv _build/html/* ./
-	rm -rf $(GH_PAGES_SOURCE)
+	rm -rf $(GH_PAGES_SOURCE) $(BUILDDIR)
 	git add -A
 	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
 
