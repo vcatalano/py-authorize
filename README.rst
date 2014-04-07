@@ -43,7 +43,7 @@ Here is a simple example of a basic credit card transaction.
 Documentation
 -------------
 
-Please visit the `Github Page`_ page for full documentation.
+Please visit the `Github Page`_ for full documentation.
 
 .. _Github Page: http://vcatalano.github.io/py-authorize/index.html
 

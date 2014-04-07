@@ -1,5 +1,10 @@
 import xml.etree.cElementTree as E
 
+try:
+    import urllib.parse as urllib
+except:
+    import urllib
+
 from authorize.apis.base_api import BaseAPI
 from authorize.schemas import AIMTransactionSchema
 from authorize.schemas import CIMTransactionSchema
@@ -88,6 +93,13 @@ class TransactionAPI(BaseAPI):
         if 'recurring' in xact:
             E.SubElement(xact_type, 'recurringBilling').text = str(xact['recurring']).lower()
 
+        if 'extra_options' in xact:
+            extra_options = {}
+            if 'customer_ip' in xact['extra_options']:
+                extra_options['x_customer_ip'] = xact['extra_options']['customer_ip']
+            options = E.SubElement(request, 'extraOptions')
+            E.SubElement(options, '![CDATA[').text = urllib.urlencode(extra_options)
+
         return request
 
     def _aim_base_request(self, xact_type, xact={}):
@@ -130,6 +142,10 @@ class TransactionAPI(BaseAPI):
 
         if 'shipping' in xact:
             xact_elem.append(create_address('shipTo', xact['shipping']))
+
+        if 'extra_options' in xact:
+            if 'customer_ip' in xact['extra_options']:
+                E.SubElement(xact_elem, 'customerIP').text = xact['extra_options']['customer_ip']
 
         return request
 

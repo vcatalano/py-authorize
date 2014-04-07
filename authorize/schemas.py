@@ -163,9 +163,6 @@ class CustomerSchema(AddressSchema):
     customer_id = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=20),
                                       missing=colander.drop)
-    # customer_ip = colander.SchemaNode(colander.String(),
-    #                                  validator=colander.Length(max=20),
-    #                                  missing=colander.drop)
 
 
 class CreateCustomerSchema(CustomerBaseSchema, CustomerTypeSchema):
@@ -228,6 +225,12 @@ class OrderSchema(colander.MappingSchema):
                                        missing=colander.drop)
 
 
+class ExtraOptions(colander.MappingSchema):
+    customer_ip = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=39),
+                                      missing=colander.drop)
+
+
 class TransactionBaseSchema(colander.MappingSchema):
     line_items = LineItemsSchema(validator=colander.Length(max=30),
                                  missing=colander.drop)
@@ -262,6 +265,7 @@ class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
                                     validator=colander.Regex(
                                     r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
+    extra_options = ExtraOptions(missing=colander.drop)
 
 
 class AIMTransactionSchema(TransactionBaseSchema):

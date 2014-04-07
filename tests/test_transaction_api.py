@@ -56,6 +56,9 @@ FULL_CIM_TRANSACTION = {
         'name': 'The amount for duty',
         'description': 'I can''t believe you would pay for duty',
     },
+    'extra_options': {
+        'customer_ip': '100.0.0.1',
+    },
     'tax_exempt': False,
     'recurring': True,
     'card_code': '443',
@@ -135,6 +138,9 @@ FULL_AIM_TRANSACTION = {
         'name': 'UPS 2-Day Shipping',
         'description': 'Handle with care',
     },
+    'extra_options': {
+        'customer_ip': '100.0.0.1',
+    },
     'tax_exempt': False,
     'recurring': True,
 }
@@ -206,6 +212,8 @@ CIM_SALE_REQUEST = '''
       <recurringBilling>true</recurringBilling>
     </profileTransAuthCapture>
   </transaction>
+  <extraOptions>
+<![CDATA[x_customer_ip=100.0.0.1]]>  </extraOptions>
 </createCustomerProfileTransactionRequest>
 '''
 
@@ -299,6 +307,7 @@ AIM_SALE_REQUEST = '''
       <phoneNumber>520-123-4567</phoneNumber>
       <faxNumber>520-456-7890</faxNumber>
     </shipTo>
+    <customerIP>100.0.0.1</customerIP>
   </transactionRequest>
 </createTransactionRequest>
 '''

@@ -114,7 +114,11 @@ Full Example
             'name': 'UPS 2-Day Shipping',
             'description': 'Handle with care',
         },
+        'extra_options': {
+            'customer_ip': '100.0.0.1',
+        },
         'tax_exempt': False,
+        'recurring': True,
     })
 
     result.transaction_response.trans_id
@@ -228,7 +232,11 @@ Full Transactions with Bank Accounts
             'name': 'UPS 2-Day Shipping',
             'description': 'Handle with care',
         },
+        'extra_options': {
+            'customer_ip': '100.0.0.1',
+        },
         'tax_exempt': False,
+        'recurring': True,
     })
 
     result.transaction_response.trans_id
@@ -309,7 +317,11 @@ Full Transactions Example with CIM Data
             'name': 'UPS 2-Day Shipping',
             'description': 'Handle with care',
         },
-        'tax_exempt': False,
+        'extra_options': {
+            'customer_ip': '100.0.0.1',
+        },
+        'tax_exempt': False,,
+        'recurring': True,
     })
 
     result.transaction_response.trans_id

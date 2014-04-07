@@ -81,6 +81,9 @@ FULL_CARD_TRANSACTION = {
         'name': 'UPS 2-Day Shipping',
         'description': 'Handle with care',
     },
+    'extra_options': {
+        'customer_ip': '100.0.0.1',
+    },
     'tax_exempt': False,
     'recurring': True,
 }
@@ -134,6 +137,9 @@ FULL_CIM_TRANSACTION = {
         'amount': 90.00,
         'name': 'The amount for duty',
         'description': 'I can''t believe you would pay for duty',
+    },
+    'extra_options': {
+        'customer_ip': 'fe80::f4b6:2a88:70fa:f09f',
     },
     'tax_exempt': False,
     'recurring': True,
@@ -213,6 +219,9 @@ FULL_ACCOUNT_TRANSACTION = {
         'amount': 10.00,
         'name': 'UPS 2-Day Shipping',
         'description': 'Handle with care',
+    },
+    'extra_options': {
+        'customer_ip': '100.0.0.1',
     },
     'tax_exempt': False,
     'recurring': True,
