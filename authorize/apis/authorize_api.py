@@ -55,6 +55,7 @@ class AuthorizeAPI(object):
             request = urllib2.Request(self.config.environment, E.tostring(call))
             request.add_header('Content-Type', 'text/xml')
             response = urllib2.urlopen(request).read()
+            print response
             response = E.fromstring(response)
             result = parse_response(response)
         except urllib2.HTTPError:

@@ -27,7 +27,7 @@ CREATE_RECURRING = {
     'trial_occurrences': 2,
     'credit_card': {
         'card_number': '4111111111111111',
-        'expiration_date': '04-2014',
+        'expiration_date': '04/{0}'.format(date.today().year + 1),
         'card_code': '456',
     },
     'billing': {
@@ -72,7 +72,7 @@ UPDATE_RECURRING = {
     'trial_occurrences': 2,
     'credit_card': {
         'card_number': '4111111111111111',
-        'expiration_date': '04-2014',
+        'expiration_date': '04/{0}'.format(date.today().year + 1),
         'card_code': '456',
     },
     'billing': {

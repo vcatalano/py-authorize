@@ -15,7 +15,7 @@ FULL_CARD_TRANSACTION = {
         'card_number': '4111111111111111',
         'card_code': '523',
         'expiration_month': '04',
-        'expiration_year': '2014',
+        'expiration_year': date.today().year + 1,
     },
     'email': 'rob@robotronstudios.com',
     'shipping': {

@@ -18,12 +18,19 @@ RENAME_FIELDS = {
     'directResponse': 'transaction_response',
 }
 
+# XML Schema sequence element
 LIST_FIELDS = [
-    'ids',
     'messages',
-    'transactions',
     'shipToList',
     'paymentProfiles',
+]
+
+# Array of complex schema types
+NESTED_LIST_FIELDS = [
+    'ids',
+    'customerPaymentProfileIdList',
+    'customerShippingAddressIdList',
+    'transactions',
     'batchList',
     'statistics',
 ]
@@ -39,7 +46,6 @@ DIRECT_RESPONSE_FIELDS = {
     11: 'transaction_type',
     38: 'cvv_result_code',
 }
-
 
 FIRST_CAP_RE = re.compile('(.)([A-Z][a-z]+)')
 ALL_CAP_RE = re.compile('([a-z0-9])([A-Z])')
@@ -78,7 +84,6 @@ def parse_direct_response(response_text):
 
 
 def parse_response(element):
-
     # Remove the namespace qualifier
     key = element.tag[41:]
 
@@ -89,25 +94,24 @@ def parse_response(element):
         return element.text
 
     dict_items = AttrDict()
+    is_nested = key in NESTED_LIST_FIELDS
 
     for child in element:
         key = child.tag[41:]
         new_item = parse_response(child)
 
-        if key == 'numericString':
-            # Ignore the 'numericString' key and treat as a list item
+        if is_nested:
+            # Ignore the current element and treat as a list item
             if isinstance(dict_items, list):
                 dict_items.append(new_item)
             else:
                 dict_items = [new_item]
         elif key in LIST_FIELDS:
-            key = rename(key)
             try:
-                dict_items[key].append(new_item)
+                dict_items[rename(key)].append(new_item)
             except:
-                dict_items[key] = [new_item]
+                dict_items[rename(key)] = [new_item]
         else:
-            key = rename(key)
-            dict_items[key] = new_item
+            dict_items[rename(key)] = new_item
 
     return dict_items

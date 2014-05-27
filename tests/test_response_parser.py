@@ -73,6 +73,55 @@ DIRECT_RESPONSE_XML = '''
 </createCustomerProfileTransactionResponse>
 '''
 
+TRANSACTION_LIST_RESPONSE_XML = '''
+<?xml version="1.0" ?>
+<getTransactionListResponse xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <messages>
+    <resultCode>Ok</resultCode>
+    <message>
+      <code>I00001</code>
+      <text>Successful.</text>
+    </message>
+  </messages>
+  <transactions>
+    <transaction>
+      <transId>2213859708</transId>
+      <submitTimeUTC>2014-05-25T08:40:21Z</submitTimeUTC>
+      <submitTimeLocal>2014-05-25T01:40:21</submitTimeLocal>
+      <transactionStatus>settledSuccessfully</transactionStatus>
+      <firstName>Robot</firstName>
+      <lastName>Ron</lastName>
+      <accountType>Visa</accountType>
+      <accountNumber>XXXX1111</accountNumber>
+      <settleAmount>231.00</settleAmount>
+      <marketType>eCommerce</marketType>
+      <product>Card Not Present</product>
+      <subscription>
+        <id>1652905</id>
+        <payNum>32</payNum>
+      </subscription>
+    </transaction>
+    <transaction>
+      <transId>2213858843</transId>
+      <submitTimeUTC>2014-05-25T08:39:15Z</submitTimeUTC>
+      <submitTimeLocal>2014-05-25T01:39:15</submitTimeLocal>
+      <transactionStatus>settledSuccessfully</transactionStatus>
+      <firstName>Robot</firstName>
+      <lastName>Ron</lastName>
+      <accountType>Visa</accountType>
+      <accountNumber>XXXX1111</accountNumber>
+      <settleAmount>4022.00</settleAmount>
+      <marketType>eCommerce</marketType>
+      <product>Card Not Present</product>
+      <subscription>
+        <id>1591888</id>
+        <payNum>37</payNum>
+      </subscription>
+    </transaction>
+  </transactions>
+</getTransactionListResponse>
+'''
+
 SINGLE_LIST_ITEM_RESPONSE = {
     'messages': [{
         'result_code': 'Ok',
@@ -126,6 +175,49 @@ TRANSACTION_RESPONSE = {
     }
 }
 
+TRANSACTION_LIST_RESPONSE = {
+    'messages': [{
+        'message': {
+            'text': 'Successful.', 
+            'code': 'I00001'
+        }, 
+        'result_code': 'Ok'
+    }], 
+    'transactions': [{
+        'first_name': 'Robot', 
+        'last_name': 'Ron', 
+        'account_type': 'Visa', 
+        'submit_time_local': '2014-05-25T01:40:21', 
+        'product': 'Card Not Present', 
+        'submit_time_utc': '2014-05-25T08:40:21Z', 
+        'account_number': 'XXXX1111', 
+        'market_type': 'eCommerce', 
+        'transaction_status': 'settledSuccessfully', 
+        'settle_amount': '231.00', 
+        'trans_id': '2213859708', 
+        'subscription': {
+            'pay_num': '32', 
+            'id': '1652905'
+        }
+    }, {
+        'first_name': 'Robot', 
+        'last_name': 'Ron', 
+        'account_type': 'Visa', 
+        'submit_time_local': '2014-05-25T01:39:15', 
+        'product': 'Card Not Present', 
+        'submit_time_utc': '2014-05-25T08:39:15Z', 
+        'account_number': 'XXXX1111', 
+        'market_type': 'eCommerce', 
+        'transaction_status': 'settledSuccessfully', 
+        'settle_amount': '4022.00', 
+        'trans_id': '2213858843', 
+        'subscription': {
+            'pay_num': '37', 
+            'id': '1591888'
+        }
+    }]
+}
+
 
 class ResponseParserTests(TestCase):
 
@@ -150,3 +242,8 @@ class ResponseParserTests(TestCase):
         response_element = E.fromstring(DIRECT_RESPONSE_XML.strip())
         response = parse_response(response_element)
         self.assertEquals(TRANSACTION_RESPONSE, response)
+
+    def test_parse_transaction_list(self):
+        response_element = E.fromstring(TRANSACTION_LIST_RESPONSE_XML.strip())
+        response = parse_response(response_element)
+        self.assertEquals(TRANSACTION_LIST_RESPONSE, response)
