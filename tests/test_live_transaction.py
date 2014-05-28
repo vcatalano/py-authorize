@@ -227,14 +227,12 @@ FULL_ACCOUNT_TRANSACTION = {
     'recurring': True,
 }
 
-BANK_ACCOUNT = {
-    'customer_type': 'individual',
-    'account_type': 'checking',
-    'routing_number': '322271627',
-    'account_number': '00987467838473',
-    'name_on_account': 'Rob Otron',
-    'bank_name': 'Evil Bank Co.',
-    'echeck_type': 'CCD',
+BANK_ACCOUN_TRANSACTION = {
+    'bank_account': {
+        'routing_number': '322271627',
+        'account_number': '00987467838473',
+        'name_on_account': 'Rob Otron',
+    }
 }
 
 CUSTOMER = {
@@ -318,6 +316,14 @@ class TransactionTests(TestCase):
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.sale(transaction)
         Transaction.details(result.transaction_response.trans_id)
+
+    def test_transaction_response_error_handling(self):
+        # Issue 21: Hanlde transaction response errors which are different 
+        # transaction errors. By running a bank account transaction over 
+        # $200, we can replicate this strange processing behavior.
+        transaction = BANK_ACCOUN_TRANSACTION.copy()
+        transaction['amount'] = random.randrange(2001, 100000) / 100.0
+        self.assertRaises(AuthorizeResponseError, Transaction.sale, transaction)
 
     def test_list_unsettled_transactions(self):
         Transaction.list()

@@ -66,11 +66,14 @@ class AuthorizeAPI(object):
             e = AuthorizeResponseError('%s: %s' % (error.code, error.text))
             e.full_response = result
             raise e
+
+        # Exception handling for transaction response errors.
         try:
             error = result.transaction_response.errors[0]
-            e = AuthorizeResponseError('Error code %s: %s' % (error.error_code, error.error_text))
+            e = AuthorizeResponseError('Response code %s: %s' % (error.error_code, error.error_text))
             e.full_response = result
             raise e
         except KeyError:
             pass
+
         return result
