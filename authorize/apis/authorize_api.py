@@ -55,17 +55,22 @@ class AuthorizeAPI(object):
             request = urllib2.Request(self.config.environment, E.tostring(call))
             request.add_header('Content-Type', 'text/xml')
             response = urllib2.urlopen(request).read()
-            print response
             response = E.fromstring(response)
             result = parse_response(response)
         except urllib2.HTTPError:
             return AuthorizeConnectionError('Error processing XML request.')
 
-        # Throw an exception for invalid calls. This makes error handling
-        # easier.
+        # Throw an exception for invalid calls. This makes error handling easier.
         if result.messages[0].result_code != 'Ok':
             error = result.messages[0].message
             e = AuthorizeResponseError('%s: %s' % (error.code, error.text))
             e.full_response = result
             raise e
+        try:
+            error = result.transaction_response.errors[0]
+            e = AuthorizeResponseError('Error code %s: %s' % (error.error_code, error.error_text))
+            e.full_response = result
+            raise e
+        except KeyError:
+            pass
         return result

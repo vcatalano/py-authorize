@@ -28,6 +28,7 @@ LIST_FIELDS = [
 # Array of complex schema types
 NESTED_LIST_FIELDS = [
     'ids',
+    'errors',
     'customerPaymentProfileIdList',
     'customerShippingAddressIdList',
     'transactions',
