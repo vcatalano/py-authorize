@@ -4,18 +4,98 @@ from authorize import Customer
 from authorize import Transaction
 from authorize import AuthorizeResponseError
 
-from datetime import date
+from datetime import date, timedelta
 
 from nose.plugins.attrib import attr
 
 from unittest import TestCase
 
-FULL_CARD_TRANSACTION = {
+FULL_CARD_NOT_PRESENT_TRANSACTION = {
     'credit_card': {
         'card_number': '4111111111111111',
         'card_code': '523',
         'expiration_month': '04',
         'expiration_year': date.today().year + 1,
+    },
+    'email': 'rob@robotronstudios.com',
+    'shipping': {
+        'first_name': 'Rob',
+        'last_name': 'Oteron',
+        'company': 'Robotron Studios',
+        'address': '101 Computer Street',
+        'city': 'Tucson',
+        'state': 'AZ',
+        'zip': '85704',
+        'country': 'US',
+    },
+    'billing': {
+        'first_name': 'Rob',
+        'last_name': 'Oteron',
+        'company': 'Robotron Studios',
+        'address': '101 Computer Street',
+        'city': 'Tucson',
+        'state': 'AZ',
+        'zip': '85704',
+        'country': 'US',
+        'phone_number': '520-123-4567',
+        'fax_number': '520-456-7890',
+    },
+    'tax': {
+        'amount': 45.00,
+        'name': 'Double Taxation Tax',
+        'description': 'Another tax for paying double tax',
+    },
+    'duty': {
+        'amount': 90.00,
+        'name': 'The amount for duty',
+        'description': 'I can''t believe you would pay for duty',
+    },
+    'line_items': [{
+        'item_id': 'CIR0001',
+        'name': 'Circuit Board',
+        'description': 'A brand new robot component',
+        'quantity': 5,
+        'unit_price': 99.99,
+        'taxable': 'true',
+    }, {
+        'item_id': 'CIR0002',
+        'name': 'Circuit Board 2.0',
+        'description': 'Another new robot component',
+        'quantity': 1,
+        'unit_price': 86.99,
+        'taxable': 'true',
+    }, {
+        'item_id': 'SCRDRVR',
+        'name': 'Screwdriver',
+        'description': 'A basic screwdriver',
+        'quantity': 1,
+        'unit_price': 10.00,
+        'taxable': 'true',
+    }],
+    'order': {
+        'invoice_number': 'INV0001',
+        'description': 'Just another invoice...',
+    },
+    'shipping_and_handling': {
+        'amount': 10.00,
+        'name': 'UPS 2-Day Shipping',
+        'description': 'Handle with care',
+    },
+    'extra_options': {
+        'customer_ip': '100.0.0.1',
+    },
+    'tax_exempt': False,
+    'recurring': True,
+}
+
+FULL_CARD_PRESENT_TRANSACTION = {
+    'track_data': {
+        'track_1': "%B4111111111111111^OTERON/ROB^{0:%y%m}101^?".format(date.today() + timedelta(days=365)),
+        'track_2': ";4111111111111111={0:%y%m}101?".format(date.today() + timedelta(days=365)),
+    },
+    'retail': {
+        'market_type': 2,
+        'device_type': 1,
     },
     'email': 'rob@robotronstudios.com',
     'shipping': {
@@ -251,7 +331,7 @@ class TransactionTests(TestCase):
 
     def test_live_cim_sale_transaction(self):
         result = Customer.create(CUSTOMER)
-        transaction = FULL_CARD_TRANSACTION.copy()
+        transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
         transaction['customer_id'] = result.customer_id
         transaction['payment_id'] = result.payment_ids[0]
 
@@ -263,9 +343,17 @@ class TransactionTests(TestCase):
         # Read transaction details
         Transaction.details(result.transaction_response.trans_id)
 
-    def test_live_aim_sale_transaction(self):
+    def test_live_card_not_present_aim_sale_transaction(self):
         # Create AIM sale transaction
-        transaction = FULL_CARD_TRANSACTION.copy()
+        transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+        result = Transaction.sale(transaction)
+        # Read transaction details
+        Transaction.details(result.transaction_response.trans_id)
+
+    def test_live_card_present_aim_sale_transaction(self):
+        # Create AIM sale transaction
+        transaction = FULL_CARD_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.sale(transaction)
         # Read transaction details
@@ -283,7 +371,7 @@ class TransactionTests(TestCase):
         self.assertEqual(result.transaction.order.order_number, 'PONUM00001')
 
     def test_auth_and_settle_transaction(self):
-        transaction = FULL_CARD_TRANSACTION.copy()
+        transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
         Transaction.settle(result.transaction_response.trans_id)
@@ -300,19 +388,19 @@ class TransactionTests(TestCase):
     def test_refund_transaction(self):
         # Refunds will only work with settled transactions. We don't have a
         # settled transaction and so will check the exception that's thrown
-        transaction = FULL_CARD_TRANSACTION.copy()
+        transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
         self.assertRaises(AuthorizeResponseError, Transaction.refund, REFUND_TRANSACTION)
 
     def test_void_transaction(self):
-        transaction = FULL_CARD_TRANSACTION.copy()
+        transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.sale(transaction)
         Transaction.void(result.transaction_response.trans_id)
 
     def test_transaction_details(self):
-        transaction = FULL_CARD_TRANSACTION.copy()
+        transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.sale(transaction)
         Transaction.details(result.transaction_response.trans_id)

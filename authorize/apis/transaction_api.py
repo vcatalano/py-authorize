@@ -112,6 +112,9 @@ class TransactionAPI(BaseAPI):
         payment = E.SubElement(xact_elem, 'payment')
         if 'credit_card' in xact:
             payment.append(create_card(xact['credit_card']))
+        elif 'track_data' in xact:
+            payment.append(format_tracks(xact['track_data']))
+        #    payment.append(set_retail(xact['retail']))
         else:
             payment.append(create_account(xact['bank_account']))
 
