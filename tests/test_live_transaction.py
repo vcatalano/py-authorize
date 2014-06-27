@@ -370,8 +370,14 @@ class TransactionTests(TestCase):
         result = Transaction.details(result.transaction_response.trans_id)
         self.assertEqual(result.transaction.order.order_number, 'PONUM00001')
 
-    def test_auth_and_settle_transaction(self):
+    def test_auth_and_settle_card_not_present_transaction(self):
         transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+        result = Transaction.auth(transaction)
+        Transaction.settle(result.transaction_response.trans_id)
+
+    def test_auth_and_settle_care_present_transaction(self):
+        transaction = FULL_CARD_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
         Transaction.settle(result.transaction_response.trans_id)

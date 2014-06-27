@@ -106,12 +106,12 @@ class TrackDataSchema(colander.MappingSchema):
 
     @staticmethod
     def validator(node, kw):
-        t1 = kw['track_1']
-        t2 = kw['track_2']
-        if t1 is None and t2 is None:
-            raise colander.Invalid(node, "You must provide at least one of the card's track data")
-        kw['track_1'] = str(t1).lstrip('%').rstrip('?')
-        kw['track_2'] = str(t2).lstrip(';').rstrip('?')
+        track1 = kw['track_1']
+        track2 = kw['track_2']
+        if track1 is None and track2 is None:
+            raise colander.Invalid(node, "You must provide at least one track")
+        kw['track_1'] = str(track1).lstrip('%').rstrip('?')
+        kw['track_2'] = str(track2).lstrip(';').rstrip('?')
 
 
 class RetailSchema(colander.MappingSchema):
@@ -311,8 +311,8 @@ class AIMTransactionSchema(TransactionBaseSchema):
                                    missing=colander.drop)
     track_data = TrackDataSchema(validator=TrackDataSchema.validator,
                                  missing=colander.drop)
-    #retail = RetailSchema(validator=RetailSchema.validator,
-    #                      missing=colander.drop)
+    retail = RetailSchema(validator=RetailSchema.validator,
+                          missing=colander.drop)
     bank_account = BankAccountSchema(validator=BankAccountSchema.validator,
                                      missing=colander.drop)
     billing = AddressSchema(missing=colander.drop)
@@ -388,5 +388,5 @@ class CreateRecurringSchema(UpdateRecurringSchema):
 
 def require_payment_method(node, kw):
     """Ensures that a payment method is specified for the current node,"""
-    if 'credit_card' not in kw and 'bank_account' not in kw:
-        raise colander.Invalid(node, 'You must provide either a credit card or bank account')
+    if 'credit_card' not in kw and 'track_data' not in kw and 'bank_account' not in kw:
+        raise colander.Invalid(node, 'You must provide either a credit card, some track data or a bank account')

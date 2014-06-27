@@ -133,7 +133,6 @@ def create_payment(params={}):
         payment.append(create_card(params))
     elif 'track_data' in params:
         payment.append(format_tracks(params))
-    #    payment.append(set_retail(params))
     else:
         payment.append(create_account(params))
     return payment

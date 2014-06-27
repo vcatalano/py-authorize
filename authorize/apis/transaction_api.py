@@ -114,7 +114,6 @@ class TransactionAPI(BaseAPI):
             payment.append(create_card(xact['credit_card']))
         elif 'track_data' in xact:
             payment.append(format_tracks(xact['track_data']))
-        #    payment.append(set_retail(xact['retail']))
         else:
             payment.append(create_account(xact['bank_account']))
 
@@ -149,6 +148,9 @@ class TransactionAPI(BaseAPI):
         if 'extra_options' in xact:
             if 'customer_ip' in xact['extra_options']:
                 E.SubElement(xact_elem, 'customerIP').text = xact['extra_options']['customer_ip']
+
+        if 'retail' in xact:
+            xact_elem.append(set_retail(xact['retail']))
 
         return request
 
