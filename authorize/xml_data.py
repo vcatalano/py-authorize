@@ -53,7 +53,7 @@ def format_tracks(params={}):
     tracks = E.Element('trackData')
     if 'track_1' in params:
         E.SubElement(tracks, 'track1').text = params['track_1']
-    else:
+    if 'track_2' in params:
         E.SubElement(tracks, 'track2').text = params['track_2']
     return tracks
 
