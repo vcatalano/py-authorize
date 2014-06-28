@@ -376,7 +376,7 @@ class TransactionTests(TestCase):
         result = Transaction.auth(transaction)
         Transaction.settle(result.transaction_response.trans_id)
 
-    def test_auth_and_settle_care_present_transaction(self):
+    def test_auth_and_settle_card_present_transaction(self):
         transaction = FULL_CARD_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)

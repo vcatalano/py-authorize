@@ -408,7 +408,6 @@ CARD_PRESENT_AIM_SALE_REQUEST = '''
     <payment>
       <trackData>
         <track1>B4111111111111111^OTERON/ROB^1401101</track1>
-        <track2>4111111111111111=1401101</track2>
       </trackData>
     </payment>
     <order>
