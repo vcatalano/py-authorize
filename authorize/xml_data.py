@@ -49,6 +49,22 @@ def create_card(params={}):
     return card
 
 
+def format_tracks(params={}):
+    tracks = E.Element('trackData')
+    if 'track_1' in params:
+        E.SubElement(tracks, 'track1').text = params['track_1']
+    elif 'track_2' in params:
+        E.SubElement(tracks, 'track2').text = params['track_2']
+    return tracks
+
+
+def set_retail(params={}):
+    retail = E.Element('retail')
+    E.SubElement(retail, 'marketType').text = str(params['market_type'])
+    E.SubElement(retail, 'deviceType').text = str(params['device_type'])
+    return retail
+
+
 def create_account(params={}):
     account = E.Element('bankAccount')
     if 'account_type' in params:
@@ -115,6 +131,8 @@ def create_payment(params={}):
     # credit card. Otherwise, it's a bank account.
     if 'card_number' in params:
         payment.append(create_card(params))
+    elif 'track_data' in params:
+        payment.append(format_tracks(params))
     else:
         payment.append(create_account(params))
     return payment

@@ -94,6 +94,45 @@ class CreditCardSchema(colander.MappingSchema):
         kw['expiration_month'] = str(exp_month).zfill(2)
 
 
+class TrackDataSchema(colander.MappingSchema):
+    track_1 = colander.SchemaNode(colander.String(),
+                                  validator=colander.Regex(
+                                  r'^%?B\d{1,19}\^[A-Z /]{2,26}\^(\d|\^){4}(\d|\^){3}.*\??$', 'Track 1 does not match IATA format'),
+                                  missing=colander.drop,
+                                  requird=None)
+    track_2 = colander.SchemaNode(colander.String(),
+                                  validator=colander.Regex(
+                                  r'^;?\d{1,19}=(\d|=){4}(\d|=){3}.*\??$', 'Track 2 does not match ABA format'),
+                                  missing=colander.drop,
+                                  requird=None)
+
+    @staticmethod
+    def validator(node, kw):
+        track1 = kw.get('track_1', None)
+        track2 = kw.get('track_2', None)
+        if track1 is None and track2 is None:
+            raise colander.Invalid(node, "You must provide at least one track")
+        if track1:
+            kw['track_1'] = str(track1).lstrip('%').rstrip('?')
+        if track2:
+            kw['track_2'] = str(track2).lstrip(';').rstrip('?')
+
+
+class RetailSchema(colander.MappingSchema):
+    market_type = colander.SchemaNode(colander.Integer(),
+                                      validator=colander.Range(1, 9),
+                                      required=True)
+    device_type = colander.SchemaNode(colander.Integer(),
+                                      validator=colander.Range(1, 9),
+                                      required=True)
+
+    @staticmethod
+    def validator(node, kw):
+        kw['market_type'] = kw.get('market_type', 2)
+        kw['device_type'] = kw.get('device_type', 7)
+
+
+
 class BankAccountSchema(colander.MappingSchema):
     account_type = colander.SchemaNode(colander.String(),
                                        validator=colander.OneOf(['checking', 'savings', 'businessChecking']),
@@ -274,6 +313,10 @@ class AIMTransactionSchema(TransactionBaseSchema):
                                 missing=colander.drop)
     credit_card = CreditCardSchema(validator=CreditCardSchema.validator,
                                    missing=colander.drop)
+    track_data = TrackDataSchema(validator=TrackDataSchema.validator,
+                                 missing=colander.drop)
+    retail = RetailSchema(validator=RetailSchema.validator,
+                          missing=colander.drop)
     bank_account = BankAccountSchema(validator=BankAccountSchema.validator,
                                      missing=colander.drop)
     billing = AddressSchema(missing=colander.drop)
@@ -349,5 +392,5 @@ class CreateRecurringSchema(UpdateRecurringSchema):
 
 def require_payment_method(node, kw):
     """Ensures that a payment method is specified for the current node,"""
-    if 'credit_card' not in kw and 'bank_account' not in kw:
-        raise colander.Invalid(node, 'You must provide either a credit card or bank account')
+    if 'credit_card' not in kw and 'track_data' not in kw and 'bank_account' not in kw:
+        raise colander.Invalid(node, 'You must provide either a credit card, some track data or a bank account')

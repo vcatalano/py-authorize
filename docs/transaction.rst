@@ -117,12 +117,38 @@ Full Example
         'extra_options': {
             'customer_ip': '100.0.0.1',
         },
+        'retail': {
+            'market_type':0,
+            'device_type':7,
+        },
         'tax_exempt': False,
         'recurring': True,
     })
 
     result.transaction_response.trans_id
     # e.g. '2194343353'
+
+
+Card Present Example
+~~~~~~~~~~~~~~~~~~~~
+
+If doing a card present transaction, track data can be passed in instead of a parsed credit card.
+
+.. note::
+
+    It may still be useful to parse the track data in application logic to verify expiration date or card issuer.
+
+.. code-block:: python
+
+    result = authorize.Transaction.sale({
+        'amount': 40.00,
+        'track_data': {
+            'track_1': '%B4111111111111111^OTERON/ROB^14041010300523300000000000000000000000000000000?',
+        }
+    })
+
+    result.transaction_response.trans_id
+    # e.g. '2194343352'
 
 
 Minimal Bank Account Transaction
