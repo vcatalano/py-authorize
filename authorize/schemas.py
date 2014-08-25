@@ -283,6 +283,7 @@ class TransactionBaseSchema(colander.MappingSchema):
     split_tender_id = colander.SchemaNode(colander.String(),
                                           missing=colander.drop)
     tax_exempt = colander.SchemaNode(colander.Boolean(), missing=colander.drop)
+    extra_options = ExtraOptions(missing=colander.drop)
 
 
 class CIMBaseSchema(colander.MappingSchema):
@@ -304,7 +305,6 @@ class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
                                     validator=colander.Regex(
                                     r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
-    extra_options = ExtraOptions(missing=colander.drop)
 
 
 class AIMTransactionSchema(TransactionBaseSchema):
