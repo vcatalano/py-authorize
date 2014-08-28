@@ -58,7 +58,7 @@ class AuthorizeAPI(object):
             response = E.fromstring(response)
             result = parse_response(response)
         except urllib2.HTTPError:
-            return AuthorizeConnectionError('Error processing XML request.')
+            raise AuthorizeConnectionError('Error processing XML request.')
 
         # Throw an exception for invalid calls. This makes error handling easier.
         if result.messages[0].result_code != 'Ok':
