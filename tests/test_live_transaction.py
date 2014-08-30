@@ -374,13 +374,37 @@ class TransactionTests(TestCase):
         transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
-        Transaction.settle(result.transaction_response.trans_id)
+        settle_transaction = {
+            'amount': transaction['amount'] - 0.9,
+            'transaction_id': result.transaction_response.trans_id,
+        }
+        Transaction.settle(settle_transaction)
+
+        transaction_details = Transaction.details(result.transaction_response.trans_id)
+        self.assertEqual(
+            transaction_details.transaction.auth_amount, "%.2f" % transaction['amount']
+        )
+        self.assertEqual(
+            transaction_details.transaction.settle_amount, "%.2f" % settle_transaction['amount']
+        )
 
     def test_auth_and_settle_card_present_transaction(self):
         transaction = FULL_CARD_PRESENT_TRANSACTION.copy()
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.auth(transaction)
-        Transaction.settle(result.transaction_response.trans_id)
+        settle_transaction = {
+            'amount': transaction['amount'] - 0.9,
+            'transaction_id': result.transaction_response.trans_id,
+        }
+        Transaction.settle(settle_transaction)
+
+        transaction_details = Transaction.details(result.transaction_response.trans_id)
+        self.assertEqual(
+            transaction_details.transaction.auth_amount, "%.2f" % transaction['amount']
+        )
+        self.assertEqual(
+            transaction_details.transaction.settle_amount, "%.2f" % settle_transaction['amount']
+        )
 
     def test_credit(self):
         result = Customer.create(CUSTOMER)

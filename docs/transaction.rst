@@ -404,8 +404,12 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.settle('89798235')
+    result = authorize.Transaction.settle({
+        'amount': 40.00,
+        'transaction_id': '89798235'
+    })
 
+The amount is not required if you want to settle the authorized amount.
 
 Refund
 ------

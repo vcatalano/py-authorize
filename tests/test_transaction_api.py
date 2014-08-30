@@ -501,6 +501,7 @@ SETTLE_REQUEST = '''
   </merchantAuthentication>
   <transactionRequest>
     <transactionType>priorAuthCaptureTransaction</transactionType>
+    <amount>20.00</amount>
     <refTransId>87912412523</refTransId>
   </transactionRequest>
 </createTransactionRequest>
@@ -604,8 +605,10 @@ class TransactionAPITests(TestCase):
             .replace('AuthCapture', 'AuthOnly'))
 
     def test_settle_request(self):
-        request_xml = Configuration.api.transaction._settle_request(
-            '87912412523')
+        request_xml = Configuration.api.transaction._settle_request({
+            'amount': 20.00,
+            'transaction_id': '87912412523'
+        })
         request_string = prettify(request_xml)
         self.assertEqual(request_string, SETTLE_REQUEST.strip())
 

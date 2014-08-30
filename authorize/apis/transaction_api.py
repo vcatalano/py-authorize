@@ -31,8 +31,8 @@ class TransactionAPI(BaseAPI):
             xact = self._deserialize(AIMTransactionSchema(), params)
             return self.api._make_call(self._aim_base_request('authOnlyTransaction', xact))
 
-    def settle(self, transaction_id):
-        return self.api._make_call(self._settle_request(transaction_id))
+    def settle(self, params={}):
+        return self.api._make_call(self._settle_request(params))
 
     def credit(self, params={}):
         xact = self._deserialize(CreditTransactionSchema(), params)
@@ -154,11 +154,15 @@ class TransactionAPI(BaseAPI):
 
         return request
 
-    def _settle_request(self, transaction_id):
+    def _settle_request(self, xact):
         request = self.api._base_request('createTransactionRequest')
         xact_elem = E.SubElement(request, 'transactionRequest')
         E.SubElement(xact_elem, 'transactionType').text = 'priorAuthCaptureTransaction'
-        E.SubElement(xact_elem, 'refTransId').text = transaction_id
+
+        if 'amount' in xact:
+            E.SubElement(xact_elem, 'amount').text = quantize(xact['amount'])
+
+        E.SubElement(xact_elem, 'refTransId').text = xact['transaction_id']
         return request
 
     def _refund_request(self, xact):
