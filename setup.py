@@ -12,7 +12,7 @@ setup(
     long_description=__doc__,
     license='MIT',
     install_requires=[
-        'colander',
+        'colander>=1.0b1',
     ],
     packages=[
         'authorize',
