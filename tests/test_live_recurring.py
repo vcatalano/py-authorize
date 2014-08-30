@@ -18,7 +18,7 @@ BASIC_RECURRING = {
     },
 }
 
-CREATE_RECURRING = {
+FULL_RECURRING = {
     'name': 'Ultimate Robot Supreme Plan',
     'total_occurrences': 30,
     'interval_length': 2,
@@ -61,12 +61,10 @@ CREATE_RECURRING = {
     },
 }
 
-
 # When updating a subscription the only parameters we cannot update are the
 # interval unit and interval length
 UPDATE_RECURRING = {
     'name': 'Ultimate Robot Supreme Plan',
-    'amount': 45.00,
     'total_occurrences': 30,
     'trial_amount': 30.00,
     'trial_occurrences': 2,
@@ -106,6 +104,14 @@ UPDATE_RECURRING = {
     },
 }
 
+UPDATE_RECURRING_PAYMENT_ONLY = {
+    'credit_card': {
+        'card_number': '4111111111111111',
+        'expiration_date': '04/{0}'.format(date.today().year + 1),
+        'card_code': '456',
+    },
+}
+
 
 @attr('live_tests')
 class RecurringTests(TestCase):
@@ -113,7 +119,7 @@ class RecurringTests(TestCase):
     def test_live_recurring(self):
         # Create a new recurring subscription. The amount needs to be random,
         # otherwise the subscription will register as a duplicate
-        recurring = CREATE_RECURRING.copy()
+        recurring = FULL_RECURRING.copy()
         recurring['amount'] = random.randrange(100, 100000) / 100.0
         Recurring.create(recurring)
 
@@ -124,12 +130,24 @@ class RecurringTests(TestCase):
         recurring = BASIC_RECURRING.copy()
         recurring['amount'] = random.randrange(100, 100000) / 100.0
         result = Recurring.create(recurring)
+        subscription_id = result.subscription_id
 
         # Read subscription status
-        Recurring.details(result.subscription_id)
+        Recurring.details(subscription_id)
 
         # Update subscription information
-        Recurring.update(result.subscription_id, UPDATE_RECURRING)
+        recurring = UPDATE_RECURRING.copy()
+        recurring['amount'] = random.randrange(100, 100000) / 100.0
+        Recurring.update(subscription_id, recurring)
+
+        # Update only credit card information
+        Recurring.update(subscription_id, UPDATE_RECURRING_PAYMENT_ONLY)
 
         # Cancel (delete) the subscription
-        Recurring.delete(result.subscription_id)
+        Recurring.delete(subscription_id)
+
+        # Issue 26: Make sure we don't update the start date for 
+        # subscriptions with at least one transaction
+        recurring = BASIC_RECURRING.copy()
+        recurring['amount'] = random.randrange(100, 100000) / 100.0
+        result = Recurring.update('1666555', recurring)

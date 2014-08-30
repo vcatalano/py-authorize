@@ -94,6 +94,15 @@ UPDATE_RECURRING = {
     },
 }
 
+UPDATE_RECURRING_PAYMENT_ONLY = {
+    'credit_card': {
+        'card_number': '4111111111111111',
+        'expiration_month': '04',
+        'expiration_year': '2014',
+        'card_code': '456',
+    },
+}
+
 CREATE_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBCreateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
@@ -220,6 +229,27 @@ UPDATE_RECURRING_REQUEST = '''
 </ARBUpdateSubscriptionRequest>
 '''.format(date.today().isoformat())
 
+UPDATE_RECURRING_PAYMENT_ONLY_REQUEST = '''
+<?xml version="1.0" ?>
+<ARBUpdateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <subscriptionId>0932576929034</subscriptionId>
+  <subscription>
+    <paymentSchedule/>
+    <payment>
+      <creditCard>
+        <cardNumber>4111111111111111</cardNumber>
+        <expirationDate>2014-04</expirationDate>
+        <cardCode>456</cardCode>
+      </creditCard>
+    </payment>
+  </subscription>
+</ARBUpdateSubscriptionRequest>
+'''
+
 DELETE_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBCancelSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
@@ -250,6 +280,10 @@ class RecurringAPITests(TestCase):
         request_xml = Configuration.api.recurring._update_request('0932576929034', UPDATE_RECURRING)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, UPDATE_RECURRING_REQUEST.strip())
+
+        request_xml = Configuration.api.recurring._update_request('0932576929034', UPDATE_RECURRING_PAYMENT_ONLY)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, UPDATE_RECURRING_PAYMENT_ONLY_REQUEST.strip())
 
     def test_delete_recurring_request(self):
         request_xml = Configuration.api.recurring._delete_request('0932576929034')

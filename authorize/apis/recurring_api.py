@@ -58,13 +58,17 @@ class RecurringAPI(BaseAPI):
             E.SubElement(interval, 'length').text = str(params['interval_length'])
             E.SubElement(interval, 'unit').text = params['interval_unit']
 
-        E.SubElement(schedule, 'startDate').text = str(params['start_date'])
-        E.SubElement(schedule, 'totalOccurrences').text = str(params['total_occurrences'])
+        if 'start_date' in params:
+            E.SubElement(schedule, 'startDate').text = str(params['start_date'])
+
+        if 'total_occurrences' in params:
+            E.SubElement(schedule, 'totalOccurrences').text = str(params['total_occurrences'])
 
         if 'trial_occurrences' in params:
             E.SubElement(schedule, 'trialOccurrences').text = str(params['trial_occurrences'])
 
-        E.SubElement(subscription, 'amount').text = quantize(params['amount'])
+        if 'amount' in params:
+            E.SubElement(subscription, 'amount').text = quantize(params['amount'])
 
         if 'trial_amount' in params:
             E.SubElement(subscription, 'trialAmount').text = quantize(params['trial_amount'])
@@ -86,15 +90,17 @@ class RecurringAPI(BaseAPI):
 
         # A very obscure bug exists that will throw an error if no last name
         # or first name is provided for billing.
-        # http://community.developer.authorize.net/t5/Integration-and-Testing/ARB-billTo-lastName-if-there-is-no-last-name/td-p/9908
-        arb_required_fields = {
-            'billing': {
-                'first_name': '<empty>',
-                'last_name': '<empty>'
+        # Issue 26: Don't set these billing fields if there is already a 
+        # subscription.
+        if subscription_id is None:
+            arb_required_fields = {
+                'billing': {
+                    'first_name': '<empty>',
+                    'last_name': '<empty>'
+                }
             }
-        }
-        arb_required_fields.update(params)
-        params = arb_required_fields
+            arb_required_fields.update(params)
+            params = arb_required_fields
 
         if 'billing' in params:
             subscription.append(create_address('billTo', params['billing']))

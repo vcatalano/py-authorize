@@ -353,17 +353,14 @@ class UpdateRecurringSchema(colander.MappingSchema):
     name = colander.SchemaNode(colander.String(),
                                validator=colander.Length(max=60),
                                missing=colander.drop)
-    amount = colander.SchemaNode(colander.Decimal('0.01'),
-                                 validator=colander.Range(0, 20000),
-                                 required=True)
     start_date = colander.SchemaNode(colander.Date(),
-                                     missing=today)
+                                     missing=colander.drop)
     trial_amount = colander.SchemaNode(colander.Decimal('0.01'),
                                        validator=colander.Range(0, 20000),
                                        missing=colander.drop)
     total_occurrences = colander.SchemaNode(colander.Integer(),
                                             validator=colander.Range(1, 9999),
-                                            missing=9999)
+                                            missing=colander.drop)
     trial_occurrences = colander.SchemaNode(colander.Integer(),
                                             validator=colander.Range(1, 99),
                                             missing=colander.drop)
@@ -385,6 +382,14 @@ class CreateRecurringSchema(UpdateRecurringSchema):
     interval_unit = colander.SchemaNode(colander.String(),
                                         validator=colander.OneOf(['days', 'months']),
                                         required=True)
+    start_date = colander.SchemaNode(colander.Date(),
+                                     missing=today)
+    total_occurrences = colander.SchemaNode(colander.Integer(),
+                                            validator=colander.Range(1, 9999),
+                                            missing=9999)
+    amount = colander.SchemaNode(colander.Decimal('0.01'),
+                                 validator=colander.Range(0, 20000),
+                                 required=True)
 
 
 """Additional validation functions"""
