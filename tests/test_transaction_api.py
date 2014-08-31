@@ -501,6 +501,20 @@ SETTLE_REQUEST = '''
   </merchantAuthentication>
   <transactionRequest>
     <transactionType>priorAuthCaptureTransaction</transactionType>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+SETTLE_REQUEST_WITH_AMOUNT = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>priorAuthCaptureTransaction</transactionType>
     <amount>20.00</amount>
     <refTransId>87912412523</refTransId>
   </transactionRequest>
@@ -605,12 +619,14 @@ class TransactionAPITests(TestCase):
             .replace('AuthCapture', 'AuthOnly'))
 
     def test_settle_request(self):
-        request_xml = Configuration.api.transaction._settle_request({
-            'amount': 20.00,
-            'transaction_id': '87912412523'
-        })
+        request_xml = Configuration.api.transaction._settle_request('87912412523', None)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, SETTLE_REQUEST.strip())
+
+    def test_settle_request_with_amount(self):
+        request_xml = Configuration.api.transaction._settle_request('87912412523', 20.00)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, SETTLE_REQUEST_WITH_AMOUNT.strip())
 
     def test_refund_request(self):
         request_xml = Configuration.api.transaction._refund_request(
@@ -636,7 +652,6 @@ class TransactionAPITests(TestCase):
         self.assertEqual(request_string, UNSETTLED_LIST_REQUEST.strip())
 
     def test_settled_list_request(self):
-        request_xml = Configuration.api.transaction._settled_list_request(
-            '89429992353')
+        request_xml = Configuration.api.transaction._settled_list_request('89429992353')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, SETTLED_LIST_REQUEST.strip())

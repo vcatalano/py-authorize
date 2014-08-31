@@ -395,7 +395,7 @@ Settling
 --------
 
 In order to finalize a previously authorized transaction, you must call the
-``settle`` method on the transaction ID. When settling a transaction, the 
+``settle`` method with the transaction ID. When settling a transaction, the 
 amount for the transaction can be changed as long as it is less than the
 original authorized amount.
 
@@ -404,12 +404,14 @@ Example
 
 .. code-block:: python
 
-    result = authorize.Transaction.settle({
-        'amount': 40.00,
-        'transaction_id': '89798235'
-    })
+    result = authorize.Transaction.settle('89798235')
 
-The amount is not required if you want to settle the authorized amount.
+The amount is not required if you want to settle the authorized amount. To
+settle a different amount, pass the amout as the second parameter.
+
+.. code-block:: python
+
+    result = authorize.Transaction.settle('89798235', 20.00)
 
 Refund
 ------

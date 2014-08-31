@@ -12,8 +12,8 @@ class Transaction(object):
         return Configuration.api.transaction.auth(params)
 
     @staticmethod
-    def settle(params={}):
-        return Configuration.api.transaction.settle(params)
+    def settle(transaction_id, amount=None):
+        return Configuration.api.transaction.settle(transaction_id, amount)
 
     @staticmethod
     def credit(params={}):
