@@ -14,6 +14,12 @@ CREDIT_CARD = {
     'card_code': '456',
 }
 
+MASKED_CREDIT_CARD = {
+    'card_number': 'XXXX1111',
+    'expiration_date': '05/{0}'.format(date.today().year+2),
+    'card_code': '789'
+}
+
 FULL_CREDIT_CARD = {
     'card_number': '4111111111111111',
     'expiration_date': '04/{0}'.format(date.today().year + 1),
@@ -62,6 +68,9 @@ class CreditCardTests(TestCase):
 
         # Update credit card
         CreditCard.update(customer_id, payment_id, CREDIT_CARD)
+
+        # Update with masked number
+        CreditCard.update(customer_id, payment_id, MASKED_CREDIT_CARD)
 
         # Delete tests
         CreditCard.delete(customer_id, payment_id)
