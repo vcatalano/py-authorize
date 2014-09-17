@@ -1,18 +1,23 @@
 import colander
-import re
 
 from datetime import date
 from uuid import uuid4
 
 
 @colander.deferred
-def mechant_id(node, kw):
+def merchant_id(node, kw):
     return uuid4().hex[:20]
 
 
 @colander.deferred
 def today(node, kw):
     return date.today().isoformat()
+
+
+def card_number(node, value):
+    if value.startswith('XXXX'):
+        return
+    colander.luhnok(node, value)
 
 
 class AddressSchema(colander.MappingSchema):
@@ -50,8 +55,8 @@ class AddressSchema(colander.MappingSchema):
 
 class CreditCardSchema(colander.MappingSchema):
     card_number = colander.SchemaNode(colander.String(),
-                                      validator=colander.luhnok,
-                                      requird=True)
+                                      validator=card_number,
+                                      required=True)
     expiration_month = colander.SchemaNode(colander.Integer(),
                                            validator=colander.Range(1, 12),
                                            missing=None)
@@ -99,12 +104,12 @@ class TrackDataSchema(colander.MappingSchema):
                                   validator=colander.Regex(
                                   r'^%?B\d{1,19}\^[A-Z /]{2,26}\^(\d|\^){4}(\d|\^){3}.*\??$', 'Track 1 does not match IATA format'),
                                   missing=colander.drop,
-                                  requird=None)
+                                  required=None)
     track_2 = colander.SchemaNode(colander.String(),
                                   validator=colander.Regex(
                                   r'^;?\d{1,19}=(\d|=){4}(\d|=){3}.*\??$', 'Track 2 does not match ABA format'),
                                   missing=colander.drop,
-                                  requird=None)
+                                  required=None)
 
     @staticmethod
     def validator(node, kw):
@@ -186,7 +191,7 @@ class CreateBankAccountSchema(BankAccountSchema, CustomerTypeSchema):
 class CustomerBaseSchema(colander.MappingSchema):
     merchant_id = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=20),
-                                      missing=mechant_id)
+                                      missing=merchant_id)
     description = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=255),
                                       missing=colander.drop)
