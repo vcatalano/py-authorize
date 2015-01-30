@@ -6,8 +6,8 @@ from authorize.xml_data import prettify
 from unittest import TestCase
 
 LIST_BATCH_DATES = {
-    'start': datetime.datetime(2012, 5, 1), #'2012-05-01T00:00:00'
-    'end': datetime.datetime(2012, 5, 31), #'2012-05-31T00:00:00'
+    'start': datetime.datetime(datetime.date.today().year - 1, 5, 1), #'2012-05-01T00:00:00'
+    'end': datetime.datetime(datetime.date.today().year - 1, 5, 31), #'2012-05-31T00:00:00'
 }
 
 BATCH_DETAILS_REQUEST = '''
@@ -29,10 +29,13 @@ LIST_BATCH_REQUEST = '''
     <transactionKey>5GK7mncw8mG2946z</transactionKey>
   </merchantAuthentication>
   <includeStatistics>true</includeStatistics>
-  <firstSettlementDate>2012-05-01T00:00:00</firstSettlementDate>
-  <lastSettlementDate>2012-05-31T00:00:00</lastSettlementDate>
+  <firstSettlementDate>{}</firstSettlementDate>
+  <lastSettlementDate>{}</lastSettlementDate>
 </getSettledBatchListRequest>
-'''
+'''.format(
+    LIST_BATCH_DATES['start'].strftime("%Y-%m-%dT%X"),
+    LIST_BATCH_DATES['end'].strftime("%Y-%m-%dT%X")
+)
 
 
 class BatchAPITests(TestCase):
