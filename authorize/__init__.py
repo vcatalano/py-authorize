@@ -17,9 +17,9 @@ from authorize.transaction import Transaction
 
 # Monkeypatch the ElementTree module so that we can use CDATA element types
 E._original_serialize_xml = E._serialize_xml
-def _serialize_xml(write, elem, *args):
+def _serialize_xml(write, elem, *args, **kwargs):
     if elem.tag == '![CDATA[':
         write('<![CDATA[%s]]>' % elem.text)
         return
-    return E._original_serialize_xml(write, elem, *args)
+    return E._original_serialize_xml(write, elem, *args, **kwargs)
 E._serialize_xml = E._serialize['xml'] = _serialize_xml
