@@ -1,3 +1,5 @@
+import datetime
+
 from authorize import Batch
 from authorize import AuthorizeResponseError
 
@@ -6,12 +8,12 @@ from nose.plugins.attrib import attr
 from unittest import TestCase
 
 LIST_BATCH_DATES = {
-    'start': '2012-05-01',
-    'end': '2012-05-31',
+    'start': datetime.datetime(datetime.date.today().year - 1, 5, 1).strftime("%Y-%m-%d"), #'2012-05-01'
+    'end': datetime.datetime(datetime.date.today().year - 1, 5, 31).strftime("%Y-%m-%d"), #'2012-05-31'
 }
 
 LIST_BATCH_DATES_START_ONLY = {
-    'start': '2012-01-01',
+    'start': datetime.datetime(datetime.date.today().year - 1, 1, 1).strftime("%Y-%m-%d"), #'2012-01-01'
 }
 
 
