@@ -163,6 +163,12 @@ class CreateCreditCardSchema(CreditCardSchema, CustomerTypeSchema):
     billing = AddressSchema(missing=colander.drop)
 
 
+class UpdateCreditCardSchema(CreateCreditCardSchema):
+    card_number = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(min=4),
+                                      required=True)
+
+
 class ValidateCreditCardSchema(colander.MappingSchema):
     address_id = colander.SchemaNode(colander.String(),
                                      validator=colander.Length(max=60),

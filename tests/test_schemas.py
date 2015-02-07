@@ -50,6 +50,13 @@ CREDIT_CARD_EXP_DATE = {
     'expiration_date': '04/{0}'.format(date.today().year + 1),
 }
 
+UPDATE_CREDIT_CARD_EXP_MONTH_AND_YEAR = {
+    'card_number': '4111111111111111',
+    'card_code': '456',
+    'expiration_month': '04',
+    'expiration_year': str(date.today().year + 1)
+}
+
 INVALID_CREDIT_CARD_NUMBER = {
     'card_number': 'Bad card number',
     'card_code': '456',

@@ -32,6 +32,30 @@ FULL_CREDIT_CARD = {
     },
 }
 
+UPDATE_CREDIT_CARD = {
+    'card_number': '5555555555554444',
+    'expiration_date': '04/{0}'.format(date.today().year + 1),
+    'card_code': '567',
+}
+
+UPDATE_CREDIT_CARD_WITH_MASK = {
+    'card_number': 'XXXX4444',
+    'expiration_date': '04/{0}'.format(date.today().year + 1),
+    'card_code': '567',
+}
+
+UPDATE_CREDIT_CARD_WITHOUT_MASK = {
+    'card_number': '4444',
+    'expiration_date': '04/{0}'.format(date.today().year + 1),
+    'card_code': '567',
+}
+
+UPDATE_CREDIT_CARD_INVALID_MASK = {
+    'card_number': '1111',
+    'expiration_date': '04/{0}'.format(date.today().year + 1),
+    'card_code': '567',
+}
+
 PAYMENT_RESULT = {
     'credit_card': {
         'card_number': 'XXXX1111',
@@ -61,7 +85,12 @@ class CreditCardTests(TestCase):
         self.assertEquals(PAYMENT_RESULT, result.payment_profile.payment)
 
         # Update credit card
-        CreditCard.update(customer_id, payment_id, CREDIT_CARD)
+        CreditCard.update(customer_id, payment_id, UPDATE_CREDIT_CARD)
+        CreditCard.update(customer_id, payment_id, UPDATE_CREDIT_CARD_WITH_MASK)
+        CreditCard.update(customer_id, payment_id, UPDATE_CREDIT_CARD_WITHOUT_MASK)
+
+        # Invalid masked number
+        self.assertRaises(AuthorizeResponseError, CreditCard.update, customer_id, payment_id, UPDATE_CREDIT_CARD_INVALID_MASK)
 
         # Delete tests
         CreditCard.delete(customer_id, payment_id)
