@@ -80,6 +80,9 @@ class TransactionAPI(BaseAPI):
         # CIM information
         E.SubElement(xact_type, 'customerProfileId').text = xact['customer_id']
         E.SubElement(xact_type, 'customerPaymentProfileId').text = xact['payment_id']
+        
+        if 'card_code' in xact:
+            E.SubElement(xact_type, 'cardCode').text = xact['card_code']
 
         if 'address_id' in xact:
             E.SubElement(xact_type, 'customerShippingAddressId').text = xact['address_id']
@@ -99,7 +102,6 @@ class TransactionAPI(BaseAPI):
                 extra_options['x_customer_ip'] = xact['extra_options']['customer_ip']
             options = E.SubElement(request, 'extraOptions')
             E.SubElement(options, '![CDATA[').text = urllib.urlencode(extra_options)
-
         return request
 
     def _aim_base_request(self, xact_type, xact={}):
