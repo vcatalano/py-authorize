@@ -20,7 +20,7 @@ class RecurringAPI(BaseAPI):
         return self.api._make_call(self._update_request(subscription_id, subscription))
 
     def delete(self, subscription_id):
-        self.api._make_call(self._delete_request(subscription_id))
+        return self.api._make_call(self._delete_request(subscription_id))
 
     # The following methods generate the XML for the corresponding API calls.
     # This makes unit testing each of the calls easier.
