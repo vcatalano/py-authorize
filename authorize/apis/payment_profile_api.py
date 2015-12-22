@@ -14,7 +14,7 @@ class PaymentProfileAPI(BaseAPI):
 
     # The following methods generate the XML for the corresponding API calls.
     # This makes unit testing each of the calls easier.
-    def _details_request(self, customer_id, payment_id, unmask_expiry):
+    def _details_request(self, customer_id, payment_id, unmask_expiry=False):
         request = self.api._base_request('getCustomerPaymentProfileRequest')
         E.SubElement(request, 'customerProfileId').text = customer_id
         E.SubElement(request, 'customerPaymentProfileId').text = payment_id
