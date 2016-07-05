@@ -29,8 +29,8 @@ class RecurringAPI(BaseAPI):
         Required Parameters:
           * searchType (str)
           - cardExpiringThisMonth
-          - subscriptionActive 
-          - subscriptionInactive 
+          - subscriptionActive
+          - subscriptionInactive
           - subscriptionExpiringThisMonth
 
         Optional Parameters:

@@ -416,8 +416,8 @@ class PagingSchema(colander.MappingSchema):
 
 class ListRecurringSchema(colander.MappingSchema):
     searchType = colander.SchemaNode(colander.String(),
-                                      validator=colander.OneOf(['cardExpiringThisMonth', 'subscriptionActive', 'subscriptionInactive', 'subscriptionExpiringThisMonth']),
-                                      required=True)
+                                     validator=colander.OneOf(['cardExpiringThisMonth', 'subscriptionActive', 'subscriptionInactive', 'subscriptionExpiringThisMonth']),
+                                     required=True)
     sorting = SortingSchema(missing=colander.drop)
     paging = PagingSchema(missing=colander.drop)
 
