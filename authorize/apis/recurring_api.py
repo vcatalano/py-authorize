@@ -1,8 +1,10 @@
 import xml.etree.cElementTree as E
+from collections import OrderedDict
 
 from authorize.apis.base_api import BaseAPI
 from authorize.schemas import CreateRecurringSchema
 from authorize.schemas import UpdateRecurringSchema
+from authorize.schemas import ListRecurringSchema
 from authorize.xml_data import *
 
 
@@ -22,6 +24,43 @@ class RecurringAPI(BaseAPI):
     def delete(self, subscription_id):
         return self.api._make_call(self._delete_request(subscription_id))
 
+    def list(self, params):
+        """
+        Required Parameters:
+          * searchType (str)
+          - cardExpiringThisMonth
+          - subscriptionActive
+          - subscriptionInactive
+          - subscriptionExpiringThisMonth
+
+        Optional Parameters:
+          * sorting
+            * orderBy (string)
+            - id
+            - name
+            - status
+            - createTimeStampUTC
+            - lastName
+            - firstName
+            - accountNumber (ordered by last 4 digits only)
+            - amount
+            - pastOccurences
+          * orderDescending (bool)
+          * paging
+            * limit (int) (1-1000)
+            * offset (int) (1-100000)
+        """
+        params = self._deserialize(ListRecurringSchema().bind(), params)
+
+        order = ['searchType', 'sorting', 'paging']
+        orderedParams = OrderedDict()
+
+        for param in order:
+            if param in params.keys():
+                orderedParams.update({param: params.get(param)})
+
+        return self.api._make_call(self._list_request(orderedParams))
+
     # The following methods generate the XML for the corresponding API calls.
     # This makes unit testing each of the calls easier.
     def _create_request(self, subscription={}):
@@ -38,6 +77,19 @@ class RecurringAPI(BaseAPI):
     def _delete_request(self, subscription_id):
         request = self.api._base_request('ARBCancelSubscriptionRequest')
         E.SubElement(request, 'subscriptionId').text = subscription_id
+        return request
+
+    def _list_request(self, params):
+        request = self.api._base_request('ARBGetSubscriptionListRequest')
+
+        for k, v in params.iteritems():
+            if isinstance(v, dict):
+                tag = E.SubElement(request, k)
+                for x, y in v.iteritems():
+                    E.SubElement(tag, x).text = str(y)
+            else:
+                E.SubElement(request, k).text = str(v)
+
         return request
 
     def _make_xml(self, method, subscription_id=None, params={}):

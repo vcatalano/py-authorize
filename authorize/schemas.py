@@ -414,6 +414,31 @@ class CreateRecurringSchema(UpdateRecurringSchema):
                                  required=True)
 
 
+class SortingSchema(colander.MappingSchema):
+    orderBy = colander.SchemaNode(colander.String(),
+                                  validator=colander.OneOf(['id', 'name', 'status', 'createTimeStampUTC', 'lastName', 'firstName', 'accountNumber', 'amount', 'pastOccurences']))
+    orderDescending = colander.SchemaNode(colander.Integer(),
+                                          validator=colander.OneOf([0, 1]),
+                                          required=False)
+
+
+class PagingSchema(colander.MappingSchema):
+    limit = colander.SchemaNode(colander.Integer(),
+                                validator=colander.Range(1, 1000),
+                                required=False)
+    offset = colander.SchemaNode(colander.Integer(),
+                                 validator=colander.Range(1, 100000),
+                                 required=False)
+
+
+class ListRecurringSchema(colander.MappingSchema):
+    searchType = colander.SchemaNode(colander.String(),
+                                     validator=colander.OneOf(['cardExpiringThisMonth', 'subscriptionActive', 'subscriptionInactive', 'subscriptionExpiringThisMonth']),
+                                     required=True)
+    sorting = SortingSchema(missing=colander.drop)
+    paging = PagingSchema(missing=colander.drop)
+
+
 """Additional validation functions"""
 
 

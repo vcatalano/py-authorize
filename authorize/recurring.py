@@ -18,3 +18,7 @@ class Recurring(object):
     @staticmethod
     def delete(subscription_id):
         return Configuration.api.recurring.delete(subscription_id)
+
+    @staticmethod
+    def list(params={}):
+        return Configuration.api.recurring.list(params)
