@@ -84,6 +84,10 @@ FULL_CARD_NOT_PRESENT_TRANSACTION = {
     'extra_options': {
         'customer_ip': '100.0.0.1',
     },
+    'user_fields': {
+        'user_field_1': 'value_1',
+        'user_field_2': 'value_2',
+    },
     'tax_exempt': False,
     'recurring': True,
 }
@@ -163,6 +167,10 @@ FULL_CARD_PRESENT_TRANSACTION = {
     },
     'extra_options': {
         'customer_ip': '100.0.0.1',
+    },
+    'user_fields': {
+        'user_field_1': 'value_1',
+        'user_field_2': 'value_2',
     },
     'tax_exempt': False,
     'recurring': True,
