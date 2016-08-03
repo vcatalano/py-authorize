@@ -56,10 +56,6 @@ class BankAccountTests(TestCase):
         result = BankAccount.create(customer_id, BANK_ACCOUNT)
         payment_id = result.payment_id
 
-        # Attempt to create a duplicate bank account entry. This will fail
-        # since it is a duplicate payment method.
-        self.assertRaises(AuthorizeResponseError, BankAccount.create, customer_id, BANK_ACCOUNT)
-
         # Read credit card data
         result = BankAccount.details(customer_id, payment_id)
         self.assertEquals(PAYMENT_RESULT, result.payment_profile.payment)
