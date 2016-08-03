@@ -47,7 +47,7 @@ class AddressSchema(colander.MappingSchema):
                                      missing=colander.drop)
 
 
-class ExpirationDateSchema(colander.MappingSchema):
+class CreditCardSchema(colander.MappingSchema):
     card_number = colander.SchemaNode(colander.String(),
                                       validator=colander.luhnok,
                                       required=True)
@@ -84,18 +84,11 @@ class ExpirationDateSchema(colander.MappingSchema):
         elif exp_year is None:
             raise colander.Invalid(node, 'You must provide a card expiration year')
 
-        today = date.today()
-        if exp_year == today.year and exp_month < today.month:
+        if exp_year == date.today().year and exp_month < date.today().month:
             raise colander.Invalid(node, 'The credit card has expired')
 
         kw['expiration_year'] = str(exp_year)
         kw['expiration_month'] = str(exp_month).zfill(2)
-
-
-class CreditCardSchema(ExpirationDateSchema):
-    card_number = colander.SchemaNode(colander.String(),
-                                      validator=colander.luhnok,
-                                      required=True)
 
 
 class TrackDataSchema(colander.MappingSchema):
@@ -309,7 +302,6 @@ class TransactionBaseSchema(colander.MappingSchema):
     split_tender_id = colander.SchemaNode(colander.String(),
                                           missing=colander.drop)
     tax_exempt = colander.SchemaNode(colander.Boolean(), missing=colander.drop)
-    po_number = colander.SchemaNode(colander.String(), missing=colander.drop)
     extra_options = ExtraOptions(missing=colander.drop)
 
 
@@ -357,7 +349,7 @@ class CreditTransactionSchema(CIMBaseSchema):
                                  required=True)
 
 
-class RefundTransactionSchema(ExpirationDateSchema):
+class RefundTransactionSchema(colander.MappingSchema):
     amount = colander.SchemaNode(colander.Decimal('0.01'),
                                  validator=colander.Range(0, 20000),
                                  required=True)

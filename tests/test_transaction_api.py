@@ -538,7 +538,7 @@ REFUND_REQUEST = '''
     <payment>
       <creditCard>
         <cardNumber>1111</cardNumber>
-        <expirationDate>2020-04</expirationDate>
+        <expirationDate>XXXXXX</expirationDate>
       </creditCard>
     </payment>
     <refTransId>87912412523</refTransId>

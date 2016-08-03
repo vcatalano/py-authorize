@@ -181,7 +181,8 @@ class TransactionAPI(BaseAPI):
         payment = E.SubElement(xact_elem, 'payment')
         credit_card = E.SubElement(payment, 'creditCard')
         E.SubElement(credit_card, 'cardNumber').text = xact['last_four'][-4:]
-        E.SubElement(credit_card, 'expirationDate').text = xact['expiration_year'] + '-' + xact['expiration_month']
+        # Authorize.net doesn't care about the actual date
+        E.SubElement(credit_card, 'expirationDate').text = 'XXXXXX'
         E.SubElement(xact_elem, 'refTransId').text = xact['transaction_id']
         return request
 
