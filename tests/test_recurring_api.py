@@ -94,6 +94,9 @@ UPDATE_RECURRING = {
     },
 }
 
+UPDATE_RECURRING_NO_PAYMENT = UPDATE_RECURRING.copy()
+del UPDATE_RECURRING_NO_PAYMENT['credit_card']
+
 UPDATE_RECURRING_PAYMENT_ONLY = {
     'credit_card': {
         'card_number': '4111111111111111',
@@ -229,6 +232,55 @@ UPDATE_RECURRING_REQUEST = '''
 </ARBUpdateSubscriptionRequest>
 '''.format(date.today().isoformat())
 
+UPDATE_RECURRING_NO_PAYMENT_REQUEST = '''
+<?xml version="1.0" ?>
+<ARBUpdateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <subscriptionId>0932576929034</subscriptionId>
+  <subscription>
+    <name>Ultimate Robot Supreme Plan</name>
+    <paymentSchedule>
+      <startDate>{0}</startDate>
+      <totalOccurrences>30</totalOccurrences>
+      <trialOccurrences>2</trialOccurrences>
+    </paymentSchedule>
+    <amount>40.00</amount>
+    <trialAmount>30.00</trialAmount>
+    <order>
+      <invoiceNumber>INV0001</invoiceNumber>
+      <description>Just another invoice...</description>
+    </order>
+    <customer>
+      <id>1234567890</id>
+      <email>rob@robotronstudios.com</email>
+    </customer>
+    <billTo>
+      <firstName>Rob</firstName>
+      <lastName>Oteron</lastName>
+      <company>Robotron Studios</company>
+      <address>101 Computer Street</address>
+      <city>Tucson</city>
+      <state>AZ</state>
+      <zip>85704</zip>
+      <country>US</country>
+    </billTo>
+    <shipTo>
+      <firstName>Rob</firstName>
+      <lastName>Oteron</lastName>
+      <company>Robotron Studios</company>
+      <address>101 Computer Street</address>
+      <city>Tucson</city>
+      <state>AZ</state>
+      <zip>85704</zip>
+      <country>US</country>
+    </shipTo>
+  </subscription>
+</ARBUpdateSubscriptionRequest>
+'''.format(date.today().isoformat())
+
 UPDATE_RECURRING_PAYMENT_ONLY_REQUEST = '''
 <?xml version="1.0" ?>
 <ARBUpdateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
@@ -284,6 +336,10 @@ class RecurringAPITests(TestCase):
         request_xml = Configuration.api.recurring._update_request('0932576929034', UPDATE_RECURRING_PAYMENT_ONLY)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, UPDATE_RECURRING_PAYMENT_ONLY_REQUEST.strip())
+
+        request_xml = Configuration.api.recurring._update_request('0932576929034', UPDATE_RECURRING_NO_PAYMENT)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, UPDATE_RECURRING_NO_PAYMENT_REQUEST.strip())
 
     def test_delete_recurring_request(self):
         request_xml = Configuration.api.recurring._delete_request('0932576929034')
