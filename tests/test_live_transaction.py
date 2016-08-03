@@ -174,6 +174,7 @@ FULL_CARD_PRESENT_TRANSACTION = {
     },
     'tax_exempt': False,
     'recurring': True,
+    'duplicate_window': 20
 }
 
 CREDIT_CARD = {
@@ -312,7 +313,7 @@ FULL_ACCOUNT_TRANSACTION = {
         'customer_ip': '100.0.0.1',
     },
     'tax_exempt': False,
-    'recurring': True,
+    'recurring': True
 }
 
 BANK_ACCOUN_TRANSACTION = {
