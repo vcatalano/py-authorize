@@ -81,9 +81,7 @@ FULL_CARD_NOT_PRESENT_TRANSACTION = {
         'name': 'UPS 2-Day Shipping',
         'description': 'Handle with care',
     },
-    'extra_options': {
-        'customer_ip': '100.0.0.1',
-    },
+    'customer_ip': '100.0.0.1',
     'user_fields': [{
         'name': 'user_field_1',
         'value': 'value_1',
@@ -93,6 +91,7 @@ FULL_CARD_NOT_PRESENT_TRANSACTION = {
     }],
     'tax_exempt': False,
     'recurring': True,
+    'po_number': 'PONUM00001',
 }
 
 FULL_CARD_PRESENT_TRANSACTION = {
@@ -168,9 +167,7 @@ FULL_CARD_PRESENT_TRANSACTION = {
         'name': 'UPS 2-Day Shipping',
         'description': 'Handle with care',
     },
-    'extra_options': {
-        'customer_ip': '100.0.0.1',
-    },
+    'customer_ip': '100.0.0.1',
     'user_fields': [{
         'name': 'user_field_1',
         'value': 'value_1',
@@ -180,6 +177,7 @@ FULL_CARD_PRESENT_TRANSACTION = {
     }],
     'tax_exempt': False,
     'recurring': True,
+    'po_number': 'PONUM00001',
     'duplicate_window': 20
 }
 
@@ -233,11 +231,10 @@ FULL_CIM_TRANSACTION = {
         'name': 'The amount for duty',
         'description': 'I can''t believe you would pay for duty',
     },
-    'extra_options': {
-        'customer_ip': 'fe80::f4b6:2a88:70fa:f09f',
-    },
+    'customer_ip': 'fe80::f4b6:2a88:70fa:f09f',
     'tax_exempt': False,
     'recurring': True,
+    'po_number': 'PONUM00001',
     'card_code': '443',
 }
 
@@ -315,9 +312,7 @@ FULL_ACCOUNT_TRANSACTION = {
         'name': 'UPS 2-Day Shipping',
         'description': 'Handle with care',
     },
-    'extra_options': {
-        'customer_ip': '100.0.0.1',
-    },
+    'customer_ip': '100.0.0.1',
     'tax_exempt': False,
     'recurring': True
 }
@@ -380,10 +375,7 @@ class TransactionTests(TestCase):
         transaction['customer_id'] = result.customer_id
         transaction['payment_id'] = result.payment_ids[0]
         transaction['amount'] = random.randrange(100, 100000) / 100.0
-        result = Transaction.auth(transaction)
-        # Read transaction details
-        result = Transaction.details(result.transaction_response.trans_id)
-        self.assertEqual(result.transaction.order.order_number, 'PONUM00001')
+        Transaction.auth(transaction)
 
     def test_auth_and_settle_card_not_present_transaction(self):
         transaction = FULL_CARD_NOT_PRESENT_TRANSACTION.copy()

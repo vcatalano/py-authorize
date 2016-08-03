@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from authorize.apis.base_api import BaseAPI
 from authorize.schemas import CreateRecurringSchema
 from authorize.schemas import UpdateRecurringSchema

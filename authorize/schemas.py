@@ -282,9 +282,6 @@ class ExtraOptions(colander.MappingSchema):
     duplicate_window = colander.SchemaNode(colander.Integer(),
                                            validator=colander.Range(0, 28800),
                                            missing=colander.drop)
-    customer_ip = colander.SchemaNode(colander.String(),
-                                      validator=colander.Length(max=39),
-                                      missing=colander.drop)
 
 
 class TransactionBaseSchema(colander.MappingSchema):
@@ -302,7 +299,9 @@ class TransactionBaseSchema(colander.MappingSchema):
     split_tender_id = colander.SchemaNode(colander.String(),
                                           missing=colander.drop)
     tax_exempt = colander.SchemaNode(colander.Boolean(), missing=colander.drop)
-    extra_options = ExtraOptions(missing=colander.drop)
+    customer_ip = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=39),
+                                      missing=colander.drop)
 
 
 class CIMBaseSchema(colander.MappingSchema):
@@ -327,6 +326,15 @@ class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
 
 
 class AIMTransactionSchema(TransactionBaseSchema):
+    customer_id = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=60),
+                                      missing=colander.drop)
+    payment_id = colander.SchemaNode(colander.String(),
+                                     validator=colander.Length(max=60),
+                                     missing=colander.drop)
+    address_id = colander.SchemaNode(colander.String(),
+                                     validator=colander.Length(max=60),
+                                     missing=colander.drop)
     email = colander.SchemaNode(colander.String(),
                                 validator=colander.Email(),
                                 missing=colander.drop)

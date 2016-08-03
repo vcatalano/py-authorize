@@ -130,8 +130,6 @@ def create_order(params={}):
         E.SubElement(order, 'invoiceNumber').text = params['invoice_number']
     if 'description' in params:
         E.SubElement(order, 'description').text = params['description']
-    if 'order_number' in params:
-        E.SubElement(order, 'purchaseOrderNumber').text = params['order_number']
     return order
 
 
