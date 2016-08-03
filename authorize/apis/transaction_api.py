@@ -137,6 +137,9 @@ class TransactionAPI(BaseAPI):
         if 'tax_exempt' in xact:
             E.SubElement(xact_elem, 'taxExempt').text = str(xact['tax_exempt']).lower()
 
+        if 'po_number' in xact:
+            E.SubElement(xact_elem, 'poNumber').text = xact['po_number']
+
         if 'email' in xact:
             customer = E.SubElement(xact_elem, 'customer')
             E.SubElement(customer, 'email').text = xact['email']
@@ -178,7 +181,7 @@ class TransactionAPI(BaseAPI):
         payment = E.SubElement(xact_elem, 'payment')
         credit_card = E.SubElement(payment, 'creditCard')
         E.SubElement(credit_card, 'cardNumber').text = xact['last_four'][-4:]
-        E.SubElement(credit_card, 'expirationDate').text = xact['expiration_date']
+        E.SubElement(credit_card, 'expirationDate').text = xact['expiration_year'] + '-' + xact['expiration_month']
         E.SubElement(xact_elem, 'refTransId').text = xact['transaction_id']
         return request
 

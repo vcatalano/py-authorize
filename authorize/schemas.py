@@ -47,7 +47,7 @@ class AddressSchema(colander.MappingSchema):
                                      missing=colander.drop)
 
 
-class CreditCardSchema(colander.MappingSchema):
+class ExpirationDateSchema(colander.MappingSchema):
     card_number = colander.SchemaNode(colander.String(),
                                       validator=colander.luhnok,
                                       required=True)
@@ -90,6 +90,12 @@ class CreditCardSchema(colander.MappingSchema):
 
         kw['expiration_year'] = str(exp_year)
         kw['expiration_month'] = str(exp_month).zfill(2)
+
+
+class CreditCardSchema(ExpirationDateSchema):
+    card_number = colander.SchemaNode(colander.String(),
+                                      validator=colander.luhnok,
+                                      required=True)
 
 
 class TrackDataSchema(colander.MappingSchema):
@@ -303,6 +309,7 @@ class TransactionBaseSchema(colander.MappingSchema):
     split_tender_id = colander.SchemaNode(colander.String(),
                                           missing=colander.drop)
     tax_exempt = colander.SchemaNode(colander.Boolean(), missing=colander.drop)
+    po_number = colander.SchemaNode(colander.String(), missing=colander.drop)
     extra_options = ExtraOptions(missing=colander.drop)
 
 
@@ -350,7 +357,7 @@ class CreditTransactionSchema(CIMBaseSchema):
                                  required=True)
 
 
-class RefundTransactionSchema(colander.MappingSchema):
+class RefundTransactionSchema(ExpirationDateSchema):
     amount = colander.SchemaNode(colander.Decimal('0.01'),
                                  validator=colander.Range(0, 20000),
                                  required=True)

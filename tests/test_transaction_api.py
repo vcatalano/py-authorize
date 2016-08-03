@@ -142,6 +142,7 @@ FULL_CARD_NOT_PRESENT_AIM_TRANSACTION = {
         'customer_ip': '100.0.0.1',
     },
     'tax_exempt': False,
+    'po_number': 'PO00000001',
     'recurring': True,
 }
 
@@ -232,6 +233,8 @@ REFUND_TRANSACTION = {
     'amount': 112.00,
     'transaction_id': '87912412523',
     'last_four': '1111',
+    'expiration_month': '04',
+    'expiration_year': '2020',
 }
 
 CIM_SALE_REQUEST = '''
@@ -363,6 +366,7 @@ CARD_NOT_PRESENT_AIM_SALE_REQUEST = '''
       <description>Handle with care</description>
     </shipping>
     <taxExempt>false</taxExempt>
+    <poNumber>PO00000001</poNumber>
     <customer>
       <email>rob@robotronstudios.com</email>
     </customer>
@@ -534,7 +538,7 @@ REFUND_REQUEST = '''
     <payment>
       <creditCard>
         <cardNumber>1111</cardNumber>
-        <expirationDate>XXXXXX</expirationDate>
+        <expirationDate>2020-04</expirationDate>
       </creditCard>
     </payment>
     <refTransId>87912412523</refTransId>
@@ -629,8 +633,7 @@ class TransactionAPITests(TestCase):
         self.assertEqual(request_string, SETTLE_REQUEST_WITH_AMOUNT.strip())
 
     def test_refund_request(self):
-        request_xml = Configuration.api.transaction._refund_request(
-            REFUND_TRANSACTION)
+        request_xml = Configuration.api.transaction._refund_request(REFUND_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, REFUND_REQUEST.strip())
 
