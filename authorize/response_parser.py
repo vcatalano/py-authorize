@@ -34,6 +34,7 @@ NESTED_LIST_FIELDS = [
     'transactions',
     'batchList',
     'statistics',
+    'userFields',
 ]
 
 DIRECT_RESPONSE_FIELDS = {

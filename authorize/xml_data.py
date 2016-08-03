@@ -103,6 +103,16 @@ def create_line_items(items=[]):
     return line_items
 
 
+def create_user_fields(fields=[]):
+    user_fields = E.Element('userFields')
+    for field in fields:
+        item = E.Element('userField')
+        E.SubElement(item, 'name').text = field['name']
+        E.SubElement(item, 'value').text = field['value']
+        user_fields.append(item)
+    return user_fields
+
+
 def create_amount_type(name, params={}):
     amount_type = E.Element(name)
     if 'amount' in params:

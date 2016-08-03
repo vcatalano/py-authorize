@@ -97,6 +97,8 @@ class TransactionAPI(BaseAPI):
             extra_options = {}
             if 'customer_ip' in xact['extra_options']:
                 extra_options['x_customer_ip'] = xact['extra_options']['customer_ip']
+            if 'duplicate_window' in xact['extra_options']:
+                extra_options['x_duplicate_window'] = xact['extra_options']['duplicate_window']
             options = E.SubElement(request, 'extraOptions')
             E.SubElement(options, '![CDATA[').text = urllib.urlencode(extra_options)
 
@@ -122,6 +124,9 @@ class TransactionAPI(BaseAPI):
 
         if 'line_items' in xact:
             xact_elem.append(create_line_items(xact['line_items']))
+
+        if 'user_fields' in xact:
+            xact_elem.append(create_user_fields(xact['user_fields']))
 
         if 'tax' in xact:
             xact_elem.append(create_amount_type('tax', xact['tax']))

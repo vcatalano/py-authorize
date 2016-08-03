@@ -143,6 +143,11 @@ class RecurringTests(TestCase):
         # Update only credit card information
         Recurring.update(subscription_id, UPDATE_RECURRING_PAYMENT_ONLY)
 
+        # Update without credit card (or bank account) information
+        recurring_update = UPDATE_RECURRING.copy()
+        del recurring_update['credit_card']
+        Recurring.update(subscription_id, recurring_update)
+
         # Cancel (delete) the subscription
         Recurring.delete(subscription_id)
 
