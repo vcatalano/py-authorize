@@ -95,6 +95,19 @@ DETAILS_CREDIT_CARD_REQUEST = '''
 </getCustomerPaymentProfileRequest>
 '''
 
+DETAILS_CREDIT_CARD_REQUEST_UNMASKED_EXPIRY = '''
+<?xml version="1.0" ?>
+<getCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <customerProfileId>1234567890</customerProfileId>
+  <customerPaymentProfileId>0987654321</customerPaymentProfileId>
+  <unmaskExpirationDate>true</unmaskExpirationDate>
+</getCustomerPaymentProfileRequest>
+'''
+
 UPDATE_CREDIT_CARD_REQUEST = '''
 <?xml version="1.0" ?>
 <updateCustomerPaymentProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
@@ -204,6 +217,11 @@ class CreditCardAPITests(TestCase):
         request_xml = Configuration.api.credit_card._details_request('1234567890', '0987654321')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, DETAILS_CREDIT_CARD_REQUEST.strip())
+        
+    def test_details_credit_card_request_unmask_expiry(self):
+        request_xml = Configuration.api.credit_card._details_request('1234567890', '0987654321', True)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, DETAILS_CREDIT_CARD_REQUEST_UNMASKED_EXPIRY.strip())    
 
     def test_update_credit_card_request(self):
         request_xml = Configuration.api.credit_card._update_request('1234567890', '0987654321', CREDIT_CARD)
