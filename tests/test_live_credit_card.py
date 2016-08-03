@@ -60,6 +60,7 @@ PAYMENT_RESULT = {
     'credit_card': {
         'card_number': 'XXXX1111',
         'expiration_date': 'XXXX',
+        'card_type': 'Visa'
     }
 }
 
