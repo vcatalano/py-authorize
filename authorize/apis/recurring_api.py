@@ -1,4 +1,3 @@
-import xml.etree.cElementTree as E
 from collections import OrderedDict
 
 from authorize.apis.base_api import BaseAPI
@@ -44,22 +43,27 @@ class RecurringAPI(BaseAPI):
             - firstName
             - accountNumber (ordered by last 4 digits only)
             - amount
-            - pastOccurences
+            - pastOccurrences
           * orderDescending (bool)
           * paging
             * limit (int) (1-1000)
             * offset (int) (1-100000)
         """
         params = self._deserialize(ListRecurringSchema().bind(), params)
+        request_params = OrderedDict()
 
-        order = ['searchType', 'sorting', 'paging']
-        orderedParams = OrderedDict()
+        if 'search_type' in params:
+            request_params['searchType'] = params['search_type']
 
-        for param in order:
-            if param in params.keys():
-                orderedParams.update({param: params.get(param)})
+        if 'sorting' in params:
+            request_params['sorting'] = {}
+            request_params['sorting']['orderBy'] = params['sorting']['order_by']
+            request_params['sorting']['orderDescending'] = int(params['sorting']['order_descending'])
 
-        return self.api._make_call(self._list_request(orderedParams))
+        if 'paging' in params:
+            request_params['paging'] = params['paging']
+
+        return self.api._make_call(self._list_request(request_params))
 
     # The following methods generate the XML for the corresponding API calls.
     # This makes unit testing each of the calls easier.

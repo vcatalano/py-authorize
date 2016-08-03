@@ -151,8 +151,21 @@ class RecurringTests(TestCase):
         # Cancel (delete) the subscription
         Recurring.delete(subscription_id)
 
-        # Issue 26: Make sure we don't update the start date for 
+        # Issue 26: Make sure we don't update the start date for
         # subscriptions with at least one transaction
         recurring = BASIC_RECURRING.copy()
         recurring['amount'] = random.randrange(100, 100000) / 100.0
         result = Recurring.update('1666555', recurring)
+
+        # Test paging recurring payments
+        params = {
+            'search_type': 'subscriptionActive',
+            'sorting': {
+                'order_by': 'accountNumber'
+            },
+            'paging': {
+                'offset': 1,
+                'limit': 1000
+            }
+        }
+        result = Recurring.list(params)

@@ -60,11 +60,10 @@ class CreditCardSchema(colander.MappingSchema):
                                           missing=None)
     expiration_date = colander.SchemaNode(colander.String(),
                                           validator=colander.Regex(
-                                          r'^\d{2}.?(?:\d{4}|\d{2})?$', 'The expiration date is invalid'),
+                                              r'^\d{2}.?(?:\d{4}|\d{2})?$', 'The expiration date is invalid'),
                                           missing=None)
     card_code = colander.SchemaNode(colander.String(),
-                                    validator=colander.Regex(
-                                    r'^[0-9]{3,4}$', 'The card code is invalid'),
+                                    validator=colander.Regex(r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
 
     @staticmethod
@@ -96,12 +95,13 @@ class CreditCardSchema(colander.MappingSchema):
 class TrackDataSchema(colander.MappingSchema):
     track_1 = colander.SchemaNode(colander.String(),
                                   validator=colander.Regex(
-                                  r'^%?B\d{1,19}\^[A-Z /]{2,26}\^(\d|\^){4}(\d|\^){3}.*\??$', 'Track 1 does not match IATA format'),
+                                      r'^%?B\d{1,19}\^[A-Z /]{2,26}\^(\d|\^){4}(\d|\^){3}.*\??$',
+                                      'Track 1 does not match IATA format'),
                                   missing=colander.drop,
                                   required=None)
     track_2 = colander.SchemaNode(colander.String(),
                                   validator=colander.Regex(
-                                  r'^;?\d{1,19}=(\d|=){4}(\d|=){3}.*\??$', 'Track 2 does not match ABA format'),
+                                      r'^;?\d{1,19}=(\d|=){4}(\d|=){3}.*\??$', 'Track 2 does not match ABA format'),
                                   missing=colander.drop,
                                   required=None)
 
@@ -129,7 +129,6 @@ class RetailSchema(colander.MappingSchema):
     def validator(node, kw):
         kw['market_type'] = kw.get('market_type', 2)
         kw['device_type'] = kw.get('device_type', 7)
-
 
 
 class BankAccountSchema(colander.MappingSchema):
@@ -175,7 +174,7 @@ class ValidateCreditCardSchema(colander.MappingSchema):
                                      missing=colander.drop)
     card_code = colander.SchemaNode(colander.String(),
                                     validator=colander.Regex(
-                                    r'^[0-9]{3,4}$', 'The card code is invalid'),
+                                        r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
     # A test mode is required for this transaction type. By default, we will
     # use 'testMode'
@@ -268,7 +267,6 @@ class UserFieldsSchema(colander.SequenceSchema):
     user_field = UserFieldSchema()
 
 
-
 class OrderSchema(colander.MappingSchema):
     invoice_number = colander.SchemaNode(colander.String(),
                                          validator=colander.Length(max=25),
@@ -283,8 +281,8 @@ class OrderSchema(colander.MappingSchema):
 
 class ExtraOptions(colander.MappingSchema):
     duplicate_window = colander.SchemaNode(colander.Integer(),
-                                      validator=colander.Range(0, 28800),
-                                      missing=colander.drop)
+                                           validator=colander.Range(0, 28800),
+                                           missing=colander.drop)
     customer_ip = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=39),
                                       missing=colander.drop)
@@ -294,7 +292,7 @@ class TransactionBaseSchema(colander.MappingSchema):
     line_items = LineItemsSchema(validator=colander.Length(max=30),
                                  missing=colander.drop)
     user_fields = UserFieldsSchema(validator=colander.Length(max=30),
-                                 missing=colander.drop)
+                                   missing=colander.drop)
     order = OrderSchema(missing=colander.drop)
     tax = AmountItemSchema(missing=colander.drop)
     duty = AmountItemSchema(missing=colander.drop)
@@ -325,7 +323,7 @@ class CIMTransactionSchema(CIMBaseSchema, TransactionBaseSchema):
                                     missing=colander.drop)
     card_code = colander.SchemaNode(colander.String(),
                                     validator=colander.Regex(
-                                    r'^[0-9]{3,4}$', 'The card code is invalid'),
+                                        r'^[0-9]{3,4}$', 'The card code is invalid'),
                                     missing=colander.drop)
 
 
@@ -415,26 +413,29 @@ class CreateRecurringSchema(UpdateRecurringSchema):
 
 
 class SortingSchema(colander.MappingSchema):
-    orderBy = colander.SchemaNode(colander.String(),
-                                  validator=colander.OneOf(['id', 'name', 'status', 'createTimeStampUTC', 'lastName', 'firstName', 'accountNumber', 'amount', 'pastOccurences']))
-    orderDescending = colander.SchemaNode(colander.Integer(),
-                                          validator=colander.OneOf([0, 1]),
-                                          required=False)
+    order_by = colander.SchemaNode(colander.String(),
+                                   validator=colander.OneOf(['id', 'name', 'status', 'createTimeStampUTC', 'lastName',
+                                                            'firstName', 'accountNumber', 'amount', 'pastOccurrences']))
+    order_descending = colander.SchemaNode(colander.Boolean(),
+                                           missing=False,
+                                           required=False)
 
 
 class PagingSchema(colander.MappingSchema):
     limit = colander.SchemaNode(colander.Integer(),
                                 validator=colander.Range(1, 1000),
-                                required=False)
+                                missing=100)
     offset = colander.SchemaNode(colander.Integer(),
                                  validator=colander.Range(1, 100000),
-                                 required=False)
+                                 missing=1)
 
 
 class ListRecurringSchema(colander.MappingSchema):
-    searchType = colander.SchemaNode(colander.String(),
-                                     validator=colander.OneOf(['cardExpiringThisMonth', 'subscriptionActive', 'subscriptionInactive', 'subscriptionExpiringThisMonth']),
-                                     required=True)
+    search_type = colander.SchemaNode(colander.String(),
+                                      validator=colander.OneOf(['cardExpiringThisMonth', 'subscriptionActive',
+                                                               'subscriptionInactive',
+                                                               'subscriptionExpiringThisMonth']),
+                                      required=True)
     sorting = SortingSchema(missing=colander.drop)
     paging = PagingSchema(missing=colander.drop)
 
