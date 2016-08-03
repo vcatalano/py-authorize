@@ -6,18 +6,20 @@ from authorize.xml_data import *
 
 class PaymentProfileAPI(BaseAPI):
 
-    def details(self, customer_id, payment_id):
-        return self.api._make_call(self._details_request(customer_id, payment_id))
+    def details(self, customer_id, payment_id, unmask_expiry=False):
+        return self.api._make_call(self._details_request(customer_id, payment_id, unmask_expiry))
 
     def delete(self, customer_id, payment_id):
         self.api._make_call(self._delete_request(customer_id, payment_id))
 
     # The following methods generate the XML for the corresponding API calls.
     # This makes unit testing each of the calls easier.
-    def _details_request(self, customer_id, payment_id):
+    def _details_request(self, customer_id, payment_id, unmask_expiry=False):
         request = self.api._base_request('getCustomerPaymentProfileRequest')
         E.SubElement(request, 'customerProfileId').text = customer_id
         E.SubElement(request, 'customerPaymentProfileId').text = payment_id
+        if unmask_expiry:
+            E.SubElement(request, 'unmaskExpirationDate').text = 'true'
         return request
 
     def _delete_request(self, customer_id, payment_id):
