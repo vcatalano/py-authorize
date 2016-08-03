@@ -415,7 +415,8 @@ class CreateRecurringSchema(UpdateRecurringSchema):
 class SortingSchema(colander.MappingSchema):
     order_by = colander.SchemaNode(colander.String(),
                                    validator=colander.OneOf(['id', 'name', 'status', 'createTimeStampUTC', 'lastName',
-                                                            'firstName', 'accountNumber', 'amount', 'pastOccurrences']))
+                                                            'firstName', 'accountNumber', 'amount', 'pastOccurrences']),
+                                   missing='id')
     order_descending = colander.SchemaNode(colander.Boolean(),
                                            missing=False,
                                            required=False)

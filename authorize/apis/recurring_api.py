@@ -23,47 +23,34 @@ class RecurringAPI(BaseAPI):
     def delete(self, subscription_id):
         return self.api._make_call(self._delete_request(subscription_id))
 
-    def list(self, params):
+    def list(self, params={}):
         """
         Required Parameters:
           * searchType (str)
-          - cardExpiringThisMonth
-          - subscriptionActive
-          - subscriptionInactive
-          - subscriptionExpiringThisMonth
+           - cardExpiringThisMonth
+           - subscriptionActive
+           - subscriptionInactive
+           - subscriptionExpiringThisMonth
 
         Optional Parameters:
           * sorting
             * orderBy (string)
-            - id
-            - name
-            - status
-            - createTimeStampUTC
-            - lastName
-            - firstName
-            - accountNumber (ordered by last 4 digits only)
-            - amount
-            - pastOccurrences
-          * orderDescending (bool)
+             - id
+             - name
+             - status
+             - createTimeStampUTC
+             - lastName
+             - firstName
+             - accountNumber (ordered by last 4 digits only)
+             - amount
+             - pastOccurrences
+            * orderDescending (bool)
           * paging
             * limit (int) (1-1000)
             * offset (int) (1-100000)
         """
-        params = self._deserialize(ListRecurringSchema().bind(), params)
-        request_params = OrderedDict()
-
-        if 'search_type' in params:
-            request_params['searchType'] = params['search_type']
-
-        if 'sorting' in params:
-            request_params['sorting'] = {}
-            request_params['sorting']['orderBy'] = params['sorting']['order_by']
-            request_params['sorting']['orderDescending'] = int(params['sorting']['order_descending'])
-
-        if 'paging' in params:
-            request_params['paging'] = params['paging']
-
-        return self.api._make_call(self._list_request(request_params))
+        paging = self._deserialize(ListRecurringSchema().bind(), params)
+        return self.api._make_call(self._list_request(paging))
 
     # The following methods generate the XML for the corresponding API calls.
     # This makes unit testing each of the calls easier.
@@ -86,13 +73,18 @@ class RecurringAPI(BaseAPI):
     def _list_request(self, params):
         request = self.api._base_request('ARBGetSubscriptionListRequest')
 
-        for k, v in params.iteritems():
-            if isinstance(v, dict):
-                tag = E.SubElement(request, k)
-                for x, y in v.iteritems():
-                    E.SubElement(tag, x).text = str(y)
-            else:
-                E.SubElement(request, k).text = str(v)
+        if 'search_type' in params:
+            E.SubElement(request, 'searchType').text = params['search_type']
+
+        if 'sorting' in params:
+            sorting = E.SubElement(request, 'sorting')
+            E.SubElement(sorting, 'orderBy').text = params['sorting']['order_by']
+            E.SubElement(sorting, 'orderDescending').text = str(int(params['sorting']['order_descending']))
+
+        if 'paging' in params:
+            paging = E.SubElement(request, 'paging')
+            E.SubElement(paging, 'limit').text = str(params['paging']['limit'])
+            E.SubElement(paging, 'offset').text = str(params['paging']['offset'])
 
         return request
 
