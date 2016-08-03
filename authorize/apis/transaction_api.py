@@ -123,6 +123,9 @@ class TransactionAPI(BaseAPI):
         if 'line_items' in xact:
             xact_elem.append(create_line_items(xact['line_items']))
 
+        if 'user_fields' in xact:
+            xact_elem.append(create_user_fields(xact['user_fields']))
+
         if 'tax' in xact:
             xact_elem.append(create_amount_type('tax', xact['tax']))
 

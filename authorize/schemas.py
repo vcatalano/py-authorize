@@ -257,6 +257,18 @@ class LineItemsSchema(colander.SequenceSchema):
     line_item = LineItemSchema()
 
 
+class UserFieldSchema(colander.MappingSchema):
+    name = colander.SchemaNode(colander.String(),
+                               missing=colander.drop)
+    value = colander.SchemaNode(colander.String(),
+                                missing=colander.drop)
+
+
+class UserFieldsSchema(colander.SequenceSchema):
+    user_field = UserFieldSchema()
+
+
+
 class OrderSchema(colander.MappingSchema):
     invoice_number = colander.SchemaNode(colander.String(),
                                          validator=colander.Length(max=25),
@@ -277,6 +289,8 @@ class ExtraOptions(colander.MappingSchema):
 
 class TransactionBaseSchema(colander.MappingSchema):
     line_items = LineItemsSchema(validator=colander.Length(max=30),
+                                 missing=colander.drop)
+    user_fields = UserFieldsSchema(validator=colander.Length(max=30),
                                  missing=colander.drop)
     order = OrderSchema(missing=colander.drop)
     tax = AmountItemSchema(missing=colander.drop)
