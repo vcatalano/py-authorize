@@ -34,6 +34,7 @@ NESTED_LIST_FIELDS = [
     'transactions',
     'batchList',
     'statistics',
+    'lineItems',
     'userFields',
 ]
 
