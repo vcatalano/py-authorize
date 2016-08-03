@@ -282,6 +282,9 @@ class OrderSchema(colander.MappingSchema):
 
 
 class ExtraOptions(colander.MappingSchema):
+    duplicate_window = colander.SchemaNode(colander.Integer(),
+                                      validator=colander.Range(0, 28800),
+                                      missing=colander.drop)
     customer_ip = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=39),
                                       missing=colander.drop)
