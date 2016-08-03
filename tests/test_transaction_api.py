@@ -288,7 +288,6 @@ CIM_SALE_REQUEST = '''
       </lineItems>
       <customerProfileId>1234567890</customerProfileId>
       <customerPaymentProfileId>0987654321</customerPaymentProfileId>
-      <cardCode>443</cardCode>
       <customerShippingAddressId>93832984</customerShippingAddressId>
       <order>
         <invoiceNumber>INV0001</invoiceNumber>
@@ -297,6 +296,7 @@ CIM_SALE_REQUEST = '''
       </order>
       <taxExempt>false</taxExempt>
       <recurringBilling>true</recurringBilling>
+      <cardCode>443</cardCode>
     </profileTransAuthCapture>
   </transaction>
   <extraOptions>
