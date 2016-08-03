@@ -36,6 +36,7 @@ FULL_BANK_ACCOUNT = {
 
 PAYMENT_RESULT = {
     'bank_account': {
+        'account_type': 'checking',
         'routing_number': 'XXXX1627',
         'account_number': 'XXXX8473',
         'name_on_account': 'Rob Otron',
