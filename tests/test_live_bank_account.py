@@ -39,6 +39,7 @@ PAYMENT_RESULT = {
         'routing_number': 'XXXX1627',
         'account_number': 'XXXX8473',
         'name_on_account': 'Rob Otron',
+        'echeck_type': 'WEB',
     }
 }
 
