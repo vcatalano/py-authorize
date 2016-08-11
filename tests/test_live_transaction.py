@@ -453,11 +453,14 @@ class TransactionTests(TestCase):
         Transaction.details(result.transaction_response.trans_id)
 
     def test_transaction_response_error_handling(self):
-        # Issue 21: Hanlde transaction response errors which are different 
-        # transaction errors. By running a bank account transaction over 
-        # $200, we can replicate this strange processing behavior.
+        # Issue 21: Hanlde transaction response errors which are different
+        # transaction errors. By running a bank account transaction over
+        # $100, we can replicate this strange processing behavior.
+        # From the eCheck.Net documentation:
+        # "...The monthly volume limit is $5000 while the maximum
+        # transaction size is $100."
         transaction = BANK_ACCOUN_TRANSACTION.copy()
-        transaction['amount'] = random.randrange(2001, 100000) / 100.0
+        transaction['amount'] = random.randrange(10001, 100000) / 100.0
         self.assertRaises(AuthorizeResponseError, Transaction.sale, transaction)
 
     def test_list_unsettled_transactions(self):
