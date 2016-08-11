@@ -1,4 +1,5 @@
-from authorize import Customer
+import random
+from authorize import Customer, Transaction
 from authorize import AuthorizeResponseError
 
 from datetime import date
@@ -80,3 +81,22 @@ class CustomerTests(TestCase):
         self.assertRaises(AuthorizeResponseError, Customer.delete, customer_id)
 
         Customer.list()
+
+    def test_live_customer_from_transaction(self):
+
+        INVALID_TRANS_ID = '123'
+
+        self.assertRaises(AuthorizeResponseError, Customer.from_transaction, INVALID_TRANS_ID)
+
+        # Create the transaction
+        transaction = CUSTOMER_WITH_CARD.copy()
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+        result = Transaction.auth(transaction)
+        trans_id = result.transaction_response.trans_id
+
+        # Create the customer from the above transaction
+        result = Customer.from_transaction(trans_id)
+        customer_id = result.customer_id
+        result = Customer.details(customer_id)
+
+        self.assertEquals(transaction['email'], result.profile.email)

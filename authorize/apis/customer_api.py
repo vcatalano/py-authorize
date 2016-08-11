@@ -12,6 +12,13 @@ class CustomerAPI(BaseAPI):
         customer = self._deserialize(CreateCustomerSchema().bind(), params)
         return self.api._make_call(self._create_request(customer))
 
+    def from_transaction(self, transaction_id, params={}):
+        customer = None
+        if 'customer' in params:
+            customer = self._deserialize(CustomerBaseSchema().bind(), params['customer'])
+
+        return self.api._make_call(self._from_transaction_request(transaction_id, customer))
+
     def details(self, customer_id):
         return self.api._make_call(self._details_request(customer_id))
 
@@ -57,6 +64,18 @@ class CustomerAPI(BaseAPI):
             profile.append(create_address('shipToList', customer['shipping']))
 
         request.append(profile)
+
+        return request
+
+    def _from_transaction_request(self, transaction_id, customer=None):
+        request = self.api._base_request('createCustomerProfileFromTransactionRequest')
+        trans_id = E.Element('transId')
+        trans_id.text = transaction_id
+        request.append(trans_id)
+
+        if customer:
+            customer = create_customer(customer)
+            request.append(customer)
 
         return request
 

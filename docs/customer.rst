@@ -87,6 +87,32 @@ can be provided as well.
     # e.g. '19086352'
 
 
+Creating Profile from a transaction ID
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    result = authorize.Transaction.auth({
+        'amount': 40.00,
+        'email': 'rob@robotronstudios.com',
+        'credit_card': {
+            'card_number': '4111111111111111',
+            'expiration_date': '04/2014',
+        }
+    })
+
+    trans_id = result.transaction_response.trans_id
+    # e.g. '2194343352'
+
+    result = authorize.Customer.from_transaction(trans_id)
+
+    result.profile.email
+    # rob@robotronstudios.com
+
+    result.customer_id
+    # e.g. '19086352'
+
+
 Details
 -------
 

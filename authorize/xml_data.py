@@ -14,6 +14,16 @@ def create_profile(params={}):
     return profile
 
 
+def create_customer(params={}):
+    customer = E.Element('customer')
+    E.SubElement(customer, 'merchantCustomerId').text = params['merchant_id']
+    if 'description' in params:
+        E.SubElement(customer, 'description').text = params['description']
+    if 'email' in params:
+        E.SubElement(customer, 'email').text = params['email']
+    return customer
+
+
 def create_address(name, params={}):
     address = E.Element(name)
     if 'first_name' in params:
