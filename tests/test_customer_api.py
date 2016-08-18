@@ -41,6 +41,12 @@ CREATE_CUSTOMER = {
     },
 }
 
+CUSTOMER_FROM_TRANSACTION = {
+    'merchant_id': '1234567890',
+    'email': 'rob@robotronstudios.com',
+    'description': 'I am a robot',
+}
+
 UPDATE_CUSTOMER = {
     'merchant_id': '1234567890',
     'email': 'rob@robotronstudios.com',
@@ -98,6 +104,33 @@ CREATE_CUSTOMER_REQUEST = '''
 </createCustomerProfileRequest>
 '''
 
+CUSTOMER_FROM_TRANSACTION_REQUEST = '''
+<?xml version="1.0" ?>
+<createCustomerProfileFromTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transId>123456</transId>
+</createCustomerProfileFromTransactionRequest>
+'''
+
+CUSTOMER_FROM_TRANSACTION_FULL_REQUEST = '''
+<?xml version="1.0" ?>
+<createCustomerProfileFromTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transId>123456</transId>
+  <customer>
+    <merchantCustomerId>1234567890</merchantCustomerId>
+    <description>I am a robot</description>
+    <email>rob@robotronstudios.com</email>
+  </customer>
+</createCustomerProfileFromTransactionRequest>
+'''
+
 CUSTOMER_DETAILS_REQUEST = '''
 <?xml version="1.0" ?>
 <getCustomerProfileRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
@@ -145,6 +178,16 @@ class CustomerAPITests(TestCase):
         request_xml = Configuration.api.customer._create_request(CREATE_CUSTOMER)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, CREATE_CUSTOMER_REQUEST.strip())
+
+    def test_customer_from_transaction_request(self):
+        request_xml = Configuration.api.customer._from_transaction_request('123456')
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, CUSTOMER_FROM_TRANSACTION_REQUEST.strip())
+
+    def test_customer_from_transaction_full_request(self):
+        request_xml = Configuration.api.customer._from_transaction_request('123456', CUSTOMER_FROM_TRANSACTION)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, CUSTOMER_FROM_TRANSACTION_FULL_REQUEST.strip())
 
     def test_details_customer_request(self):
         request_xml = Configuration.api.customer._details_request('1234567890')
