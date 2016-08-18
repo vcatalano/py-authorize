@@ -8,8 +8,8 @@ class Recurring(object):
         return Configuration.api.recurring.create(params)
 
     @staticmethod
-    def details(subscription_id):
-        return Configuration.api.recurring.details(subscription_id)
+    def details(subscription_id, full=False):
+        return Configuration.api.recurring.details(subscription_id, full)
 
     @staticmethod
     def update(subscription_id, params={}):
