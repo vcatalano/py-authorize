@@ -14,18 +14,18 @@ class TransactionAPI(BaseAPI):
 
     def sale(self, params={}):
         xact = self._deserialize(AIMTransactionSchema(), params)
-        return self.api._make_call(self._aim_base_request('authCaptureTransaction', xact))
+        return self.api._make_call(self._transaction_request('authCaptureTransaction', xact))
 
     def auth(self, params={}):
         xact = self._deserialize(AIMTransactionSchema(), params)
-        return self.api._make_call(self._aim_base_request('authOnlyTransaction', xact))
+        return self.api._make_call(self._transaction_request('authOnlyTransaction', xact))
 
     def settle(self, transaction_id, amount=None):
         return self.api._make_call(self._settle_request(transaction_id, amount))
 
     def credit(self, params={}):
         xact = self._deserialize(CreditTransactionSchema(), params)
-        return self.api._make_call(self._aim_base_request('refundTransaction', xact))
+        return self.api._make_call(self._transaction_request('refundTransaction', xact))
 
     def refund(self, params={}):
         xact = self._deserialize(RefundTransactionSchema(), params)
@@ -43,7 +43,7 @@ class TransactionAPI(BaseAPI):
         else:
             return self.api._make_call(self._unsettled_list_request())
 
-    def _aim_base_request(self, xact_type, xact={}):
+    def _transaction_request(self, xact_type, xact={}):
         is_cim = 'customer_id' in xact
 
         request = self.api._base_request('createTransactionRequest')
@@ -52,7 +52,8 @@ class TransactionAPI(BaseAPI):
         E.SubElement(xact_elem, 'transactionType').text = xact_type
         E.SubElement(xact_elem, 'amount').text = quantize(xact['amount'])
 
-        # TODO - currencyCode
+        if 'currency_code' in xact:
+            E.SubElement(xact_elem, 'currencyCode').text = xact['currency_code']
 
         # CIM information
         if is_cim:  # customerProfilePaymentType
@@ -75,6 +76,8 @@ class TransactionAPI(BaseAPI):
                 payment.append(format_tracks(xact['track_data']))
             elif 'bank_account' in xact:
                 payment.append(create_account(xact['bank_account']))
+            elif 'pay_pal' in xact:
+                payment.append(create_pay_pal(xact['pay_pal']))
 
         if 'order' in xact:
             xact_elem.append(create_order(xact['order']))

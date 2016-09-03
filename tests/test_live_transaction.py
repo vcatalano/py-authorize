@@ -178,7 +178,17 @@ FULL_CARD_PRESENT_TRANSACTION = {
     'tax_exempt': False,
     'recurring': True,
     'po_number': 'PONUM00001',
-    'duplicate_window': 20
+    'duplicate_window': 20,
+}
+
+PAY_PAL_TRANSACTION = {
+    'pay_pal': {
+        'success_url': 'http://www.merchanteCommerceSite.com/Success/TC25262',
+        'cancel_url': 'http://www.merchanteCommerceSite.com/Cancel/TC25262',
+        'locale': 'US',
+        'header_img': 'https://usa.visa.com/img/home/logo_visa.gif',
+        'flow_color': 'ff0000',
+    }
 }
 
 CREDIT_CARD = {
@@ -367,6 +377,12 @@ class TransactionTests(TestCase):
         transaction['amount'] = random.randrange(100, 100000) / 100.0
         result = Transaction.sale(transaction)
         # Read transaction details
+        Transaction.details(result.transaction_response.trans_id)
+
+    def test_live_pay_pal_sale_transaction(self):
+        transaction = PAY_PAL_TRANSACTION.copy()
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+        result = Transaction.sale(transaction)
         Transaction.details(result.transaction_response.trans_id)
 
     def test_live_cim_auth_transaction(self):

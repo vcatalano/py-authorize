@@ -594,19 +594,19 @@ class TransactionAPITests(TestCase):
     maxDiff = None
 
     def test_card_not_present_aim_base_request(self):
-        request_xml = Configuration.api.transaction._aim_base_request(
+        request_xml = Configuration.api.transaction._transaction_request(
             'authCaptureTransaction', FULL_CARD_NOT_PRESENT_AIM_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, CARD_NOT_PRESENT_AIM_SALE_REQUEST.strip())
 
     def test_card_present_aim_base_request(self):
-        request_xml = Configuration.api.transaction._aim_base_request(
+        request_xml = Configuration.api.transaction._transaction_request(
             'authCaptureTransaction', FULL_CARD_PRESENT_AIM_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, CARD_PRESENT_AIM_SALE_REQUEST.strip())
 
     def test_cim_auth_request(self):
-        request_xml = Configuration.api.transaction._aim_base_request(
+        request_xml = Configuration.api.transaction._transaction_request(
             'authOnlyTransaction', FULL_CIM_TRANSACTION)
         request_string = prettify(request_xml)
         self.assertEqual(request_string, CIM_SALE_REQUEST.strip()

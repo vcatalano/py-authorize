@@ -151,6 +151,21 @@ class BankAccountSchema(colander.MappingSchema):
                                     missing=colander.drop)
 
 
+class PayPalSchema(colander.MappingSchema):
+    success_url = colander.SchemaNode(colander.String(),
+                                      missing=colander.drop)
+    cancel_url = colander.SchemaNode(colander.String(),
+                                     missing=colander.drop)
+    locale = colander.SchemaNode(colander.String(),
+                                 missing=colander.drop)
+    header_img = colander.SchemaNode(colander.String(),
+                                     missing=colander.drop)
+    flow_color = colander.SchemaNode(colander.String(),
+                                     missing=colander.drop)
+    payer_id = colander.SchemaNode(colander.String(),
+                                   missing=colander.drop)
+
+
 class CustomerTypeSchema(colander.MappingSchema):
     customer_type = colander.SchemaNode(colander.String(),
                                         validator=colander.OneOf(['individual', 'business']),
@@ -211,8 +226,7 @@ class CreateCustomerSchema(CustomerBaseSchema, CustomerTypeSchema):
     # Customer payment method (optional)
     credit_card = CreditCardSchema(validator=CreditCardSchema.validator,
                                    missing=colander.drop)
-    bank_account = BankAccountSchema(validator=BankAccountSchema.validator,
-                                     missing=colander.drop)
+    bank_account = BankAccountSchema(missing=colander.drop)
 
     # Customer address information
     billing = AddressSchema(missing=colander.drop)
@@ -296,6 +310,8 @@ class TransactionBaseSchema(colander.MappingSchema):
     amount = colander.SchemaNode(colander.Decimal('0.01'),
                                  validator=colander.Range(0, 20000),
                                  required=True)
+    currency_code = colander.SchemaNode(colander.String(),
+                                        missing=colander.drop)
     split_tender_id = colander.SchemaNode(colander.String(),
                                           missing=colander.drop)
     tax_exempt = colander.SchemaNode(colander.Boolean(), missing=colander.drop)
@@ -344,8 +360,8 @@ class AIMTransactionSchema(TransactionBaseSchema):
                                  missing=colander.drop)
     retail = RetailSchema(validator=RetailSchema.validator,
                           missing=colander.drop)
-    bank_account = BankAccountSchema(validator=BankAccountSchema.validator,
-                                     missing=colander.drop)
+    bank_account = BankAccountSchema(missing=colander.drop)
+    pay_pal = PayPalSchema(missing=colander.drop)
     billing = AddressSchema(missing=colander.drop)
     shipping = AddressSchema(missing=colander.drop)
     customer = CustomerSchema(missing=colander.drop)

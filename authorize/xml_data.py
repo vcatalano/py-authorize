@@ -89,6 +89,17 @@ def create_account(params={}):
     return account
 
 
+def create_pay_pal(params={}):
+    pay_pal = E.Element('payPal')
+    E.SubElement(pay_pal, 'successUrl').text = params['success_url']
+    E.SubElement(pay_pal, 'cancelUrl').text = params['cancel_url']
+    E.SubElement(pay_pal, 'paypalLc').text = params['locale']
+    E.SubElement(pay_pal, 'paypalHdrImg').text = params['header_img']
+    E.SubElement(pay_pal, 'paypalPayflowcolor').text = params['flow_color']
+    #E.SubElement(pay_pal, 'payerID').text = params['payer_id']
+    return pay_pal
+
+
 def create_line_item(name, params={}):
     item = E.Element(name)
     if 'item_id' in params:
