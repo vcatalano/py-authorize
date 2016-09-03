@@ -15,20 +15,22 @@ Additionally, you will need to install the following dependencies for running
 test and compiling documentation.
 
 - nose_
+- tox_ (for testing multiple versions of Python)
 - sphinx_ (for documentation)
 
 .. _Github page: https://github.com/vcatalano/py-authorize
 .. _nose: https://nose.readthedocs.org/en/latest/
+.. _tox: https://tox.readthedocs.io/en/latest/
 .. _sphinx: http://sphinx-doc.org/
 
 
 Running Tests
 -------------
 
-This project has been configured to use the Nose testing framework. 
-The following command will run all tests for the project. Since many of the 
-tests connect to the Authorize.net server, running the tests may take quite a 
-few seconds.
+This project has been configured to use the Nose testing framework and Tox
+for automation. The following command will run all tests for the project.
+Since many of the tests connect to the Authorize.net server, running the
+tests may take quite a few seconds.
 
 .. code-block:: bash
 
@@ -39,6 +41,12 @@ To run only local tests, you can use the following command:
 .. code-block:: bash
 
     nosetests -a '!live_tests'
+
+To local tests for Python versions 2.7, 3.3, 3.4, 3.5 and PyPy:
+
+.. code-block:: bash
+
+    tox
 
 
 Authorize.net documentation

@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Recurring &mdash; Py-Authorize 1.3.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py-Authorize 1.3.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Batch" href="batch.html"/>
+        <link rel="prev" title="Address" href="address.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py-Authorize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer.html">Customer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credit_card.html">Credit Cards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bank_account.html">Bank Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Recurring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create">Create</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minimal-example">Minimal Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#full-example">Full Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#details">Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update">Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cancel">Cancel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py-Authorize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Recurring</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/recurring.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="recurring">
+<h1>Recurring<a class="headerlink" href="#recurring" title="Permalink to this headline">¶</a></h1>
+<p>The Py-Authorize Recurring API is used to integrate with Authorize.net&#8217;s
+Automated Recurring Billing (ARB) subscription-based payment service. It
+provides all functionality for managing recurring billing against credit
+cards and bank accounts.</p>
+<div class="section" id="create">
+<h2>Create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h2>
+<p>Authorize.net&#8217;s ARB service functions seperately from the Customer
+Information Management API. This means you cannot create recurring payments
+for stored customers, credit cards or bank accounts. Instead, you will need
+to provide all customer and payment information explicitly.</p>
+<div class="section" id="minimal-example">
+<h3>Minimal Example<a class="headerlink" href="#minimal-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Recurring</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">45.00</span><span class="p">,</span>
+    <span class="s1">&#39;interval_length&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;interval_unit&#39;</span><span class="p">:</span> <span class="s1">&#39;months&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;credit_card&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;expiration_date&#39;</span><span class="p">:</span> <span class="s1">&#39;04-2014&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;456&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="c1"># result.subscription_id</span>
+<span class="c1"># e.g. &#39;1725604&#39;</span>
+</pre></div>
+</div>
+<p>In this example, the customer will be charged $45.00 every month until the
+subscription is canceled or the payment gateway can no longer process the
+payment method (e.g. the card has expired). Authorize.net only permits
+interval units of <cite>days</cite> or <cite>years</cite>.</p>
+<p>To specify a limited number of occurrences, use the <cite>total_occurrences</cite>
+parameter.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Recurring</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">45.00</span><span class="p">,</span>
+    <span class="s1">&#39;interval_length&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;interval_unit&#39;</span><span class="p">:</span> <span class="s1">&#39;days&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;total_occurrences&#39;</span><span class="p">:</span> <span class="mi">52</span><span class="p">,</span>
+    <span class="s1">&#39;credit_card&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;expiration_date&#39;</span><span class="p">:</span> <span class="s1">&#39;04-2014&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;456&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="c1"># result.subscription_id</span>
+<span class="c1"># e.g. &#39;1725605&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="full-example">
+<h3>Full Example<a class="headerlink" href="#full-example" title="Permalink to this headline">¶</a></h3>
+<p>Recurring payments can also be configured with customer bank accounts. The
+following example shows all recurring payment parameters available.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Recurring</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">45.00</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Ultimate Robot Supreme Plan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;total_occurrences&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s1">&#39;interval_length&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;interval_unit&#39;</span><span class="p">:</span> <span class="s1">&#39;months&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;trial_amount&#39;</span><span class="p">:</span> <span class="mf">30.00</span><span class="p">,</span>
+    <span class="s1">&#39;trial_occurrences&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;bank_account&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;account_type&#39;</span><span class="p">:</span> <span class="s1">&#39;checking&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;routing_number&#39;</span><span class="p">:</span> <span class="s1">&#39;322271627&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;account_number&#39;</span><span class="p">:</span> <span class="s1">&#39;00987467838473&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;name_on_account&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob Otron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bank_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Evil Bank Co.&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;billing&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Oteron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Robotron Studios&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;101 Computer Street&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Tucson&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;AZ&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="s1">&#39;85704&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;shipping&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Oteron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Robotron Studios&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;101 Computer Street&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Tucson&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;AZ&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="s1">&#39;85704&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;invoice_number&#39;</span><span class="p">:</span> <span class="s1">&#39;INV0001&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Just another invoice...&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;customer&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;merchant_id&#39;</span><span class="p">:</span> <span class="s1">&#39;1234567890&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="s1">&#39;rob@robotronstudios.com&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;I am a robot&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="c1"># result.subscription_id</span>
+<span class="c1"># e.g. &#39;1725628&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<p>To the get the status of a recurring payment, use the <cite>details</cite> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Recurring</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;1725628&#39;</span><span class="p">)</span>
+
+<span class="c1"># result.status</span>
+<span class="c1"># e.g. &#39;active&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update">
+<h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>update</cite> method takes the same parameters as the <cite>create</cite> method.
+However, once recurring payments have started, there are certain exceptions.</p>
+<ul class="simple">
+<li>The subscription <cite>start_date</cite> may only be updated if no successful
+payments have been completed.</li>
+<li>The subscription <cite>interval_length</cite> and <cite>interval_unit</cite> may not be updated.
+Instead, you must create a new subscription if you want different values
+for these parameters.</li>
+<li>The number of <cite>trial_occurrences</cite> may only be updated if the subscription
+has not yet begun or is still in the trial period.</li>
+<li>If the <cite>start_date</cite> is the 31st, and the interval is monthly, the billing
+date is the last day of each month (even when the month does not have 31
+days).</li>
+</ul>
+<p>When updating a recurring payment, you must pass in the subscription ID of
+the payment you wish to update along with the new subscription information.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Recurring</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;1725628&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Ultimate Robot Supreme Plan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">45.00</span><span class="p">,</span>
+    <span class="s1">&#39;total_occurrences&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s1">&#39;trial_amount&#39;</span><span class="p">:</span> <span class="mf">30.00</span><span class="p">,</span>
+    <span class="s1">&#39;trial_occurrences&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;credit_card&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;expiration_date&#39;</span><span class="p">:</span> <span class="s1">&#39;04-2014&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;456&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;billing&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Oteron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Robotron Studios&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;101 Computer Street&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Tucson&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;AZ&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="s1">&#39;85704&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;shipping&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Oteron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Robotron Studios&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;101 Computer Street&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Tucson&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;AZ&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="s1">&#39;85704&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;invoice_number&#39;</span><span class="p">:</span> <span class="s1">&#39;INV0001&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Just another invoice...&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;customer&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;merchant_id&#39;</span><span class="p">:</span> <span class="s1">&#39;1234567890&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="s1">&#39;rob@robotronstudios.com&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;I am a robot&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cancel">
+<h2>Cancel<a class="headerlink" href="#cancel" title="Permalink to this headline">¶</a></h2>
+<p>To cancel a recurring payment, pass the subscription ID to the <cite>cancel</cite>
+method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">authorize</span><span class="o">.</span><span class="n">Recurring</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;1725628&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="batch.html" class="btn btn-neutral float-right" title="Batch" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="address.html" class="btn btn-neutral" title="Address" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vincent Catalano.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

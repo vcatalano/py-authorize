@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development &mdash; Py-Authorize 1.3.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py-Authorize 1.3.0.0 documentation" href="index.html"/>
+        <link rel="prev" title="Advanced" href="advanced.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py-Authorize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer.html">Customer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credit_card.html">Credit Cards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bank_account.html">Bank Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recurring.html">Recurring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authorize-net-documentation">Authorize.net documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submitting-bugs-and-patches">Submitting bugs and patches</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py-Authorize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Development</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/development.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>Any development help is greatly appreciated. If you have have any new
+features, bug fixes or documentation improvements please feel free to
+contribute.</p>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>To start developing on this project, fork this project on our <a class="reference external" href="https://github.com/vcatalano/py-authorize">Github page</a>
+and install from source using the instructions in <a class="reference internal" href="install.html"><span class="doc">Install</span></a>.
+Additionally, you will need to install the following dependencies for running
+test and compiling documentation.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://nose.readthedocs.org/en/latest/">nose</a></li>
+<li><a class="reference external" href="https://tox.readthedocs.io/en/latest/">tox</a> (for testing multiple versions of Python)</li>
+<li><a class="reference external" href="http://sphinx-doc.org/">sphinx</a> (for documentation)</li>
+</ul>
+</div>
+<div class="section" id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>This project has been configured to use the Nose testing framework and Tox
+for automation. The following command will run all tests for the project.
+Since many of the tests connect to the Authorize.net server, running the
+tests may take quite a few seconds.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nosetests
+</pre></div>
+</div>
+<p>To run only local tests, you can use the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nosetests -a <span class="s1">&#39;!live_tests&#39;</span>
+</pre></div>
+</div>
+<p>To local tests for Python versions 2.7, 3.3, 3.4, 3.5 and PyPy:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>tox
+</pre></div>
+</div>
+</div>
+<div class="section" id="authorize-net-documentation">
+<h2>Authorize.net documentation<a class="headerlink" href="#authorize-net-documentation" title="Permalink to this headline">¶</a></h2>
+<p>The Authorize.net documentation can be overly verbose and very inconsistent
+with the implementations of many of its features. You can view the
+documentation by visiting the following links:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://developer.authorize.net/">Developer site</a></li>
+<li><a class="reference external" href="http://www.authorize.net/support/AIM_guide_XML.pdf">Advanced Integration Method</a></li>
+<li><a class="reference external" href="http://www.authorize.net/support/CIM_XML_guide.pdf">Customer Information Manager</a></li>
+<li><a class="reference external" href="http://www.authorize.net/support/ARB_guide.pdf">Automated Recurring Billing</a></li>
+</ul>
+</div>
+<div class="section" id="submitting-bugs-and-patches">
+<h2>Submitting bugs and patches<a class="headerlink" href="#submitting-bugs-and-patches" title="Permalink to this headline">¶</a></h2>
+<p>All bug reports, new feature requests and pull requests are handled through
+this project&#8217;s <a class="reference external" href="https://github.com/vcatalano/py-authorize/issues">Github issues</a> page.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="advanced.html" class="btn btn-neutral" title="Advanced" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vincent Catalano.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

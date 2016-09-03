@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Credit Cards &mdash; Py-Authorize 1.3.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py-Authorize 1.3.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Bank Accounts" href="bank_account.html"/>
+        <link rel="prev" title="Customer" href="customer.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py-Authorize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer.html">Customer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Credit Cards</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create">Create</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minimal-example">Minimal Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#full-example">Full Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#details">Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update">Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#delete">Delete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validate">Validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transactions">Transactions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bank_account.html">Bank Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recurring.html">Recurring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py-Authorize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Credit Cards</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/credit_card.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="credit-cards">
+<h1>Credit Cards<a class="headerlink" href="#credit-cards" title="Permalink to this headline">¶</a></h1>
+<p>Credit cards must be associated to a customer profile on the Authorize.net
+server. A credit card can be associated when a new customer is created, to
+see how this is handled refer to the <a class="reference internal" href="customer.html"><span class="doc">Customer API</span></a>
+documentation.</p>
+<div class="section" id="create">
+<h2>Create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h2>
+<p>To add a credit card to an existing user, the minimal amount of information
+required is the credit card number, the expiration date and the customer
+profile ID. The customer profile ID is passed as the first argument to the
+<code class="docutils literal"><span class="pre">create</span></code> method.</p>
+<div class="section" id="minimal-example">
+<h3>Minimal Example<a class="headerlink" href="#minimal-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_date&#39;</span><span class="p">:</span> <span class="s1">&#39;04/2014&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">payment_id</span>
+<span class="c1"># e.g. &#39;17633318&#39;</span>
+</pre></div>
+</div>
+<p>When creating a new credit card, the expiration month and date can be
+seperate values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_month&#39;</span><span class="p">:</span> <span class="s1">&#39;04&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_year&#39;</span><span class="p">:</span> <span class="s1">&#39;2014&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">payment_id</span>
+<span class="c1"># e.g. &#39;17633319&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="full-example">
+<h3>Full Example<a class="headerlink" href="#full-example" title="Permalink to this headline">¶</a></h3>
+<p>When creating a new credit card, the billing address information can also be
+associated to the card.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_month&#39;</span><span class="p">:</span> <span class="s1">&#39;04&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_year&#39;</span><span class="p">:</span> <span class="s1">&#39;2014&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;123&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;billing&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Oteron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Robotron Studios&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;101 Computer Street&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Tucson&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;AZ&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="s1">&#39;85704&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;phone_number&#39;</span><span class="p">:</span> <span class="s1">&#39;520-123-4567&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;fax_number&#39;</span><span class="p">:</span> <span class="s1">&#39;520-456-7890&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">payment_id</span>
+<span class="c1"># e.g. &#39;17633319&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">details</span></code> method returns the information for a given customer payment
+profile. This method takes both the customer profile ID and customer payment
+profile ID.</p>
+<p>The following information is returned in the result attribute dictionary:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">payment_profile.payment_id</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.customer_type</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.payment.credit_card.card_number</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.payment.credit_card.expiration_date</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.company</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.first_name</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.last_name</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.address</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.city</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.state</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.zip</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.country</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.phone_number</span></code></li>
+<li><code class="docutils literal"><span class="pre">payment_profile.bill_to.fax_number</span></code></li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update">
+<h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">update</span></code> method will update the credit card information for a given
+payment profile ID. The method requires the customer profile ID, the payment
+profile ID and the new credit card information.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_month&#39;</span><span class="p">:</span> <span class="s1">&#39;04&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expiration_year&#39;</span><span class="p">:</span> <span class="s1">&#39;2014&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;123&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;billing&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Oteron&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;company&#39;</span><span class="p">:</span> <span class="s1">&#39;Robotron Studios&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;101 Computer Street&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Tucson&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;AZ&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="s1">&#39;85704&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;phone_number&#39;</span><span class="p">:</span> <span class="s1">&#39;520-123-4567&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;fax_number&#39;</span><span class="p">:</span> <span class="s1">&#39;520-456-7890&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete">
+<h2>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h2>
+<p>Deleting a customer credit card will remove the payment profile from the
+given customer.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="validate">
+<h2>Validate<a class="headerlink" href="#validate" title="Permalink to this headline">¶</a></h2>
+<p>Stored credit cards can be validated before attempting to run a transaction
+against them.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;123&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;validationMode&#39;</span><span class="p">:</span> <span class="s1">&#39;liveMode&#39;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="transactions">
+<h2>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h2>
+<p>For information on how to run transactions agains stored credit cards,
+please refer to the <a class="reference internal" href="transaction.html"><span class="doc">Transaction</span></a> documentation.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bank_account.html" class="btn btn-neutral float-right" title="Bank Accounts" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="customer.html" class="btn btn-neutral" title="Customer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vincent Catalano.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
