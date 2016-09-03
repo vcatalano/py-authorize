@@ -82,6 +82,7 @@ class CustomerAPI(BaseAPI):
     def _details_request(self, customer_id):
         request = self.api._base_request('getCustomerProfileRequest')
         E.SubElement(request, 'customerProfileId').text = customer_id
+        E.SubElement(request, 'unmaskExpirationDate').text = 'true'
         return request
 
     def _update_request(self, customer_id, customer):

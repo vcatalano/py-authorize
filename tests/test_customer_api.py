@@ -139,6 +139,7 @@ CUSTOMER_DETAILS_REQUEST = '''
     <transactionKey>5GK7mncw8mG2946z</transactionKey>
   </merchantAuthentication>
   <customerProfileId>1234567890</customerProfileId>
+  <unmaskExpirationDate>true</unmaskExpirationDate>
 </getCustomerProfileRequest>
 '''
 
