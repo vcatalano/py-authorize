@@ -87,8 +87,8 @@ can be provided as well.
     # e.g. '19086352'
 
 
-Creating Profile from a transaction ID
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating Profile from a Transaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 

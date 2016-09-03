@@ -84,27 +84,34 @@ Full Example
             'description': 'I can''t believe you would pay for duty',
         },
         'line_items': [{
-                'item_id': 'CIR0001',
-                'name': 'Circuit Board',
-                'description': 'A brand new robot component',
-                'quantity': 5,
-                'unit_price': 4.00,
-                'taxable': 'true',
-            }, {
-                'item_id': 'CIR0002',
-                'name': 'Circuit Board 2.0',
-                'description': 'Another new robot component',
-                'quantity': 1,
-                'unit_price': 10.00,
-                'taxable': 'true',
-            }, {
-                'item_id': 'SCRDRVR',
-                'name': 'Screwdriver',
-                'description': 'A basic screwdriver',
-                'quantity': 1,
-                'unit_price': 10.00,
-                'taxable': 'true',
-            }],
+            'item_id': 'CIR0001',
+            'name': 'Circuit Board',
+            'description': 'A brand new robot component',
+            'quantity': 5,
+            'unit_price': 4.00,
+            'taxable': 'true',
+        }, {
+            'item_id': 'CIR0002',
+            'name': 'Circuit Board 2.0',
+            'description': 'Another new robot component',
+            'quantity': 1,
+            'unit_price': 10.00,
+            'taxable': 'true',
+        }, {
+            'item_id': 'SCRDRVR',
+            'name': 'Screwdriver',
+            'description': 'A basic screwdriver',
+            'quantity': 1,
+            'unit_price': 10.00,
+            'taxable': 'true',
+        }],
+        'user_fields': [{
+            'name': 'additionalDescription',
+            'value': 'An additional description goes here...'
+        }, {
+            'name': 'moreInfo',
+            'value': 'This is some more information...'
+        }]
         'order': {
             'invoice_number': 'INV0001',
             'description': 'Just another invoice...',
