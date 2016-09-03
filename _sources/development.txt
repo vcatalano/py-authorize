@@ -17,11 +17,13 @@ test and compiling documentation.
 - nose_
 - tox_ (for testing multiple versions of Python)
 - sphinx_ (for documentation)
+- sphinx_rtd_theme_ (documentation theme)
 
 .. _Github page: https://github.com/vcatalano/py-authorize
 .. _nose: https://nose.readthedocs.org/en/latest/
 .. _tox: https://tox.readthedocs.io/en/latest/
 .. _sphinx: http://sphinx-doc.org/
+.. _sphinx_rtd_theme: https://github.com/snide/sphinx_rtd_theme
 
 
 Running Tests
