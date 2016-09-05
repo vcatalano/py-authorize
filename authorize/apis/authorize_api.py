@@ -56,24 +56,21 @@ class AuthorizeAPI(object):
             request.add_header('Content-Type', 'text/xml')
             response = urllib2.urlopen(request).read()
             response = E.fromstring(response)
-            result = parse_response(response)
+            response_json = parse_response(response)
         except urllib2.HTTPError:
             raise AuthorizeConnectionError('Error processing XML request.')
 
-        # Throw an exception for invalid calls. This makes error handling easier.
-        if result.messages[0].result_code != 'Ok':
-            error = result.messages[0].message
-            e = AuthorizeResponseError('%s: %s' % (error.code, error.text))
-            e.full_response = result
-            raise e
-
         # Exception handling for transaction response errors.
         try:
-            error = result.transaction_response.errors[0]
-            e = AuthorizeResponseError('Response code %s: %s' % (error.error_code, error.error_text))
-            e.full_response = result
-            raise e
-        except KeyError:
+            error = response_json.transaction_response.errors[0]
+            raise AuthorizeResponseError(error.error_code, error.error_text, response_json)
+        except KeyError:  # Attempt to access transaction response errors
             pass
 
-        return result
+        # Throw an exception for invalid calls. This makes error handling easier.
+        if response_json.messages[0].result_code != 'Ok':
+            error = response_json.messages[0].message
+            print response_json
+            raise AuthorizeResponseError(error.code, error.text, response_json)
+
+        return response_json

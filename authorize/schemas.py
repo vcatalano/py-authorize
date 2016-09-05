@@ -158,8 +158,8 @@ class PayPalSchema(colander.MappingSchema):
                                      missing=colander.drop)
     locale = colander.SchemaNode(colander.String(),
                                  missing=colander.drop)
-    header_img = colander.SchemaNode(colander.String(),
-                                     missing=colander.drop)
+    header_image = colander.SchemaNode(colander.String(),
+                                       missing=colander.drop)
     flow_color = colander.SchemaNode(colander.String(),
                                      missing=colander.drop)
     payer_id = colander.SchemaNode(colander.String(),
@@ -323,10 +323,10 @@ class TransactionBaseSchema(colander.MappingSchema):
 class CIMBaseSchema(colander.MappingSchema):
     customer_id = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=60),
-                                      required=True)
+                                      missing=colander.drop)
     payment_id = colander.SchemaNode(colander.String(),
                                      validator=colander.Length(max=60),
-                                     required=True)
+                                     missing=colander.drop)
     address_id = colander.SchemaNode(colander.String(),
                                      validator=colander.Length(max=60),
                                      missing=colander.drop)

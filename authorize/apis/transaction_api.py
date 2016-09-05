@@ -27,6 +27,14 @@ class TransactionAPI(BaseAPI):
         xact = self._deserialize(CreditTransactionSchema(), params)
         return self.api._make_call(self._transaction_request('refundTransaction', xact))
 
+    def auth_continue(self, transaction_id, payer_id):
+        return self.api._make_call(self._pay_pal_continue_request('authOnlyContinueTransaction', transaction_id,
+                                                                  payer_id))
+
+    def credit_continue(self, transaction_id, payer_id):
+        return self.api._make_call(self._pay_pal_continue_request('authCaptureContinueTransaction', transaction_id,
+                                                                  payer_id))
+
     def refund(self, params={}):
         xact = self._deserialize(RefundTransactionSchema(), params)
         return self.api._make_call(self._refund_request(xact))
@@ -128,6 +136,19 @@ class TransactionAPI(BaseAPI):
 
         if amount:
             E.SubElement(xact_elem, 'amount').text = quantize(amount)
+
+        E.SubElement(xact_elem, 'refTransId').text = transaction_id
+        return request
+
+    def _pay_pal_continue_request(self, xact_type, transaction_id, payer_id):
+        request = self.api._base_request('createTransactionRequest')
+        xact_elem = E.SubElement(request, 'transactionRequest')
+        E.SubElement(xact_elem, 'transactionType').text = xact_type
+
+        payment = E.Element('payment')
+        pay_pal = E.SubElement(payment, 'payPal')
+        E.SubElement(pay_pal, 'payerID').text = payer_id
+        xact_elem.append(payment)
 
         E.SubElement(xact_elem, 'refTransId').text = transaction_id
         return request

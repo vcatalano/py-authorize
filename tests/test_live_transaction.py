@@ -379,12 +379,6 @@ class TransactionTests(TestCase):
         # Read transaction details
         Transaction.details(result.transaction_response.trans_id)
 
-    def test_live_pay_pal_sale_transaction(self):
-        transaction = PAY_PAL_TRANSACTION.copy()
-        transaction['amount'] = random.randrange(100, 100000) / 100.0
-        result = Transaction.sale(transaction)
-        Transaction.details(result.transaction_response.trans_id)
-
     def test_live_cim_auth_transaction(self):
         result = Customer.create(CUSTOMER)
         transaction = FULL_CIM_TRANSACTION.copy()
@@ -484,3 +478,26 @@ class TransactionTests(TestCase):
 
     def test_list_transactions_by_batch(self):
         self.assertRaises(AuthorizeResponseError, Transaction.list, 'Bad batch ID')
+
+    """
+    PayPal transactions are not currently supported by the merchant test account,
+    however, we can still validate the transactions against the XML schema.
+    """
+    def test_pay_pal_auth_transaction(self):
+        transaction = PAY_PAL_TRANSACTION.copy()
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+
+        try:
+            Transaction.auth(transaction)
+        except AuthorizeResponseError as e:
+            self.assertEqual(e.code, '2001')
+
+    def test_pay_pal_sale_transaction(self):
+        transaction = PAY_PAL_TRANSACTION.copy()
+        transaction['amount'] = random.randrange(100, 100000) / 100.0
+
+        try:
+            Transaction.sale(transaction)
+        except AuthorizeResponseError as e:
+            self.assertEqual(e.code, '2001')
+

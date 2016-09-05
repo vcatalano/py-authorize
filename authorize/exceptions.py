@@ -15,6 +15,14 @@ class AuthorizeResponseError(AuthorizeError):
 
     """Error response code returned from API."""
 
+    def __init__(self, code, text, full_response):
+        self.code = code
+        self.text = text
+        self.full_response = full_response
+
+    def __str__(self):
+        return '%s: %s' % (self.code, self.text)
+
 
 class AuthorizeInvalidError(AuthorizeError, Invalid):
 

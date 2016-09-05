@@ -91,12 +91,16 @@ def create_account(params={}):
 
 def create_pay_pal(params={}):
     pay_pal = E.Element('payPal')
-    E.SubElement(pay_pal, 'successUrl').text = params['success_url']
-    E.SubElement(pay_pal, 'cancelUrl').text = params['cancel_url']
-    E.SubElement(pay_pal, 'paypalLc').text = params['locale']
-    E.SubElement(pay_pal, 'paypalHdrImg').text = params['header_img']
-    E.SubElement(pay_pal, 'paypalPayflowcolor').text = params['flow_color']
-    #E.SubElement(pay_pal, 'payerID').text = params['payer_id']
+    if 'success_url' in params:
+        E.SubElement(pay_pal, 'successUrl').text = params['success_url']
+    if 'cancel_url' in params:
+        E.SubElement(pay_pal, 'cancelUrl').text = params['cancel_url']
+    if 'locale' in params:
+        E.SubElement(pay_pal, 'paypalLc').text = params['locale']
+    if 'header_image' in params:
+        E.SubElement(pay_pal, 'paypalHdrImg').text = params['header_image']
+    if 'flow_color' in params:
+        E.SubElement(pay_pal, 'paypalPayflowcolor').text = params['flow_color']
     return pay_pal
 
 

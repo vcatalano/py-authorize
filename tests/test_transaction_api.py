@@ -229,6 +229,17 @@ REFUND_TRANSACTION = {
     'expiration_year': '2020',
 }
 
+PAY_PAL_AUTH_TRANSACTION = {
+    'amount': 30.00,
+    'pay_pal': {
+        'success_url': 'http://www.merchanteCommerceSite.com/Success/TC25262',
+        'cancel_url': 'http://www.merchanteCommerceSite.com/Success/TC25262',
+        'locale': 'US',
+        'header_image': 'https://usa.visa.com/img/home/logo_visa.gif',
+        'flow_color': 'FF0000'
+    },
+}
+
 CIM_SALE_REQUEST = '''
 <?xml version="1.0" ?>
 <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
@@ -588,6 +599,156 @@ SETTLED_LIST_REQUEST = '''
 </getTransactionListRequest>
 '''
 
+PAY_PAL_AUTH_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>authOnlyTransaction</transactionType>
+    <amount>30.00</amount>
+    <payment>
+      <payPal>
+        <successUrl>http://www.merchanteCommerceSite.com/Success/TC25262</successUrl>
+        <cancelUrl>http://www.merchanteCommerceSite.com/Success/TC25262</cancelUrl>
+        <paypalLc>US</paypalLc>
+        <paypalHdrImg>https://usa.visa.com/img/home/logo_visa.gif</paypalHdrImg>
+        <paypalPayflowcolor>FF0000</paypalPayflowcolor>
+      </payPal>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_AUTH_CAPTURE_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>authCaptureTransaction</transactionType>
+    <amount>30.00</amount>
+    <payment>
+      <payPal>
+        <successUrl>http://www.merchanteCommerceSite.com/Success/TC25262</successUrl>
+        <cancelUrl>http://www.merchanteCommerceSite.com/Success/TC25262</cancelUrl>
+        <paypalLc>US</paypalLc>
+        <paypalHdrImg>https://usa.visa.com/img/home/logo_visa.gif</paypalHdrImg>
+        <paypalPayflowcolor>FF0000</paypalPayflowcolor>
+      </payPal>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_DETAILS_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>getDetailsTransaction</transactionType>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_AUTH_CONTINUE_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>authOnlyContinueTransaction</transactionType>
+    <payment>
+      <payPal>
+        <payerID>7E7MGXCWTTKK2</payerID>
+      </payPal>
+    </payment>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_PRIOR_AUTH_CAPTURE_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>priorAuthCaptureTransaction</transactionType>
+    <amount>30.00</amount>
+    <payment>
+      <payPal>
+        <successUrl>http://www.merchanteCommerceSite.com/Success/TC25262</successUrl>
+        <cancelUrl>http://www.merchanteCommerceSite.com/Success/TC25262</cancelUrl>
+        <paypalLc>US</paypalLc>
+        <paypalHdrImg>https://usa.visa.com/img/home/logo_visa.gif</paypalHdrImg>
+        <paypalPayflowcolor>FF0000</paypalPayflowcolor>
+      </payPal>
+    </payment>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_AUTH_CAPTURE_CONTINUE_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>authCaptureContinueTransaction</transactionType>
+    <payment>
+      <payPal>
+        <payerID>7E7MGXCWTTKK2</payerID>
+      </payPal>
+    </payment>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_VOID_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>voidTransaction</transactionType>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
+PAY_PAL_CREDIT_REQUEST = '''
+<?xml version="1.0" ?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <transactionRequest>
+    <transactionType>refundTransaction</transactionType>
+    <refTransId>87912412523</refTransId>
+  </transactionRequest>
+</createTransactionRequest>
+'''
+
 
 class TransactionAPITests(TestCase):
 
@@ -648,3 +809,42 @@ class TransactionAPITests(TestCase):
         request_xml = Configuration.api.transaction._settled_list_request('89429992353')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, SETTLED_LIST_REQUEST.strip())
+
+    def test_pay_pal_auth_request(self):
+        request_xml = Configuration.api.transaction._transaction_request(
+            'authOnlyTransaction', PAY_PAL_AUTH_TRANSACTION)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, PAY_PAL_AUTH_REQUEST.strip())
+
+    def test_pay_pal_auth_capture_request(self):
+        request_xml = Configuration.api.transaction._transaction_request(
+            'authCaptureTransaction', PAY_PAL_AUTH_TRANSACTION)
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, PAY_PAL_AUTH_CAPTURE_REQUEST.strip())
+
+    def test_pay_pal_details_request(self):
+        pass
+
+    def test_pay_pal_auth_only_continued_request(self):
+        request_xml = Configuration.api.transaction._pay_pal_continue_request(
+            'authOnlyContinueTransaction', '87912412523', '7E7MGXCWTTKK2')
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, PAY_PAL_AUTH_CONTINUE_REQUEST.strip())
+
+    # Use existing `settle` function
+    def test_pay_pal_prior_auth_capture_request(self):
+        pass
+
+    def test_pay_pal_auth_capture_continue_request(self):
+        request_xml = Configuration.api.transaction._pay_pal_continue_request(
+            'authCaptureContinueTransaction', '87912412523', '7E7MGXCWTTKK2')
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, PAY_PAL_AUTH_CAPTURE_CONTINUE_REQUEST.strip())
+
+    # Use existing 'void' function
+    def test_pay_pal_void_request(self):
+        pass
+
+    # Use default `credit` function
+    def test_pay_pal_credit_request(self):
+        pass
