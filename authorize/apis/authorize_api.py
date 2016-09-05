@@ -32,11 +32,12 @@ class AuthorizeAPI(object):
         self.recurring = RecurringAPI(self)
         self.batch = BatchAPI(self)
         self.transaction = TransactionAPI(self)
+        self._client_auth = None
 
     @property
     def client_auth(self):
         """Generate an XML element with client auth data populated."""
-        if not hasattr(self, '_client_auth'):
+        if not self._client_auth:
             self._client_auth = E.Element('merchantAuthentication')
             E.SubElement(self._client_auth, 'name').text = self.config.login_id
             E.SubElement(self._client_auth, 'transactionKey').text = self.config.transaction_key
@@ -70,7 +71,6 @@ class AuthorizeAPI(object):
         # Throw an exception for invalid calls. This makes error handling easier.
         if response_json.messages[0].result_code != 'Ok':
             error = response_json.messages[0].message
-            print response_json
             raise AuthorizeResponseError(error.code, error.text, response_json)
 
         return response_json

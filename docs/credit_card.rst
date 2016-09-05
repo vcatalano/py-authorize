@@ -19,7 +19,7 @@ Minimal Example
 
 .. code-block:: python
 
-    result = authorize.CreditCard.create('19086684', {
+    result = authorize.CreditCard.create('customer_id', {
         'card_number': '4111111111111111',
         'expiration_date': '04/2014',
     })
@@ -28,11 +28,11 @@ Minimal Example
     # e.g. '17633318'
 
 When creating a new credit card, the expiration month and date can be 
-seperate values.
+separate values.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.create('19086684', {
+    result = authorize.CreditCard.create('customer_id', {
         'card_number': '4111111111111111',
         'expiration_month': '04',
         'expiration_year': '2014',
@@ -50,7 +50,7 @@ associated to the card.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.create('19086684', {
+    result = authorize.CreditCard.create('customer_id', {
         'customer_type': 'individual',
         'card_number': '4111111111111111',
         'expiration_month': '04',
@@ -100,7 +100,7 @@ The following information is returned in the result attribute dictionary:
 
 .. code-block:: python
 
-    result = authorize.CreditCard.details('19086684', '17633319')
+    result = authorize.CreditCard.details('customer_id', '17633319')
 
 
 Update
@@ -112,7 +112,7 @@ profile ID and the new credit card information.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.update('19086684', '17633319', {
+    result = authorize.CreditCard.update('customer_id', '17633319', {
         'customer_type': 'individual',
         'card_number': '4111111111111111',
         'expiration_month': '04',
@@ -141,7 +141,7 @@ given customer.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.delete('19086684', '17633319')
+    result = authorize.CreditCard.delete('customer_id', '17633319')
 
 
 Validate
@@ -152,7 +152,7 @@ against them.
 
 .. code-block:: python
 
-    result = authorize.CreditCard.validate('19086684', '17633319', {
+    result = authorize.CreditCard.validate('customer_id', '17633319', {
         'card_code': '123',
         'validationMode': 'liveMode'
     })

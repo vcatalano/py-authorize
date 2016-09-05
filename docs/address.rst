@@ -17,7 +17,7 @@ least one field must be provided.
 
 .. code-block:: python
 
-    result = authorize.Address.create('19086684', {
+    result = authorize.Address.create('customer_id', {
         'first_name': 'Rob',
         'last_name': 'Oteron',
         'company': 'Robotron Studios',
@@ -56,7 +56,7 @@ The following information is returnd in the result attribute dictionary:
 
 .. code-block:: python
 
-    result = authorize.Address.details('19086684', '17769620')
+    result = authorize.Address.details('customer_id', '17769620')
 
     result.address_id
     # e.g. '17769620'
@@ -71,7 +71,7 @@ address ID and the updated customer address information.
 
 .. code-block:: python
 
-    result = authorize.Address.create('19086684', '17769620', {
+    result = authorize.Address.create('customer_id', '17769620', {
         'first_name': 'Rob',
         'last_name': 'Oteron',
         'company': 'Robotron Studios',
@@ -93,4 +93,4 @@ the customer.
 
 .. code-block:: python
 
-    authorize.Address.delete('19086684', '17769620')
+    authorize.Address.delete('customer_id', '17769620')

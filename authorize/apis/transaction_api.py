@@ -31,7 +31,7 @@ class TransactionAPI(BaseAPI):
         return self.api._make_call(self._pay_pal_continue_request('authOnlyContinueTransaction', transaction_id,
                                                                   payer_id))
 
-    def credit_continue(self, transaction_id, payer_id):
+    def sale_continue(self, transaction_id, payer_id):
         return self.api._make_call(self._pay_pal_continue_request('authCaptureContinueTransaction', transaction_id,
                                                                   payer_id))
 

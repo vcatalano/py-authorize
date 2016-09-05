@@ -20,6 +20,14 @@ class Transaction(object):
         return Configuration.api.transaction.credit(params)
 
     @staticmethod
+    def auth_continue(params={}):
+        return Configuration.api.transaction.auth_continue(params)
+
+    @staticmethod
+    def sale_continue(params={}):
+        return Configuration.api.transaction.sale_continue(params)
+
+    @staticmethod
     def refund(params={}):
         return Configuration.api.transaction.refund(params)
 

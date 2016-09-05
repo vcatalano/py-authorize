@@ -6,8 +6,8 @@ taking payments for goods or services and charging a consumer. Py-Authorize's
 Transaction API provides all the functionality developers will need for all 
 situations when developing a payment system. 
 
-Create
-------
+Sale
+----
 
 The most common transaction type for credit cards is a ''sale''. During the 
 transaction, the credit card is first authorized for the given transaction 
@@ -443,6 +443,8 @@ Example
         'transaction_id': '0123456789'
     })
 
+
+.. _void:
 
 Void
 ----
