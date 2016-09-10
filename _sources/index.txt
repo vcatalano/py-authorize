@@ -55,6 +55,7 @@ Contents:
     customer
     credit_card
     bank_account
+    pay_pal
     address
     recurring
     batch

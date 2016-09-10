@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="Py-Authorize 1.3.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Address" href="address.html"/>
+        <link rel="next" title="PayPal Express Checkout" href="pay_pal.html"/>
         <link rel="prev" title="Credit Cards" href="credit_card.html"/> 
 
   
@@ -99,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#transactions">Transactions</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pay_pal.html">PayPal Express Checkout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recurring.html">Recurring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
@@ -169,7 +170,7 @@ customer profile ID. The customer profile ID is passed as the first argument
 to the <code class="docutils literal"><span class="pre">create</span></code> method.</p>
 <div class="section" id="minimal-example">
 <h3>Minimal Example<a class="headerlink" href="#minimal-example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;routing_number&#39;</span><span class="p">:</span> <span class="s1">&#39;322271627&#39;</span><span class="p">,</span>
     <span class="s1">&#39;account_number&#39;</span><span class="p">:</span> <span class="s1">&#39;00987467838473&#39;</span><span class="p">,</span>
     <span class="s1">&#39;name_on_account&#39;</span><span class="p">:</span> <span class="s1">&#39;Rob Otron&#39;</span><span class="p">,</span>
@@ -184,7 +185,7 @@ to the <code class="docutils literal"><span class="pre">create</span></code> met
 <h3>Full Example<a class="headerlink" href="#full-example" title="Permalink to this headline">¶</a></h3>
 <p>When creating a new bank account, the billing address information can also
 be associated to the account.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
     <span class="s1">&#39;account_type&#39;</span><span class="p">:</span> <span class="s1">&#39;checking&#39;</span><span class="p">,</span>
     <span class="s1">&#39;routing_number&#39;</span><span class="p">:</span> <span class="s1">&#39;322271627&#39;</span><span class="p">,</span>
@@ -238,7 +239,7 @@ profile ID.</p>
 <li><code class="docutils literal"><span class="pre">payment_profile.bill_to.phone_number</span></code></li>
 <li><code class="docutils literal"><span class="pre">payment_profile.bill_to.fax_number</span></code></li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633614&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633614&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -247,7 +248,7 @@ profile ID.</p>
 <p>The <code class="docutils literal"><span class="pre">update</span></code> method will update the bank account information for a given
 payment profile ID. The method requires the customer profile ID, the payment
 profile ID and the new bank account information.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633614&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633614&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
     <span class="s1">&#39;account_type&#39;</span><span class="p">:</span> <span class="s1">&#39;checking&#39;</span><span class="p">,</span>
     <span class="s1">&#39;routing_number&#39;</span><span class="p">:</span> <span class="s1">&#39;322271627&#39;</span><span class="p">,</span>
@@ -275,7 +276,7 @@ profile ID and the new bank account information.</p>
 <h2>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h2>
 <p>Deleting a customer bank account will remove the payment profile from the
 given customer.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">BankAccount</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -293,7 +294,7 @@ please refer to the <a class="reference internal" href="transaction.html"><span 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="address.html" class="btn btn-neutral float-right" title="Address" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pay_pal.html" class="btn btn-neutral float-right" title="PayPal Express Checkout" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="credit_card.html" class="btn btn-neutral" title="Credit Cards" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

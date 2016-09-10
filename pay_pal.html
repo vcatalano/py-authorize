@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PayPal Express Checkout &mdash; Py-Authorize 1.3.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py-Authorize 1.3.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Address" href="address.html"/>
+        <link rel="prev" title="Bank Accounts" href="bank_account.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py-Authorize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer.html">Customer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credit_card.html">Credit Cards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bank_account.html">Bank Accounts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PayPal Express Checkout</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#additional-api-flow-functions">Additional API Flow Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction-flow-sequence-example-1">Transaction Flow Sequence Example 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction-flow-sequence-example-2">Transaction Flow Sequence Example 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction-flow-sequence-example-3">Transaction Flow Sequence Example 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recurring.html">Recurring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py-Authorize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>PayPal Express Checkout</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/pay_pal.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="paypal-express-checkout">
+<h1>PayPal Express Checkout<a class="headerlink" href="#paypal-express-checkout" title="Permalink to this headline">¶</a></h1>
+<p>Authorize.net now provides functionality for PayPal Express Checkout. With
+PayPal Express Checkout, you can accept payments with PayPal while utilizing
+Authorize.net&#8217;s reporting functionality.</p>
+<p>For more detailed information about how the PayPal Express Checkout process
+works with Authorize.net, visit the official <a class="reference internal" href="#paypal-express-checkout">PayPal Express Checkout</a>
+documentation.</p>
+<div class="section" id="additional-api-flow-functions">
+<h2>Additional API Flow Functions<a class="headerlink" href="#additional-api-flow-functions" title="Permalink to this headline">¶</a></h2>
+<p>In order to handle the additional steps required by the PayPal Express Checkout
+flow process, two additional functions have been added to the Transaction API:
+<code class="docutils literal"><span class="pre">Transaction.auth_continue</span></code> and <code class="docutils literal"><span class="pre">Transaction.sale_continue</span></code>. These functions
+refer to <code class="docutils literal"><span class="pre">Authorize</span> <span class="pre">Only,</span> <span class="pre">Continue</span></code> and <code class="docutils literal"><span class="pre">Authorize</span> <span class="pre">and</span> <span class="pre">Capture,</span> <span class="pre">Continue</span></code>
+requests, respectively.</p>
+</div>
+<div class="section" id="transaction-flow-sequence-example-1">
+<h2>Transaction Flow Sequence Example 1<a class="headerlink" href="#transaction-flow-sequence-example-1" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Authorization Only</li>
+<li>Get Details (recommended for shipping)</li>
+<li>Authorization Only, Continue</li>
+<li>Prior Authorization Capture</li>
+<li>Refund (optional)</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">auth</span><span class="p">({</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">40.00</span><span class="p">,</span>
+    <span class="s1">&#39;pay_pal&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;success_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://my.server.com/success.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cancel_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://my.server.com/cancel.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;header_image&#39;</span><span class="p">:</span> <span class="s1">&#39;https://usa.visa.com/img/home/logo_visa.gif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;flow_color&#39;</span><span class="p">:</span> <span class="s1">&#39;FF0000&#39;</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">transaction_response</span><span class="o">.</span><span class="n">trans_id</span>
+<span class="c1"># e.g. &#39;transaction_id&#39;</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">secure_acceptance</span><span class="o">.</span><span class="n">secure_acceptance_url</span>
+<span class="c1"># e.g. https://www.paypal.com/cgibin/webscr?cmd=_express-checkout&amp;token=EC-4WL17777V4111184H</span>
+
+<span class="c1"># (optional) get shipping information for order</span>
+<span class="n">details</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">auth_continue</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">,</span> <span class="s1">&#39;payer_id&#39;</span><span class="p">)</span>
+
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">settle</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+
+<span class="c1"># (optional) refund the transaction</span>
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">refund</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="transaction-flow-sequence-example-2">
+<h2>Transaction Flow Sequence Example 2<a class="headerlink" href="#transaction-flow-sequence-example-2" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Authorization Only</li>
+<li>Get Details (recommended for shipping)</li>
+<li>Authorization Only, Continue</li>
+<li>Void</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">auth</span><span class="p">({</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">40.00</span><span class="p">,</span>
+    <span class="s1">&#39;pay_pal&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;success_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://my.server.com/success.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cancel_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://my.server.com/cancel.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;header_image&#39;</span><span class="p">:</span> <span class="s1">&#39;https://usa.visa.com/img/home/logo_visa.gif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;flow_color&#39;</span><span class="p">:</span> <span class="s1">&#39;FF0000&#39;</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">transaction_response</span><span class="o">.</span><span class="n">trans_id</span>
+<span class="c1"># e.g. &#39;transaction_id&#39;</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">secure_acceptance</span><span class="o">.</span><span class="n">secure_acceptance_url</span>
+<span class="c1"># e.g. https://www.paypal.com/cgibin/webscr?cmd=_express-checkout&amp;token=EC-4WL17777V4111184H</span>
+
+<span class="c1"># (optional) get shipping information for order</span>
+<span class="n">details</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">auth_continue</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">,</span> <span class="s1">&#39;payer_id&#39;</span><span class="p">)</span>
+
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">void</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="transaction-flow-sequence-example-3">
+<h2>Transaction Flow Sequence Example 3<a class="headerlink" href="#transaction-flow-sequence-example-3" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Authorization and Capture</li>
+<li>Get Details (recommended for shipping)</li>
+<li>Authorization and Capture, Continue</li>
+<li>Refund (optional)</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">sale</span><span class="p">({</span>
+    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">40.00</span><span class="p">,</span>
+    <span class="s1">&#39;pay_pal&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;success_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://my.server.com/success.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cancel_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://my.server.com/cancel.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;header_image&#39;</span><span class="p">:</span> <span class="s1">&#39;https://usa.visa.com/img/home/logo_visa.gif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;flow_color&#39;</span><span class="p">:</span> <span class="s1">&#39;FF0000&#39;</span>
+    <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">transaction_response</span><span class="o">.</span><span class="n">trans_id</span>
+<span class="c1"># e.g. &#39;transaction_id&#39;</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">secure_acceptance</span><span class="o">.</span><span class="n">secure_acceptance_url</span>
+<span class="c1"># e.g. https://www.paypal.com/cgibin/webscr?cmd=_express-checkout&amp;token=EC-4WL17777V4111184H</span>
+
+<span class="c1"># (optional) get shipping information for order</span>
+<span class="n">details</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">sale_continue</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">,</span> <span class="s1">&#39;payer_id&#39;</span><span class="p">)</span>
+
+<span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">refund</span><span class="p">(</span><span class="s1">&#39;transaction_id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="address.html" class="btn btn-neutral float-right" title="Address" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bank_account.html" class="btn btn-neutral" title="Bank Accounts" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vincent Catalano.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54337114-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

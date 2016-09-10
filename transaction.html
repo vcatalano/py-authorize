@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Transactions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#create">Create</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sale">Sale</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#minimal-example">Minimal Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#full-example">Full Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#card-present-example">Card Present Example</a></li>
@@ -108,20 +108,20 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#void">Void</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Example</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#credit">Credit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Example</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#details">Details</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#credit">Credit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id5">Example</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#list-transactions">List Transactions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#details">Details</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#list-transactions">List Transactions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id7">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -129,6 +129,7 @@
 <li class="toctree-l1"><a class="reference internal" href="customer.html">Customer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="credit_card.html">Credit Cards</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bank_account.html">Bank Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pay_pal.html">PayPal Express Checkout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recurring.html">Recurring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
@@ -184,8 +185,8 @@
 taking payments for goods or services and charging a consumer. Py-Authorize&#8217;s
 Transaction API provides all the functionality developers will need for all
 situations when developing a payment system.</p>
-<div class="section" id="create">
-<h2>Create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sale">
+<h2>Sale<a class="headerlink" href="#sale" title="Permalink to this headline">¶</a></h2>
 <p>The most common transaction type for credit cards is a &#8216;&#8217;sale&#8217;&#8216;. During the
 transaction, the credit card is first authorized for the given transaction
 amount, if approved, it is automattically submitted for settlement.</p>
@@ -592,14 +593,14 @@ this information can be gotten using the <code class="docutils literal"><span cl
 </div>
 </div>
 <div class="section" id="void">
-<h2>Void<a class="headerlink" href="#void" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Void<a class="headerlink" href="#void" title="Permalink to this headline">¶</a></h2>
 <p>This transaction type can be used to cancel either an original transaction
 that is not yet settled or an entire order composed of more than one
 transaction. A Void prevents the transaction or the order from being sent
 for settlement. You will only be able to void a transaction that is not
 already settled, expired, or failed.</p>
-<div class="section" id="id3">
-<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">void</span><span class="p">(</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -620,8 +621,8 @@ Capability (ECC) feature by submitting an application to Authorize.net.
 More information on Unlinked Credits can be found under <a class="reference external" href="http://www.authorize.net/support/merchant/Submitting_Transactions/Credit_Card_Transaction_Types.htm#Unlinked">Authorize.net
 Transaction Types</a> documentation.</p>
 </div>
-<div class="section" id="id4">
-<h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Example<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">credit</span><span class="p">({</span>
     <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="mf">120.00</span><span class="p">,</span>
     <span class="s1">&#39;customer_id&#39;</span><span class="p">:</span> <span class="s1">&#39;0987654321&#39;</span><span class="p">,</span>
@@ -635,8 +636,8 @@ Transaction Types</a> documentation.</p>
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <p>This transaction type is used to get detailed information about one specific
 transaction based on the transaction ID.</p>
-<div class="section" id="id5">
-<h3>Example<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -645,16 +646,16 @@ transaction based on the transaction ID.</p>
 <div class="section" id="list-transactions">
 <h2>List Transactions<a class="headerlink" href="#list-transactions" title="Permalink to this headline">¶</a></h2>
 <p>This transaction type will return data for all transactions in a given batch.</p>
-<div class="section" id="id6">
-<h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Additionally, omitting the batch ID will return data for all transactions
 that are currently unsettled.</p>
 </div>
-<div class="section" id="id7">
-<h3>Example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
 </pre></div>
 </div>

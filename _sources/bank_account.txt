@@ -29,7 +29,7 @@ Minimal Example
 
 .. code-block:: python
 
-    result = authorize.BankAccount.create('19086684', {
+    result = authorize.BankAccount.create('customer_id', {
         'routing_number': '322271627',
         'account_number': '00987467838473',
         'name_on_account': 'Rob Otron',
@@ -47,7 +47,7 @@ be associated to the account.
 
 .. code-block:: python
 
-    result = authorize.BankAccount.create('19086684', {
+    result = authorize.BankAccount.create('customer_id', {
         'customer_type': 'individual',
         'account_type': 'checking',
         'routing_number': '322271627',
@@ -103,7 +103,7 @@ The following information is returned in the result attribute dictionary:
 
 .. code-block:: python
 
-    result = authorize.BankAccount.details('19086684', '17633614')
+    result = authorize.BankAccount.details('customer_id', '17633614')
 
 
 Update
@@ -115,7 +115,7 @@ profile ID and the new bank account information.
 
 .. code-block:: python
 
-    result = authorize.BankAccount.update('19086684', '17633614', {
+    result = authorize.BankAccount.update('customer_id', '17633614', {
         'customer_type': 'individual',
         'account_type': 'checking',
         'routing_number': '322271627',
@@ -146,7 +146,7 @@ given customer.
 
 .. code-block:: python
 
-    result = authorize.BankAccount.delete('19086684', '17633319')
+    result = authorize.BankAccount.delete('customer_id', '17633319')
 
 
 Transactions

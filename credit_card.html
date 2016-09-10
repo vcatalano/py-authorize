@@ -100,6 +100,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bank_account.html">Bank Accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pay_pal.html">PayPal Express Checkout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="address.html">Address</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recurring.html">Recurring</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch.html">Batch</a></li>
@@ -163,7 +164,7 @@ profile ID. The customer profile ID is passed as the first argument to the
 <code class="docutils literal"><span class="pre">create</span></code> method.</p>
 <div class="section" id="minimal-example">
 <h3>Minimal Example<a class="headerlink" href="#minimal-example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
     <span class="s1">&#39;expiration_date&#39;</span><span class="p">:</span> <span class="s1">&#39;04/2014&#39;</span><span class="p">,</span>
 <span class="p">})</span>
@@ -173,8 +174,8 @@ profile ID. The customer profile ID is passed as the first argument to the
 </pre></div>
 </div>
 <p>When creating a new credit card, the expiration month and date can be
-seperate values.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+separate values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
     <span class="s1">&#39;expiration_month&#39;</span><span class="p">:</span> <span class="s1">&#39;04&#39;</span><span class="p">,</span>
     <span class="s1">&#39;expiration_year&#39;</span><span class="p">:</span> <span class="s1">&#39;2014&#39;</span><span class="p">,</span>
@@ -189,7 +190,7 @@ seperate values.</p>
 <h3>Full Example<a class="headerlink" href="#full-example" title="Permalink to this headline">¶</a></h3>
 <p>When creating a new credit card, the billing address information can also be
 associated to the card.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
     <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
     <span class="s1">&#39;expiration_month&#39;</span><span class="p">:</span> <span class="s1">&#39;04&#39;</span><span class="p">,</span>
@@ -237,7 +238,7 @@ profile ID.</p>
 <li><code class="docutils literal"><span class="pre">payment_profile.bill_to.phone_number</span></code></li>
 <li><code class="docutils literal"><span class="pre">payment_profile.bill_to.fax_number</span></code></li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -246,7 +247,7 @@ profile ID.</p>
 <p>The <code class="docutils literal"><span class="pre">update</span></code> method will update the credit card information for a given
 payment profile ID. The method requires the customer profile ID, the payment
 profile ID and the new credit card information.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;customer_type&#39;</span><span class="p">:</span> <span class="s1">&#39;individual&#39;</span><span class="p">,</span>
     <span class="s1">&#39;card_number&#39;</span><span class="p">:</span> <span class="s1">&#39;4111111111111111&#39;</span><span class="p">,</span>
     <span class="s1">&#39;expiration_month&#39;</span><span class="p">:</span> <span class="s1">&#39;04&#39;</span><span class="p">,</span>
@@ -272,7 +273,7 @@ profile ID and the new credit card information.</p>
 <h2>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h2>
 <p>Deleting a customer credit card will remove the payment profile from the
 given customer.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -280,7 +281,7 @@ given customer.</p>
 <h2>Validate<a class="headerlink" href="#validate" title="Permalink to this headline">¶</a></h2>
 <p>Stored credit cards can be validated before attempting to run a transaction
 against them.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s1">&#39;19086684&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">authorize</span><span class="o">.</span><span class="n">CreditCard</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="s1">&#39;17633319&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="s1">&#39;card_code&#39;</span><span class="p">:</span> <span class="s1">&#39;123&#39;</span><span class="p">,</span>
     <span class="s1">&#39;validationMode&#39;</span><span class="p">:</span> <span class="s1">&#39;liveMode&#39;</span>
 <span class="p">})</span>
