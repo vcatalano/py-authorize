@@ -8,8 +8,8 @@ class CreditCard(object):
         return Configuration.api.credit_card.create(customer_id, params)
 
     @staticmethod
-    def details(customer_id, payment_id):
-        return Configuration.api.credit_card.details(customer_id, payment_id)
+    def details(customer_id, payment_id, unmaskExpDate=False):
+        return Configuration.api.credit_card.details(customer_id, payment_id, unmaskExpDate)
 
     @staticmethod
     def update(customer_id, payment_id, params={}):
