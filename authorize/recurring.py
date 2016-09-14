@@ -12,6 +12,10 @@ class Recurring(object):
         return Configuration.api.recurring.details(subscription_id)
 
     @staticmethod
+    def status(subscription_id):
+        return Configuration.api.recurring.status(subscription_id)
+
+    @staticmethod
     def update(subscription_id, params={}):
         return Configuration.api.recurring.update(subscription_id, params)
 

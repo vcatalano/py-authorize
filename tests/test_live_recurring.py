@@ -132,8 +132,9 @@ class RecurringTests(TestCase):
         result = Recurring.create(recurring)
         subscription_id = result.subscription_id
 
-        # Read subscription status
         Recurring.details(subscription_id)
+
+        Recurring.status(subscription_id)
 
         # Update subscription information
         recurring = UPDATE_RECURRING.copy()

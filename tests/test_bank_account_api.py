@@ -91,6 +91,7 @@ DETAILS_BANK_ACCOUNT_REQUEST = '''
   </merchantAuthentication>
   <customerProfileId>1234567890</customerProfileId>
   <customerPaymentProfileId>0987654321</customerPaymentProfileId>
+  <unmaskExpirationDate>true</unmaskExpirationDate>
 </getCustomerPaymentProfileRequest>'''
 
 UPDATE_BANK_ACCOUNT_REQUEST = '''

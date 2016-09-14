@@ -167,6 +167,17 @@ CREATE_RECURRING_REQUEST = '''
 
 DETAILS_RECURRING_REQUEST = '''
 <?xml version="1.0" ?>
+<ARBGetSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name>8s8tVnG5t</name>
+    <transactionKey>5GK7mncw8mG2946z</transactionKey>
+  </merchantAuthentication>
+  <subscriptionId>0932576929034</subscriptionId>
+</ARBGetSubscriptionRequest>
+'''
+
+STATUS_RECURRING_REQUEST = '''
+<?xml version="1.0" ?>
 <ARBGetSubscriptionStatusRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
     <name>8s8tVnG5t</name>
@@ -327,6 +338,11 @@ class RecurringAPITests(TestCase):
         request_xml = Configuration.api.recurring._details_request('0932576929034')
         request_string = prettify(request_xml)
         self.assertEqual(request_string, DETAILS_RECURRING_REQUEST.strip())
+
+    def test_status_recurring_request(self):
+        request_xml = Configuration.api.recurring._status_request('0932576929034')
+        request_string = prettify(request_xml)
+        self.assertEqual(request_string, STATUS_RECURRING_REQUEST.strip())
 
     def test_update_recurring_request(self):
         request_xml = Configuration.api.recurring._update_request('0932576929034', UPDATE_RECURRING)

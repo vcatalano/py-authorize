@@ -59,7 +59,7 @@ UPDATE_CREDIT_CARD_INVALID_MASK = {
 PAYMENT_RESULT = {
     'credit_card': {
         'card_number': 'XXXX1111',
-        'expiration_date': 'XXXX',
+        'expiration_date': '{0}-04'.format(date.today().year + 1),
         'card_type': 'Visa'
     }
 }

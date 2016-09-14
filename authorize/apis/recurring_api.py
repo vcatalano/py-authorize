@@ -14,6 +14,9 @@ class RecurringAPI(BaseAPI):
     def details(self, subscription_id):
         return self.api._make_call(self._details_request(subscription_id))
 
+    def status(self, subscription_id):
+        return self.api._make_call(self._status_request(subscription_id))
+
     def update(self, subscription_id, params={}):
         subscription = self._deserialize(UpdateRecurringSchema().bind(), params)
         return self.api._make_call(self._update_request(subscription_id, subscription))
@@ -56,6 +59,11 @@ class RecurringAPI(BaseAPI):
         return self._make_xml('ARBCreateSubscriptionRequest', None, params=subscription)
 
     def _details_request(self, subscription_id):
+        request = self.api._base_request('ARBGetSubscriptionRequest')
+        E.SubElement(request, 'subscriptionId').text = subscription_id
+        return request
+
+    def _status_request(self, subscription_id):
         request = self.api._base_request('ARBGetSubscriptionStatusRequest')
         E.SubElement(request, 'subscriptionId').text = subscription_id
         return request
