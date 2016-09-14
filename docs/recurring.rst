@@ -122,11 +122,27 @@ following example shows all recurring payment parameters available.
 Details
 -------
 
-To the get the status of a recurring payment, use the `details` method.
+To the get the details of a recurring payment, use the `details` method.
 
 .. code-block:: python
 
     result = authorize.Recurring.details('1725628')
+
+    # result.subscription.profile.customer_id
+    # e.g. '1806948040'
+
+    # result.status
+    # e.g. 'active'
+
+
+Status
+-------
+
+To the get the status of a recurring payment, use the `status` method.
+
+.. code-block:: python
+
+    result = authorize.Recurring.status('1725628')
 
     # result.status
     # e.g. 'active'
