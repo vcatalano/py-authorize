@@ -14,6 +14,15 @@ def today(node, kw):
     return date.today().isoformat()
 
 
+class ProfileSchema(colander.MappingSchema):
+    customer_id = colander.SchemaNode(colander.String(),
+                                      missing=colander.drop)
+    payment_id = colander.SchemaNode(colander.String(),
+                                     missing=colander.drop)
+    address_id = colander.SchemaNode(colander.String(),
+                                     missing=colander.drop)
+
+
 class AddressSchema(colander.MappingSchema):
     first_name = colander.SchemaNode(colander.String(),
                                      validator=colander.Length(max=50),
@@ -412,6 +421,7 @@ class UpdateRecurringSchema(colander.MappingSchema):
                                    missing=colander.drop)
     bank_account = BankAccountSchema(validator=BankAccountSchema.validator,
                                      missing=colander.drop)
+    profile = ProfileSchema(missing=colander.drop)
     customer = CustomerBaseSchema(missing=colander.drop)
     order = OrderSchema(missing=colander.drop)
     billing = AddressSchema(missing=colander.drop)

@@ -132,6 +132,15 @@ class RecurringAPI(BaseAPI):
             subscription.append(create_payment(params['credit_card']))
         if 'bank_account' in params:
             subscription.append(create_payment(params['bank_account']))
+        if 'profile' in params:
+            profile = E.SubElement(subscription, 'profile')
+
+            if 'customer_id' in params['profile'].keys():
+                E.SubElement(profile, 'customerProfileId').text = params['profile']['customer_id']
+            if 'payment_id' in params['profile'].keys():
+                E.SubElement(profile, 'customerPaymentProfileId').text = params['profile']['payment_id']
+            if 'address_id' in params['profile'].keys():
+                E.SubElement(profile, 'customerAddressId').text = params['profile']['address_id']
 
         if 'order' in params:
             subscription.append(create_order(params['order']))
@@ -146,7 +155,7 @@ class RecurringAPI(BaseAPI):
         # or first name is provided for billing.
         # Issue 26: Don't set these billing fields if there is already a 
         # subscription.
-        if subscription_id is None:
+        if subscription_id is None and not 'profile' in params:
             arb_required_fields = {
                 'billing': {
                     'first_name': '<empty>',
