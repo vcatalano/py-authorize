@@ -65,7 +65,7 @@ class AuthorizeAPI(object):
         try:
             error = response_json.transaction_response.errors[0]
             raise AuthorizeResponseError(error.error_code, error.error_text, response_json)
-        except KeyError:  # Attempt to access transaction response errors
+        except (KeyError, AttributeError):  # Attempt to access transaction response errors
             pass
 
         # Throw an exception for invalid calls. This makes error handling easier.
