@@ -291,7 +291,7 @@ order.
         'amount': 56.00,
         'customer_id': '19086684',
         'payment_id': '17633614',
-        'shipping_id': '14634122',
+        'address_id': '14634122',
     })
 
     result.transaction_response.trans_id
@@ -307,7 +307,7 @@ Full Transactions Example with CIM Data
         'amount': 56.00,
         'customer_id': '19086684',
         'payment_id': '17633614',
-        'shipping_id': '14634122',
+        'address_id': '14634122',
         'tax': {
             'amount': 4.00,
             'name': 'Double Taxation Tax',
