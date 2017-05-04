@@ -26,3 +26,7 @@ class Customer(object):
     @staticmethod
     def list():
         return Configuration.api.customer.list()
+
+    @staticmethod
+    def get_transactions(customer_id, payment_id=None):
+        return Configuration.api.customer.get_transactions(customer_id, payment_id)
