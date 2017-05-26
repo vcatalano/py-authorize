@@ -78,7 +78,9 @@ class TransactionAPI(BaseAPI):
                 E.SubElement(profile, 'shippingProfileId').text = xact['address_id']
         else:
             payment = E.SubElement(xact_elem, 'payment')
-            if 'credit_card' in xact:
+            if 'opaque_data' in xact:
+                payment.append(create_opaque_data(xact['opaque_data']))
+            elif 'credit_card' in xact:
                 payment.append(create_card(xact['credit_card']))
             elif 'track_data' in xact:
                 payment.append(format_tracks(xact['track_data']))

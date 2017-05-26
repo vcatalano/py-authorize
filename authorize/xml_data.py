@@ -59,6 +59,15 @@ def create_card(params={}):
     return card
 
 
+def create_opaque_data(params={}):
+    data = E.Element('opaqueData')
+    E.SubElement(data, 'dataDescriptor').text = "COMMON.ACCEPT.INAPP.PAYMENT"
+    E.SubElement(data, 'dataValue').text = params['data_value']
+    if 'card_code' in params:
+        E.SubElement(data, 'cardCode').text = str(params['card_code'])
+    return data
+
+
 def format_tracks(params={}):
     tracks = E.Element('trackData')
     if 'track_1' in params:

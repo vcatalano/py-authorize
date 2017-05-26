@@ -100,6 +100,17 @@ class CreditCardSchema(colander.MappingSchema):
         kw['expiration_month'] = str(exp_month).zfill(2)
 
 
+class OpaqueDataSchema(colander.MappingSchema):
+    data_value = colander.SchemaNode(colander.String(),
+                                      validator=colander.Regex(
+                                          r'^[a-zA-Z0-9]+$', 'The data value is invalid'),  # TODO: specific length? other checks?
+                                      required=True)
+
+    @staticmethod
+    def validator(node, kw):
+        pass  # TODO: REMOVE
+        
+        
 class TrackDataSchema(colander.MappingSchema):
     track_1 = colander.SchemaNode(colander.String(),
                                   validator=colander.Regex(
@@ -364,6 +375,8 @@ class AIMTransactionSchema(TransactionBaseSchema):
                                 validator=colander.Email(),
                                 missing=colander.drop)
     credit_card = CreditCardSchema(validator=CreditCardSchema.validator,
+                                   missing=colander.drop)
+    opaque_data = OpaqueDataSchema(validator=OpaqueDataSchema.validator,
                                    missing=colander.drop)
     track_data = TrackDataSchema(validator=TrackDataSchema.validator,
                                  missing=colander.drop)
