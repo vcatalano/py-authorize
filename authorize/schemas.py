@@ -109,7 +109,7 @@ class OpaqueDataSchema(colander.MappingSchema):
                                       required=True)
     data_key = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=300),  # Arbitrary max length
-                                      required=False)
+                                      missing=colander.drop)
 
         
 class TrackDataSchema(colander.MappingSchema):
