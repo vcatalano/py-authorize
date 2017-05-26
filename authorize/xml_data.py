@@ -61,10 +61,10 @@ def create_card(params={}):
 
 def create_opaque_data(params={}):
     data = E.Element('opaqueData')
-    E.SubElement(data, 'dataDescriptor').text = "COMMON.ACCEPT.INAPP.PAYMENT"
+    E.SubElement(data, 'dataDescriptor').text = params['data_descriptor']
     E.SubElement(data, 'dataValue').text = params['data_value']
-    if 'card_code' in params:
-        E.SubElement(data, 'cardCode').text = str(params['card_code'])
+    if 'data_key' in params:
+        E.SubElement(data, 'dataKey').text = str(params['data_key'])
     return data
 
 

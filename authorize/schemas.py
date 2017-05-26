@@ -101,15 +101,16 @@ class CreditCardSchema(colander.MappingSchema):
 
 
 class OpaqueDataSchema(colander.MappingSchema):
-    data_value = colander.SchemaNode(colander.String(),
-                                      validator=colander.Regex(
-                                          r'^[a-zA-Z0-9]+$', 'The data value is invalid'),  # TODO: specific length? other checks?
+    data_descriptor = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=300),  # Arbitrary max length
                                       required=True)
+    data_value = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=300),  # Arbitrary max length
+                                      required=True)
+    data_key = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=300),  # Arbitrary max length
+                                      required=False)
 
-    @staticmethod
-    def validator(node, kw):
-        pass  # TODO: REMOVE
-        
         
 class TrackDataSchema(colander.MappingSchema):
     track_1 = colander.SchemaNode(colander.String(),
