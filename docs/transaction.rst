@@ -130,6 +130,9 @@ Full Example
         },
         'tax_exempt': False,
         'recurring': True,
+        'transaction_settings': {
+            'duplicate_window': 120,
+        },
     })
 
     result.transaction_response.trans_id
@@ -270,6 +273,9 @@ Full Transactions with Bank Accounts
         },
         'tax_exempt': False,
         'recurring': True,
+        'transaction_settings': {
+            'duplicate_window': 120,
+        },
     })
 
     result.transaction_response.trans_id
@@ -355,6 +361,9 @@ Full Transactions Example with CIM Data
         },
         'tax_exempt': False,,
         'recurring': True,
+        'transaction_settings': {
+            'duplicate_window': 120,
+        },
     })
 
     result.transaction_response.trans_id

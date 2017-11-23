@@ -124,6 +124,9 @@ class TransactionAPI(BaseAPI):
         if 'retail' in xact:
             xact_elem.append(set_retail(xact['retail']))
 
+        if 'transaction_settings' in xact:
+            xact_elem.append(create_transaction_settings(xact['transaction_settings']))
+
         if 'user_fields' in xact:
             xact_elem.append(create_user_fields(xact['user_fields']))
 

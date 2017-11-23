@@ -54,6 +54,9 @@ FULL_CIM_TRANSACTION = {
     'po_number': 'PONUM00001',
     'customer_ip': '100.0.0.1',
     'recurring': True,
+    'transaction_settings': {
+        'duplicate_window': 120,
+    },
 }
 
 FULL_CARD_NOT_PRESENT_AIM_TRANSACTION = {
@@ -305,6 +308,12 @@ CIM_SALE_REQUEST = '''
     <taxExempt>false</taxExempt>
     <poNumber>PONUM00001</poNumber>
     <customerIP>100.0.0.1</customerIP>
+    <transactionSettings>
+      <setting>
+        <settingName>duplicateWindow</settingName>
+        <settingValue>120</settingValue>
+      </setting>
+    </transactionSettings>
   </transactionRequest>
 </createTransactionRequest>
 '''
