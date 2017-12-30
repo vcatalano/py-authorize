@@ -392,6 +392,7 @@ class RefundTransactionSchema(colander.MappingSchema):
     last_four = colander.SchemaNode(colander.String(),
                                     validator=colander.Length(max=16),
                                     required=True)
+    order = OrderSchema(missing=colander.drop, required=False)
 
 
 class ListBatchSchema(colander.MappingSchema):

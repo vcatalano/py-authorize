@@ -164,6 +164,8 @@ class TransactionAPI(BaseAPI):
         # Authorize.net doesn't care about the actual date
         E.SubElement(credit_card, 'expirationDate').text = 'XXXXXX'
         E.SubElement(xact_elem, 'refTransId').text = xact['transaction_id']
+        if 'order' in xact:
+            xact_elem.append(create_order(xact['order']))
         return request
 
     def _void_request(self, transaction_id):
