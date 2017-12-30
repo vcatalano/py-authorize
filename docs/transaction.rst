@@ -440,7 +440,12 @@ Example
     result = authorize.Transaction.refund({
         'amount': 40.00,
         'last_four': '1111',
-        'transaction_id': '0123456789'
+        'transaction_id': '0123456789',
+        'order': {
+            'invoice_number': 'INV0001',
+            'description': 'Just another invoice...',
+            'order_number': 'PONUM00001',
+        }
     })
 
 
