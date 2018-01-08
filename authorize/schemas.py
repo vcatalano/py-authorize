@@ -65,7 +65,7 @@ class CreditCardSchema(colander.MappingSchema):
                                            missing=None)
     expiration_year = colander.SchemaNode(colander.Integer(),
                                           validator=colander.Range(date.today().year,
-                                                                   date.today().year + 7),
+                                                                   date.today().year + 12),
                                           missing=None)
     expiration_date = colander.SchemaNode(colander.String(),
                                           validator=colander.Regex(
