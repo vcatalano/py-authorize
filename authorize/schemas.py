@@ -265,7 +265,7 @@ class LineItemSchema(colander.MappingSchema):
                                       validator=colander.Length(max=255),
                                       missing=colander.drop)
     quantity = colander.SchemaNode(colander.Integer(),
-                                   validator=colander.Range(min=0, max=99),
+                                   validator=colander.Range(min=0),
                                    missing=colander.drop)
     unit_price = colander.SchemaNode(colander.Decimal('0.01'),
                                      validator=colander.Range(min=0),
