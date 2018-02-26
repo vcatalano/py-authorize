@@ -65,7 +65,7 @@ class CreditCardSchema(colander.MappingSchema):
                                            missing=None)
     expiration_year = colander.SchemaNode(colander.Integer(),
                                           validator=colander.Range(date.today().year,
-                                                                   date.today().year + 7),
+                                                                   date.today().year + 12),
                                           missing=None)
     expiration_date = colander.SchemaNode(colander.String(),
                                           validator=colander.Regex(
@@ -265,7 +265,7 @@ class LineItemSchema(colander.MappingSchema):
                                       validator=colander.Length(max=255),
                                       missing=colander.drop)
     quantity = colander.SchemaNode(colander.Integer(),
-                                   validator=colander.Range(min=0, max=99),
+                                   validator=colander.Range(min=0),
                                    missing=colander.drop)
     unit_price = colander.SchemaNode(colander.Decimal('0.01'),
                                      validator=colander.Range(min=0),
