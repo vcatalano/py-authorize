@@ -410,6 +410,10 @@ class UpdateRecurringSchema(colander.MappingSchema):
     trial_amount = colander.SchemaNode(colander.Decimal('0.01'),
                                        validator=colander.Range(0, 20000),
                                        missing=colander.drop)
+    amount = colander.SchemaNode(colander.Decimal('0.01'),
+                                 validator=colander.Range(0, 20000),
+                                 required=False,
+                                 missing=colander.drop)
     total_occurrences = colander.SchemaNode(colander.Integer(),
                                             validator=colander.Range(1, 9999),
                                             missing=colander.drop)
