@@ -19,6 +19,9 @@ class CustomerAPI(BaseAPI):
 
         return self.api._make_call(self._from_transaction_request(transaction_id, customer))
 
+    def get_transactions(self, customer_id, payment_id=None):
+        return self.api._make_call(self._get_transactions(customer_id, payment_id))
+
     def details(self, customer_id):
         return self.api._make_call(self._details_request(customer_id))
 
@@ -76,6 +79,20 @@ class CustomerAPI(BaseAPI):
         if customer:
             customer = create_customer(customer)
             request.append(customer)
+
+        return request
+
+    def _get_transactions(self, customer_id, payment_id):
+        request = self.api._base_request('getTransactionListForCustomerRequest')
+
+        customerProfileId = E.Element('customerProfileId')
+        customerProfileId.text = customer_id
+        request.append(customerProfileId)
+
+        if payment_id:
+            customerPaymentProfileId = E.Element('customerPaymentProfileId')
+            customerPaymentProfileId.text = payment_id
+            request.append(customerPaymentProfileId)
 
         return request
 

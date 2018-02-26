@@ -36,6 +36,7 @@ NESTED_LIST_FIELDS = [
     'statistics',
     'lineItems',
     'userFields',
+    'subscriptionDetails'
 ]
 
 DIRECT_RESPONSE_FIELDS = {
