@@ -301,7 +301,7 @@ class OrderSchema(colander.MappingSchema):
                                        missing=colander.drop)
 
 
-class ExtraOptions(colander.MappingSchema):
+class TransactionSettings(colander.MappingSchema):
     duplicate_window = colander.SchemaNode(colander.Integer(),
                                            validator=colander.Range(0, 28800),
                                            missing=colander.drop)
@@ -327,6 +327,7 @@ class TransactionBaseSchema(colander.MappingSchema):
     customer_ip = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=39),
                                       missing=colander.drop)
+    transaction_settings = TransactionSettings(missing=colander.drop)
 
 
 class CIMBaseSchema(colander.MappingSchema):

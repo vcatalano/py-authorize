@@ -171,6 +171,20 @@ def create_payment(params={}):
     return payment
 
 
+def create_transaction_settings(params):
+    e = E.Element('transactionSettings')
+    if 'duplicate_window' in params:
+        e.append(create_transaction_setting('duplicateWindow', str(params['duplicate_window'])))
+    return e
+
+
+def create_transaction_setting(name, value):
+    e = E.Element('setting')
+    E.SubElement(e, 'settingName').text = name
+    E.SubElement(e, 'settingValue').text = value
+    return e
+
+
 def quantize(amount):
     return str(Decimal(str(amount)).quantize(Decimal('0.01')))
 

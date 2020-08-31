@@ -178,7 +178,6 @@ FULL_CARD_PRESENT_TRANSACTION = {
     'tax_exempt': False,
     'recurring': True,
     'po_number': 'PONUM00001',
-    'duplicate_window': 20,
 }
 
 PAY_PAL_TRANSACTION = {
