@@ -80,6 +80,8 @@ class TransactionAPI(BaseAPI):
             payment = E.SubElement(xact_elem, 'payment')
             if 'credit_card' in xact:
                 payment.append(create_card(xact['credit_card']))
+            elif 'opaque_data' in xact:
+                payment.append(create_opaque_data(xact['opaque_data']))
             elif 'track_data' in xact:
                 payment.append(format_tracks(xact['track_data']))
             elif 'bank_account' in xact:

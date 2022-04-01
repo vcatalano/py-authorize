@@ -59,6 +59,15 @@ def create_card(params={}):
     return card
 
 
+def create_opaque_data(params={}):
+    data = E.Element('opaqueData')
+    E.SubElement(data, 'dataDescriptor').text = params['data_descriptor']
+    E.SubElement(data, 'dataValue').text = params['data_value']
+    if 'data_key' in params:
+        E.SubElement(data, 'dataKey').text = str(params['data_key'])
+    return data
+
+
 def format_tracks(params={}):
     tracks = E.Element('trackData')
     if 'track_1' in params:
