@@ -100,6 +100,18 @@ class CreditCardSchema(colander.MappingSchema):
         kw['expiration_month'] = str(exp_month).zfill(2)
 
 
+class OpaqueDataSchema(colander.MappingSchema):
+    data_descriptor = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=300),  # Arbitrary max length
+                                      required=True)
+    data_value = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=300),  # Arbitrary max length
+                                      required=True)
+    data_key = colander.SchemaNode(colander.String(),
+                                      validator=colander.Length(max=300),  # Arbitrary max length
+                                      missing=colander.drop)
+
+        
 class TrackDataSchema(colander.MappingSchema):
     track_1 = colander.SchemaNode(colander.String(),
                                   validator=colander.Regex(
@@ -365,6 +377,8 @@ class AIMTransactionSchema(TransactionBaseSchema):
                                 validator=colander.Email(),
                                 missing=colander.drop)
     credit_card = CreditCardSchema(validator=CreditCardSchema.validator,
+                                   missing=colander.drop)
+    opaque_data = OpaqueDataSchema(validator=OpaqueDataSchema.validator,
                                    missing=colander.drop)
     track_data = TrackDataSchema(validator=TrackDataSchema.validator,
                                  missing=colander.drop)
