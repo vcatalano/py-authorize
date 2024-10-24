@@ -105,13 +105,13 @@ class OpaqueDataSchema(colander.MappingSchema):
                                       validator=colander.Length(max=300),  # Arbitrary max length
                                       required=True)
     data_value = colander.SchemaNode(colander.String(),
-                                      validator=colander.Length(max=300),  # Arbitrary max length
+                                      validator=colander.Length(max=2000),  # I've seen this length in the Google Pay
                                       required=True)
     data_key = colander.SchemaNode(colander.String(),
                                       validator=colander.Length(max=300),  # Arbitrary max length
                                       missing=colander.drop)
 
-        
+
 class TrackDataSchema(colander.MappingSchema):
     track_1 = colander.SchemaNode(colander.String(),
                                   validator=colander.Regex(

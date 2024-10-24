@@ -132,6 +132,8 @@ class RecurringAPI(BaseAPI):
             subscription.append(create_payment(params['credit_card']))
         if 'bank_account' in params:
             subscription.append(create_payment(params['bank_account']))
+        if 'opaque_data' in params:
+            subscription.append(create_payment(params['opaque_data']))
         if 'profile' in params:
             profile = E.SubElement(subscription, 'profile')
 
